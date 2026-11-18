@@ -3,3 +3,5 @@ data/
 sheet.json
 .DS_Store
 *.log
+preview/
+__pycache__/

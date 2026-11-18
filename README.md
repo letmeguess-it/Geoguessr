@@ -9,6 +9,7 @@ https://letmeguess-it.github.io/Geoguessr/
 ## What it does
 - **Globe:** every covered country, coloured by driving side. Zoom in to see region borders.
 - **Key Card:** click a country for plate, language, pole, bollard and road-line drawings, plus street words, route names, letters and regions to look for.
+- **Routes tab (Europe):** a simplified map of each European country's main numbered routes, with a legend showing how the numbers work: odd or even, north-south or east-west, numbered clockwise from the capital, or zones.
 - **Decode search:** type what you read on a sign (a street word, route code, region, town, script, domain or calling code) and the countries, regions and towns it could be light up on the globe.
 - **Regions and towns:** about 2,100 region outlines and 71,000+ towns. Typing a name outlines the region and drops a dot.
 
@@ -16,7 +17,8 @@ https://letmeguess-it.github.io/Geoguessr/
 | Folder | What is in it |
 |---|---|
 | `site/` | The explorer: a static website, no build step |
-| `data/csv/` | The source tables (countries, clues, languages, regions) |
+| `data/csv/` | The source tables (countries, clues, languages, regions, route numbering) |
+| `scripts/routes/` | Builds `site/routes.js`, the route numbering maps |
 | `docs/cheatsheets/` | Beginner, Amateur and Pro cheatsheets (PDF) |
 | `.github/workflows/` | Publishes `site/` to GitHub Pages |
 
@@ -33,11 +35,12 @@ It first loads about 4 MB, then fetches towns and regions in the background.
 - Cocos, Gibraltar and Midway show as dots only.
 - Language clues cover 51 countries; look-alike pairs are Europe only.
 - No street-level search: street names repeat, so the answer is a spread of places.
-- The scripts that generate the map data files are not in this repository yet.
+- Route numbering maps cover Europe only, and show main routes as simplified straight lines.
+- The scripts that generate the map data files (other than `scripts/routes/`) are not in this repository yet.
 
 ## Room for improvement
 1. **Complete the meta for every country.** Populate the visual clues, such as utility poles, bollards, road lines and signs, for all covered countries. Many countries still show "Not documented yet" for one or more of these.
-2. **Add route numbering with directions.** Document how each country organises its route numbers, including how the numbers relate to direction (for example, odd or even numbers, north-south or east-west, or numbering that radiates from the capital). This will help even beginners understand how every route in a country is structured.
+2. **Add route numbering with directions.** Done for Europe (version 1): the Key Card's Routes tab and `data/csv/Route Numbering.csv`. Next: the other continents, and exact route lines from OpenStreetMap.
 
 ## Licences
 - Code: MIT (`LICENSE`).

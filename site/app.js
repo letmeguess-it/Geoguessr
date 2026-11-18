@@ -764,6 +764,38 @@ function loadPlaces() {
   Promise.all([add('regions.js'), add('places.js')]).then(() => { CLUES.attach(window.REGIONS, window.TOWNS); if (searchReapply) searchReapply(); }).catch(() => {});
 }
 
+
+/* ---------- route numbering (Key Card "Routes" tab, Europe first) ---------- */
+// Draws one country's route schematic from window.ROUTES data (shared by app.js and the preview script).
+const ROUTE_COL = {rad: '#D85A30', rad2: '#1D9E75', odd: '#534AB7', even: '#D85A30', oth: '#8f8d84'};
+function routeSvg(R, ink) {
+  const e = (t) => String(t).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const k = ink || {land: 'var(--surface-3)', edge: 'var(--line-2)', text: 'var(--text)', halo: 'var(--surface)', muted: 'var(--muted)'};
+  const [W, H] = R.v;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img">`;
+  s += `<path d="${R.o}" fill="${k.land}" stroke="${k.edge}" stroke-width="0.8" stroke-linejoin="round"/>`;
+  for (const [d, x, y] of R.z) s += `<circle cx="${x}" cy="${y}" r="7.5" fill="none" stroke="${k.muted}" stroke-width="0.9" stroke-dasharray="2 2"/><text x="${x}" y="${y + 3.4}" text-anchor="middle" font-size="10" font-weight="600" fill="${k.muted}">${e(d)}</text>`;
+  const order = ['oth', 'rad2', 'even', 'odd', 'rad'];
+  for (const g of order) for (const [, grp, p] of R.r) if (grp === g) s += `<polyline points="${p}" fill="none" stroke="${ROUTE_COL[grp]}" stroke-width="${grp === 'oth' ? 1.7 : 2.2}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  for (const [n, x, y, tx, ty, a] of R.h) s += `<circle cx="${x}" cy="${y}" r="3.3" fill="${k.text}"/><text x="${tx}" y="${ty}" text-anchor="${a}" font-size="10.5" font-weight="600" fill="${k.text}" stroke="${k.halo}" stroke-width="3" paint-order="stroke" stroke-linejoin="round">${e(n)}</text>`;
+  for (const [lab, grp, x, y, w] of R.l) s += `<rect x="${(x - w / 2).toFixed(1)}" y="${(y - 6.5).toFixed(1)}" width="${w}" height="13" rx="3" fill="${ROUTE_COL[grp]}"/><text x="${x}" y="${(y + 3.4).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">${e(lab)}</text>`;
+  return s + '</svg>';
+}
+let CARD_TAB = 'clues'; // remembered while browsing countries
+function routePane(c) {
+  const R = (window.ROUTES || {})[c.code];
+  const e = esc;
+  const eroad = 'Across Europe, green E-road signs follow one grid: even numbers run east-west, odd numbers north-south.';
+  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe comes first; other continents follow.</p>`;
+  if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p><p class="rt-n">${eroad}</p>`;
+  const lg = R.g.map(([g, t]) => `<div><span class="rt-sw${g === 'zone' ? ' zone' : ''}"${g === 'zone' ? '' : ` style="background:${ROUTE_COL[g]}"`}></span>${e(t)}</div>`).join('');
+  const radial = R.g.some(([g]) => g === 'rad' || g === 'rad2');
+  const hubs = R.h.length ? `<div><span class="rt-sw hub"></span>${e(R.h.map((h) => h[0]).join(' and '))}: ${radial ? 'where the numbering starts' : 'capital, for orientation'}</div>` : '';
+  return `<div class="rt-k">How routes are numbered</div><div class="rt-map" aria-label="Schematic map of the main numbered routes in ${e(c.short)}">${routeSvg(R)}</div>
+    <div class="rt-lg">${lg}${hubs}</div><p class="rt-s">${e(R.s)}</p>
+    <p class="rt-n">Simplified: main routes only, drawn as straight lines through the real towns they pass. ${eroad}</p>`;
+}
+
 function renderCard() {
   const el = $('#card'), c = S.sel ? BY.get(S.sel) : null;
   el.classList.toggle('open', !!c); el.inert = !c; el.setAttribute('aria-hidden', String(!c));
@@ -814,7 +846,9 @@ function renderCard() {
   el.innerHTML = `<div class="kc-h"><div class="kc-flag" role="img" aria-label="Flag of ${esc(c.short)}">${c.flag}</div><span class="kc-name">${esc(c.short)}</span><span class="kc-dom">${esc(c.dom)}</span>
       <span class="pill" tabindex="0" data-ti="${ti(tp(dl, 'Calling code ' + c.call))}">${carSvg(c.side === 'L')}${c.side === 'L' ? 'Left' : 'Right'}</span><span class="sp"></span>
       <button class="ib" data-a="prev" aria-label="Previous country" title="Previous">‹</button><button class="ib" data-a="next" aria-label="Next country" title="Next">›</button><button class="ib" data-a="close" aria-label="Close Key Card" title="Close (Esc)">✕</button></div>
-    <div class="kc-b"><div class="g2">${plate}${lang}</div><div class="g3">${pole}${boll}${road}</div>
+    <div class="kc-tabs" role="tablist" aria-label="Key Card sections"><button class="kc-tab" role="tab" data-tab="clues" id="kct-c" aria-controls="kcp-c">Clues</button><button class="kc-tab" role="tab" data-tab="routes" id="kct-r" aria-controls="kcp-r">Routes</button></div>
+    <div class="kc-r" id="kcp-r" role="tabpanel" aria-labelledby="kct-r" hidden>${routePane(c)}</div>
+    <div class="kc-b" id="kcp-c" role="tabpanel" aria-labelledby="kct-c"><div class="g2">${plate}${lang}</div><div class="g3">${pole}${boll}${road}</div>
       ${reads ? `<div class="rd">${reads}</div>` : ''}
       <div class="meta"><span class="chip" tabindex="0" data-ti="${ti(tp('Calling code', 'Phone numbers from abroad start with ' + c.call + '.'))}">☎ ${esc(c.call)}</span>${camChip}</div>${houses}${twins}</div>`;
   el.scrollTop = 0;
@@ -827,6 +861,16 @@ function renderCard() {
       if (body.scrollHeight > body.clientHeight + 1) row.remove();
     } else if (rd && sg.length) rd.insertAdjacentHTML('beforeend', rr('Signs', sg.map((w) => wd(w)).join('')));
   }
+  const setTab = (t) => {
+    CARD_TAB = t;
+    el.querySelectorAll('.kc-tab').forEach((b) => { const on = b.dataset.tab === t; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
+    el.querySelector('.kc-b').hidden = t !== 'clues'; el.querySelector('.kc-r').hidden = t !== 'routes'; hideTip();
+  };
+  el.querySelectorAll('.kc-tab').forEach((b) => {
+    b.onclick = () => setTab(b.dataset.tab);
+    b.onkeydown = (ev) => { if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') { ev.preventDefault(); const t = CARD_TAB === 'clues' ? 'routes' : 'clues'; setTab(t); el.querySelector(`.kc-tab[data-tab="${t}"]`).focus(); } };
+  });
+  setTab(CARD_TAB);
   el.querySelectorAll('[data-go]').forEach((b) => { b.onclick = () => { hideTip(); select(b.dataset.go); }; });
   el.querySelectorAll('[data-q]').forEach((b) => { b.onclick = () => { hideTip(); if (searchSet) searchSet(b.dataset.q); }; });
   el.querySelectorAll('[data-a]').forEach((b) => {
