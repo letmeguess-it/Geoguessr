@@ -93,7 +93,7 @@ json.dump({'type': 'FeatureCollection', 'features': wf}, open(OUT + 'world.geojs
 print('world features', len(wf))
 
 # towns: which region holds each town
-T = json.loads(open(SITE + 'places.js').read().split('=', 1)[1].rstrip().rstrip(';'))
+T = read_js(SITE + 'places.js')
 geoms = [shape(f['geometry']) for f in feats]
 tree = STRtree(geoms)
 ccl = T['cc']

@@ -30,7 +30,10 @@ for f in ne:
         continue
     nm = p['name'] or p.get('name_en') or p.get('name_local') or ''
     old = find_old(nm, p['latitude'], p['longitude'])
-    code = R[old[0]]['c'] if old else ISO_FIX.get(p['iso_a2'], p['iso_a2'])
+    iso_code = ISO_FIX.get(p['iso_a2'], p['iso_a2'])
+    code = R[old[0]]['c'] if old else iso_code
+    if old and iso_code in codes and code != iso_code:  # a same-named region across the border (French Jura vs Swiss Jura)
+        code = iso_code
     if p['adm0_a3'] == 'CYN':
         code = 'CY'
     if nm in ('Crimea', 'Sevastopol') or (p['iso_3166_2'] or '') in ('UA-43', 'UA-40'):

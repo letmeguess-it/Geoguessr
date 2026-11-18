@@ -6,6 +6,12 @@ NE = os.path.join(WORK, 'ne') + '/'                                        # Nat
 GBD = os.path.join(WORK, 'gb') + '/'                                       # geoBoundaries GeoJSON
 SITE = os.environ.get('SITE_DIR', os.path.join(HERE, '..', '..', 'site')) + '/'
 OUT = WORK + '/'
+
+
+def read_js(path):
+    """JSON value of a 'window.X=...;' data file (first line; later lines hold the build stamp)."""
+    s = open(path).read().split('\n', 1)[0]
+    return json.loads(s[s.index('=') + 1:].rstrip().rstrip(';'))
 from shapely.geometry import shape, mapping
 from shapely import make_valid
 from shapely.ops import unary_union
