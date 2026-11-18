@@ -813,14 +813,15 @@ function routePane(c) {
   const R = (window.ROUTES || {})[c.code];
   const e = esc;
   const eroad = 'Across Europe, green E-road signs follow one grid: even numbers run east-west, odd numbers north-south.';
-  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe comes first; other continents follow.</p>`;
-  if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p><p class="rt-n">${eroad}</p>`;
+  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia and Oceania are done; the Americas and Africa follow.</p>`;
+  const note = R.n == null ? eroad : R.n; // Europe: E-road grid; elsewhere the entry's own footnote ('' = none)
+  if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p>${note ? `<p class="rt-n">${e(note)}</p>` : ''}`;
   const lg = R.g.map(([g, t]) => `<div><span class="rt-sw${g === 'zone' ? ' zone' : ''}"${g === 'zone' ? '' : ` style="background:${ROUTE_COL[g]}"`}></span>${e(t)}</div>`).join('');
   const radial = R.g.some(([g]) => g === 'rad' || g === 'rad2');
   const hubs = R.h.length ? `<div><span class="rt-sw hub"></span>${e(R.h.map((h) => h[0]).join(' and '))}: ${radial ? 'where the numbering starts' : 'capital, for orientation'}</div>` : '';
   return `<div class="rt-k">How routes are numbered</div><div class="rt-map" aria-label="Schematic map of the main numbered routes in ${e(c.short)}">${routeSvg(R)}</div>
     <div class="rt-lg">${lg}${hubs}</div><p class="rt-s">${e(R.s)}</p>
-    <p class="rt-n">Simplified: main routes only, drawn as straight lines through the real towns they pass. ${eroad}</p>`;
+    <p class="rt-n">Simplified: main routes only, drawn as straight lines through the real towns they pass.${note ? ' ' + e(note) : ''}</p>`;
 }
 
 function renderCard() {
