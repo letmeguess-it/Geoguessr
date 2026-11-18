@@ -210,6 +210,23 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
 .tw .nm{font-weight:600;white-space:nowrap}
 .tw .tx{color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 
+/* Key Card tabs and route numbering */
+.kc-tabs{display:flex;gap:2px;margin:6px 10px 0;background:var(--surface-2);padding:2px;border-radius:9px;border:1px solid var(--line);flex:none}
+.kc-tab{flex:1;border:0;background:transparent;padding:3px 8px;border-radius:7px;cursor:pointer;color:var(--text-2);font:inherit;font-size:.78rem;font-weight:500}
+.kc-tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:0 0 0 1px var(--line-2)}
+.kc-tab:focus-visible{outline:2px solid var(--text-2);outline-offset:1px}
+.kc-r{padding:8px 10px 10px;display:flex;flex-direction:column;gap:7px;flex:1;min-height:0;overflow:auto}
+.kc-b[hidden],.kc-r[hidden]{display:none}
+.rt-map svg{width:100%;height:auto;max-height:330px;display:block;font-family:inherit}
+.rt-lg{display:flex;flex-direction:column;gap:3px;font-size:.74rem;color:var(--text-2)}
+.rt-lg div{display:flex;align-items:center;gap:7px;line-height:1.3}
+.rt-sw{flex:none;width:18px;height:3px;border-radius:2px}
+.rt-sw.zone{width:12px;height:12px;border-radius:50%;border:1px dashed var(--muted);background:transparent;margin:0 3px}
+.rt-sw.hub{width:7px;height:7px;border-radius:50%;background:var(--text);margin:0 5.5px}
+.rt-s{font-size:.78rem;line-height:1.42;color:var(--text);margin:0}
+.rt-n{font-size:.68rem;line-height:1.38;color:var(--muted);margin:0;border-top:1px solid var(--line);padding-top:6px}
+.rt-k{font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
 @media (max-width: 760px){
   .bar{flex-wrap:wrap;gap:6px 8px;padding:6px 8px}
   h1{display:none}
@@ -258,6 +275,7 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
 <script src="clues.js"></script>
 <script src="clues_world.js"></script>
 <script src="search.js"></script>
+<script src="routes.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
