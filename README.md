@@ -33,6 +33,10 @@ It first loads about 4 MB, then fetches towns and regions in the background.
 - No street-level search: street names repeat, so the answer is a spread of places.
 - The scripts that generate the map data files are not in this repository yet.
 
+## Room for improvement
+1. **Complete the meta for every country.** Populate the visual clues, such as utility poles, bollards, road lines and signs, for all covered countries. Many countries still show "Not documented yet" for one or more of these.
+2. **Add route numbering with directions.** Document how each country organises its route numbers, including how the numbers relate to direction (for example, odd or even numbers, north-south or east-west, or numbering that radiates from the capital). This will help even beginners understand how every route in a country is structured.
+
 ## Licences
 - Code: MIT (`LICENSE`).
 - Clue content and tables: CC BY 4.0 (`LICENSE-DATA`). Credit "letmeguess-it".
