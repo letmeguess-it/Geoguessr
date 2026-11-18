@@ -1,33 +1,33 @@
 ﻿Country,Language,Sample Script,Look-alike Note
-Afghanistan,,,
+Afghanistan,"Dari, Pashto",سړک · جاده · ړ ښ ځ ټ,"Persian-Arabic script with the Pashto letters ړ ښ ځ ټ ډ, which Arabic and Iranian Persian don't use. Dari and Pashto often share one board."
 Åland Islands,Swedish,gatan · vägen · å ä ö,"Swedish, not Finnish: Åland is Swedish-speaking, so look for å and -vägen / -gatan. Finnish would show double vowels (aa, ää) and -tie / -katu."
 Albania,Albanian,Rruga · ë ç · sh xh gj,"Albanian 'Rruga' (Rr.) with ë and ç. Kosovo also writes Albanian, but often adds Serbian 'Ulica'; Albania rarely does."
-American Samoa,,,
+American Samoa,"Samoan, English",Ala · Road · ā ō,"Samoan words (fale, ala = road) with macrons, on US-style yellow signs."
 Andorra,Catalan,Carrer · Avinguda · l·l ç à,"Catalan, not Spanish: 'Carrer' (not Calle) and 'Avinguda' (not Avenida). The dotted 'l·l' is unique to Catalan."
 Antarctica,,,
 Argentina,,,
-Armenia,,,
+Armenia,Armenian,փողոց · Ա Բ Գ · ու,Armenian has its own alphabet with hooked letters (ա բ գ դ) and many 'ու'. Georgian looks rounder and has no capital letters.
 Aruba,,,
-Australia,,,
+Australia,English,Rd · St · Cct · Hwy,"Australian English signs; New Zealand adds Māori names (Wh-, ā) and uses 'SH' state highways."
 Austria,German,Straße · Gasse · ä ö ü ß,"Same German as Germany, but 'Gasse' for small streets is much more common. Switzerland and Liechtenstein write 'Strasse' without ß."
-Bangladesh,,,
+Bangladesh,Bengali (Bangla),সড়ক · রোড · ক খ গ,"Bengali script hangs from a continuous top line (ক খ গ). India's West Bengal also writes Bengali, but Bangladesh plates are in Bengali digits (ঢাকা মেট্রো) and India's are Latin."
 Belarus,Belarusian / Russian,вуліца · і ў,Belarusian uses і and ў (вуліца); Russian uses и and ы (улица); Ukrainian has і ї є but never ў (вулиця).
 Belgium,Dutch / French / German,straat · Rue · laan,"Flanders writes Dutch 'straat' like the Netherlands, Wallonia writes French 'Rue' like France; Brussels signs show both."
 Belize,,,
 Bermuda,,,
-Bhutan,,,
+Bhutan,"Dzongkha, English",ལམ · Lam · Dzong,"Dzongkha uses the Tibetan script: letters hang from a line and stack vertically, with dots (་) between syllables. Nepal's Devanagari has a straight top bar instead."
 Bolivia,,,
 Bosnia and Herzegovina,Bosnian / Serbian / Croatian,ulica · улица · č ć š ž đ,"Latin and Cyrillic both appear, Cyrillic mostly in Republika Srpska. Croatia is Latin-only; Serbia mixes both."
 Botswana,,,
 Brazil,,,
-British Indian Ocean Territory,,,
+British Indian Ocean Territory,English,Road · Diego Garcia,Diego Garcia is a military base: English signs and US-style infrastructure on a flat coral atoll.
 Bulgaria,Bulgarian,улица (ул.) · ъ щ,Bulgarian Cyrillic uses ъ as a vowel and щ a lot; it has no ы or э (Russian) and no ђ ћ (Serbian).
-Cambodia,,,
+Cambodia,Khmer,ផ្លូវ · ក ខ គ · Phnom,"Khmer is ornate, with tall 'crowns' on letters and stacked subscripts below the line. Thai has small loops and fewer stacks; Lao is rounder and simpler."
 Canada,,,
 Chile,,,
-China,,,
-Christmas Island,,,
-Cocos (Keeling) Islands,,,
+China,Chinese (Simplified),路 · 街 · 东 · 简体,"Simplified characters (东, 门, 广) set mainland China apart from Taiwan, Hong Kong and Macau, which write Traditional (東, 門, 廣)."
+Christmas Island,"English (Malay, Chinese)",Road · Jalan · 路,"Australian territory: Australian-style signs, with Malay and Chinese names in the Kampong and Poon Saan."
+Cocos (Keeling) Islands,"English, Cocos Malay",Road · Jalan,Australian territory; Home Island speaks Cocos Malay.
 Colombia,,,
 Costa Rica,,,
 Croatia,Croatian,ulica · č ć š ž đ,"Latin only. Same 'ulica' as Slovak and Serbian Latin, but đ and ć are not Slovak; Polish 'ulica' would show ł ą ę."
@@ -44,70 +44,70 @@ Falkland Islands,,,
 Faroe Islands,Faroese,gøta · vegur · ð ø,Faroese has both ð and ø; Icelandic has ð and þ but no ø; Danish has ø but no ð.
 Finland,Finnish / Swedish,katu · tie · ä ö · aa kk,"Double letters (aa, kk) with ä ö and no å in Finnish words. Bilingual towns add Swedish -gatan / -vägen; Estonian would add õ."
 France,French,Rue · Avenue · é è ç,"Rue' also appears in Belgium, Luxembourg, Switzerland and Monaco; check the plates (blue bands on both sides) to confirm France."
-Georgia,,,
+Georgia,Georgian,ქუჩა · ა ბ გ · -ში,Georgian (Mkhedruli) has no capital letters and very round letters (ა ბ გ). Armenian has hooks and capitals.
 Germany,German,Straße · Weg · ä ö ü ß,Germany and Austria write ß ('Straße'); Switzerland and Liechtenstein write 'Strasse'. Dutch 'straat' looks close but has no umlauts.
 Ghana,,,
 Gibraltar,English,Road · Street,"English signs with a British look, but traffic drives on the right, unlike the UK."
 Greece,Greek,Οδός · Λεωφόρος,"Greek alphabet (Λ, Σ, Ω). Bulgarian Cyrillic shares some shapes (П, Г) but adds Ж, Ъ and Щ, which Greek never uses."
 Greenland,,,
-Guam,,,
+Guam,"English, Chamorro",Route · Rt · å ñ,"US-style signs with Chamorro place names (Hagåtña, Dededo)."
 Guatemala,,,
-Hong Kong,,,
+Hong Kong,"Chinese (Traditional), English",道 · 街 · Road · 灣,"Traditional characters (道, 灣) with English on every sign. Macau pairs Chinese with Portuguese (Rua, Avenida) instead."
 Hungary,Hungarian,utca · út · ő ű,"ő and ű (double acute accents) are Hungarian-only; look for sz, gy and cs clusters."
 Iceland,Icelandic,gata · vegur · þ ð æ,þ (thorn) is Iceland-only. Faroese has ð but uses ø instead of þ.
-India,,,
-Indonesia,,,
-Iraq,,,
+India,"Hindi, English, regional languages",मार्ग · Marg · रोड,"Devanagari has a straight top bar, like Nepali; India adds English and many regional scripts (Tamil, Telugu, Kannada, Bengali, Gujarati). Nepal has red plates and no English-plus-regional mix."
+Indonesia,Indonesian,Jalan · Jl. · Gang · Gg.,"Latin script. Malaysian is almost the same, but Indonesia abbreviates 'Jl.' and 'Gg.' and has black or new white plates; Malaysia writes 'Jln' and has only black plates."
+Iraq,"Arabic, Kurdish (Sorani)",شارع · شەقام · ە ێ ۆ,"Kurdish Sorani adds ە ێ ۆ ڕ ڵ, which Arabic doesn't use, so those letters point to the Kurdistan Region."
 Ireland,English / Irish,Road · Bóthar · Sráid,"Bilingual signs with Irish (á é í ó ú), often in italics. Northern Ireland and the rest of the UK are English-only."
 Isle of Man,English / Manx,Road · Straid,English with occasional Manx Gaelic; otherwise it looks British.
-Israel,,,
+Israel,"Hebrew, Arabic, English",רחוב · שדרות · א ב ג,"Square Hebrew letters read right to left, stacked with Arabic and English. Palestinian signs are Arabic-English, without Hebrew."
 Italy,Italian,Via · Piazza · Corso,Via' is also used in San Marino and Ticino (Switzerland). Italian words end in vowels and only use accents like à è.
-Japan,,,
+Japan,Japanese,通り · の · ア · 町,"Kana (の, さ, ア) exist only in Japanese. Chinese has only Han characters; Korean Hangul uses circles and boxes (한)."
 Jersey,English (French names),Road · Rue,"English signs, but many streets keep French 'Rue' names, an unusual mix."
-Jordan,,,
-Kazakhstan,,,
+Jordan,"Arabic, English",شارع · Street · ع غ,Arabic with English transliteration on blue street signs. Lebanon adds French (Rue).
+Kazakhstan,"Kazakh, Russian",көшесі · ә ғ қ ң ө ұ ү һ і,"Kazakh Cyrillic adds ә ғ қ ң ө ұ ү һ і. Kyrgyz adds only ң ө ү, Mongolian ө ү. Russian-only signs (ул.) are also common."
 Kenya,,,
 Kosovo,Albanian / Serbian,Rruga · Ulica,Albanian 'Rruga' often paired with Serbian Latin 'Ulica'; Albania itself rarely adds Serbian.
-Kyrgyzstan,,,
-Laos,,,
+Kyrgyzstan,"Kyrgyz, Russian",көчөсү · ң ө ү · ул.,Kyrgyz Cyrillic adds only ң ө ү; Kazakh has more extra letters (ә ғ қ ұ і). 'көчөсү' = street.
+Laos,Lao,ຖະໜົນ · ກ ຂ ຄ · ບ້ານ,"Lao letters are rounder than Thai, with fewer loops and no tall tails; 'Ban' (ບ້ານ, village) appears on many signs. Thai has small loops at the start of letters."
 Latvia,Latvian,iela · ā ē ī ū · ķ ļ ņ,Macrons (ā ē ī ū) and comma-consonants (ķ ļ ņ) are Latvian; Lithuanian uses ą ę ė į ų instead.
-Lebanon,,,
+Lebanon,"Arabic, French, English",شارع · Rue · Route,Arabic with French (Rue) or English is typical of Lebanon; Jordan pairs Arabic with English only.
 Lesotho,,,
 Liechtenstein,German,Strasse · ä ö ü,Swiss-style German without ß ('Strasse'); Germany and Austria write 'Straße'.
 Lithuania,Lithuanian,gatvė (g.) · ą č ę ė į š ų ž,"ė, į and ų are Lithuanian; Latvian uses macrons (ā ē) instead. Polish shares ą ę but adds ł ż ś."
 Luxembourg,Luxembourgish / French / German,Rue · Strooss · ë,"Street signs are mostly French 'Rue', with Luxembourgish names (ë); German appears too."
-Macau,,,
+Macau,"Chinese (Traditional), Portuguese",Rua · Avenida · 街 · 大馬路,"Portuguese street names (Rua, Avenida, Travessa) next to Traditional Chinese are unique to Macau."
 Madagascar,,,
-Malaysia,,,
-Maldives,,,
+Malaysia,Malay,Jalan · Jln · Lebuhraya · Kg.,"Malay spells 'teksi', 'polis' and writes 'Jln' and 'Lebuhraya'; Indonesian prefers 'Jl.' and 'Tol'. Malaysian plates are always black."
+Maldives,"Dhivehi, English",މަގު · Magu · ހ ށ ނ,"Thaana is written right to left with small vowel marks above and below the letters; 'Magu' = street, 'Hingun' = avenue."
 Mali,,,
 Malta,Maltese / English,Triq · ħ ġ ż ċ,"ħ, ġ and ċ are unique to Maltese; 'Triq' (street) is a sure giveaway."
 Martinique,,,
 Mexico,,,
-Midway Atoll,,,
+Midway Atoll,English,Road · Midway,US wildlife refuge on a remote atoll; English signs only.
 Monaco,French,Rue · Avenue · Boulevard,Same French as France; tell them apart by Monaco's compact white plates and dense coastal city.
-Mongolia,,,
+Mongolia,Mongolian,гудамж · ө ү · Улаанбаатар,"Mongolian Cyrillic adds only ө and ү and doubles vowels (аа, үү). Kazakh and Kyrgyz add more letters."
 Montenegro,Montenegrin,ulica · улица · ś ź,Latin and Cyrillic like Serbia; Montenegrin spelling can add ś and ź.
 Namibia,,,
-Nepal,,,
+Nepal,Nepali,मार्ग · सडक · ने पा ल,"Same Devanagari as Hindi, but Nepali signs rarely add other scripts; red plates with white Devanagari are typical of Nepal."
 Netherlands,Dutch,straat · weg · laan · ij,Look for 'ij' and double vowels (aa ee oo). Flanders in Belgium uses the same words; German would show ä ö ü.
-New Zealand,,,
+New Zealand,"English, Māori",Rd · SH · Wh · ā ō,"Māori place names (Wh-, Ng-, macrons ā ō) and 'SH' state highway shields; Australia has no Māori words."
 Nigeria,,,
 North Macedonia,Macedonian / Albanian,улица · ѓ ќ ѕ љ њ,Macedonian Cyrillic has ѓ ќ ѕ; Serbian Cyrillic uses ђ ћ instead; Bulgarian uses ъ and щ.
-Northern Mariana Islands,,,
+Northern Mariana Islands,"English, Chamorro, Carolinian",Road · Beach Road · å,"US-style signs with Chamorro and Carolinian names, like Guam."
 Norway,Norwegian,vei · gate · æ ø å,"Same letters as Danish; Norwegian 'vei / veien', Danish 'vej'. Swedish uses ä ö."
-Oman,,,
-Pakistan,,,
-Palestine,,,
+Oman,"Arabic, English",شارع · Way · Street,Oman numbers its streets as 'Way 1234' on bilingual signs; UAE and Qatar use 'Street' / 'St'.
+Pakistan,"Urdu, English",روڈ · سڑک · ٹ ڈ ڑ ے,Urdu uses the Arabic script with extra letters ٹ ڈ ڑ ے; signs are often English first with Urdu below.
+Palestine,"Arabic, English",شارع · Street · ق ص,"Arabic-English signs without Hebrew; Israeli signs add Hebrew. Palestinian plates are white, Israeli ones yellow."
 Panama,,,
 Paraguay,,,
 Peru,,,
-Philippines,,,
-Pitcairn Islands,,,
+Philippines,"English, Filipino (Tagalog)",Street · Kalye · Barangay · Daan,"English signs with Tagalog words (Barangay, Purok, Sari-Sari Store). Jeepneys and tricycles are unique to the Philippines."
+Pitcairn Islands,"English, Pitkern",Road · Adamstown,Only Adamstown: red dirt tracks and quad bikes; English and Pitkern names.
 Poland,Polish,ulica (ul.) · ł ż ś ź ć ń ą ę,"ł, ż and ś are Polish-only. Czech 'ulice' has ř and ě; Slovak and Croatian 'ulica' have no ł or ż."
 Portugal,Portuguese,Rua · Avenida · ã õ ç,"Portuguese 'Rua' with ã and õ; Spanish writes 'Calle' and ñ, Catalan 'Carrer', Galician 'Rúa'."
 Puerto Rico,,,
-Qatar,,,
+Qatar,"Arabic, English",شارع · St · Zone,Blue Qatari street signs show a street number and a zone number; plates carry QATAR in a maroon band.
 Réunion,,,
 Romania,Romanian,Strada (Str.) · ă â î ș ț,"ă, ș and ț are Romanian; 'Strada' looks Italian, but Italian never uses those letters."
 Russia,Russian,улица (ул.) · ы э ё,"ы and э appear in Russian (and Belarusian) only; Ukrainian has і ї є, Bulgarian has ъ щ."
@@ -117,28 +117,28 @@ San Marino,Italian,Via · Strada,Same Italian as Italy; confirm with San Marino'
 São Tomé and Príncipe,,,
 Senegal,,,
 Serbia,Serbian,улица · ulica · ђ ћ џ,Cyrillic ђ ћ џ are Serbian (also in Montenegro and Bosnia); Macedonian uses ѓ ќ instead.
-Singapore,,,
+Singapore,"English (Chinese, Malay, Tamil)",Road · Jalan · Avenue · 路,Clean British-style English street signs; Malay 'Jalan' is common too. Malaysian plates never start with S.
 Slovakia,Slovak,ulica · ä ľ ĺ ô ŕ,Slovak ä ľ ô vs Czech ř ě ů. Both share š č ž and the 'ch' digraph.
 Slovenia,Slovenian,ulica · cesta · č š ž,"Only č š ž, with no ć or đ (Croatian). 'cesta' (road) is very common."
 South Africa,,,
 South Georgia and the South Sandwich Islands,,,
-South Korea,,,
+South Korea,Korean,로 · 길 · 한 · ㅇ,Hangul builds syllable blocks with circles (ㅇ) and boxes (ㅁ). Japanese mixes kana and kanji; Chinese is all Han characters.
 Spain,"Spanish (+ Catalan, Basque, Galician)",Calle · Avenida · ñ,"Spanish 'Calle' with ñ; Catalan areas write 'Carrer', Basque 'Kalea' (tx, tz), Galician 'Rúa'."
-Sri Lanka,,,
+Sri Lanka,"Sinhala, Tamil, English",පාර · வீதி · Road,"Round, loopy Sinhala plus Tamil and English on the same sign. India's Tamil Nadu has Tamil, but never Sinhala."
 Svalbard,Norwegian,veien · æ ø å,"Norwegian, same as the mainland."
 Sweden,Swedish,gatan · vägen · å ä ö,"ä ö (Swedish, Finnish) vs æ ø (Danish, Norwegian). Swedish words often end in -en; Finnish has double vowels."
 Switzerland,German / French / Italian / Romansh,Strasse · Rue · Via,No ß in Swiss German ('Strasse'); French and Italian regions write 'Rue' and 'Via'.
-Taiwan,,,
+Taiwan,Chinese (Traditional),路 · 街 · 段 · 臺,"Traditional characters (臺, 號) and addresses with 段 (section), 巷 (lane) and 弄 (alley). Hong Kong adds English to everything."
 Tanzania,,,
-Thailand,,,
+Thailand,Thai,ถนน · ซอย · ก ข ค,Thai letters start with small loops and words run together. Lao is rounder with fewer loops; Khmer has crowns and stacked letters. 'Soi' (ซอย) = lane.
 Tunisia,,,
 Türkiye (Turkey),Turkish,Sokak (Sk.) · Caddesi (Cd.) · ğ ı ş ç,Dotless ı and ğ are Turkish; Azerbaijani adds ə.
 Uganda,,,
 Ukraine,Ukrainian,вулиця · і ї є ґ,"ї, є and ґ are Ukrainian; Russian has ы and э, Belarusian has ў."
-United Arab Emirates,,,
+United Arab Emirates,"Arabic, English",شارع · Street · Road,"Bilingual signs; plates name the emirate (DUBAI, ABU DHABI, SHARJAH) with a letter code."
 United Kingdom,English (Welsh in Wales),Road · Street · Ffordd,"English everywhere; Wales adds Welsh with ll, dd and w used as a vowel (Ffordd, Heol)."
 United States,,,
 U.S. Virgin Islands,,,
 Uruguay,,,
-Vanuatu,,,
-Vietnam,,,
+Vanuatu,"Bislama, English, French",Rod · Rue · Road,"Bislama words (blong, long, rod) next to French and English."
+Vietnam,Vietnamese,Đường · Phố · ư ơ đ ă,Latin letters stacked with tone marks (ạ ế ở) and the letters đ ư ơ are unique to Vietnamese.
