@@ -49,7 +49,12 @@ R = {
                       'Notranjsko-kraška': 'Littoral-Inner Carniola (Primorsko-notranjska)'}},
     'MX': {'assign': {'Distrito Federal': 'Ciudad de México'}, 'enclave': True},
     'HU': {'enclave': True},
-    'HR': {'assign_at': [('Brodsko-Posavska', 17.6, 45.35, 'Požega-Slavonia')]},
+    'BG': {'assign': {'Sofia': 'Sofia Province', 'Grad Sofiya': 'Sofia (city)'}},
+    'BY': {'assign': {'Minsk': 'Minsk Region', 'City of Minsk': 'Minsk (city)'}},
+    'EC': {'assign': {'Napo': 'Tungurahua', 'Tungurahua': 'Napo'}},  # Natural Earth has these two labels swapped
+    'NZ': {'leave': ['Auckland Islands']},
+    'SM': {'src': gb('SMR')}, 'LI': {'src': gb('LIE')}, 'EG': {'src': gb('EGY')},
+    'HR': {'assign': {'Grad Zagreb': 'City of Zagreb', 'Zagrebacka': 'Zagreb County'}, 'assign_at': [('Brodsko-Posavska', 17.6, 45.35, 'Požega-Slavonia')]},
     'RS': {'assign_at': [('Pomoravski', 21.2, 43.5, 'Rasina')]},
     'TN': {'src': gb('TUN')},
     'PE': {'assign': {'Lima': 'Lima Region', 'Lima Province': 'Lima Metropolitan', 'Callao': 'Callao', 'Puno': 'Puno'}},

@@ -160,6 +160,8 @@ for cc in sorted(units):
                 at[id(min(cand, key=lambda u: u['geom'].distance(Point(x, y))))] = to
         for u in U:
             r = None; h = ''
+            if u['name'] in rec.get('leave', []):
+                unassigned.append(('leave', u['name'], u['geom'])); continue
             if single: r = single; h = 'single'
             elif id(u) in at: r = rowby.get(at[id(u)]); h = 'assign'
             elif u['name'] in assign: r = rowby.get(assign[u['name']]); h = 'assign'
@@ -187,7 +189,7 @@ for cc in sorted(units):
         if g is None: continue
         tot = g.boundary.length
         best, bl = touch_best(g, geoms)
-        if rec.get('enclave') and best or (src == 'ne' and best and bl > 0.97 * tot):
+        if src != 'leave' and (rec.get('enclave') and best or (src == 'ne' and best and bl > 0.97 * tot)):
             geoms[best] = clean(unary_union([geoms[best], g])); how[best].add('enclave ' + nm)
         else:
             rest.append((nm, g))

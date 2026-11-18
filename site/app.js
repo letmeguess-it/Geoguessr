@@ -563,14 +563,15 @@ function mountGlobe(host) {
   // hover and click
   function setRegion(q) { if ((q && q.r) !== (hrg && hrg.r)) { hrg = q; schedule(); } else if (q) hrg = q; }
   const regionLine = (q) => { // what the sheet says about the region under the pointer
-    const R = window.REGIONS && window.REGIONS[q.r]; if (!R) return '';
+    const R = window.REGIONS && window.REGIONS[q.r]; if (!R || (q.c && R.c !== q.c)) return ''; // never label a region of another country
     return `<div class="tp">${esc(R.n)}${R.e && R.e !== R.n ? ' (' + esc(R.e) + ')' : ''}${R.i ? ' · ' + esc(R.i) : ''}${R.k ? ' · ☎ ' + esc(R.k) : ''}</div>`;
   };
   const tipOf = (c, q) => `<div class="h"><span class="fl">${c.flag}</span>${esc(c.short)}</div>${q ? regionLine(q) : ''}${S.why && S.why.get(c.n) ? `<div class="tp">${esc(S.why.get(c.n))}</div>` : ''}`;
   const regionUnder = (e, d) => { // the region under the mouse, once the country is big enough on screen for regions to be readable
     if (!window.REGIONS || !(d.nreg > 1) || d.rad * R0 * K <= REGION_PX) return null;
     const [x, y] = d3.pointer(e, svgEl), ll = proj.invert([x, y]);
-    return ll && isFinite(ll[0]) ? GEO.regionAt(d.n, ll) : null;
+    const q = ll && isFinite(ll[0]) ? GEO.regionAt(d.n, ll) : null;
+    return q ? Object.assign({c: d.c.code}, q) : null;
   };
   mkP
     .on('pointerenter', (e, d) => { S.hover = d.c.n; schedule(); })
@@ -776,9 +777,18 @@ function mountSearch() {
   res.addEventListener('click', (e) => { const b = e.target.closest('[data-n]'); if (b) pick(b.dataset.n); });
 }
 // region outlines and towns arrive after the first paint (about 3 MB), so the page starts as fast as before
+// Every map file carries the same build stamp. Region numbers in geo.js point into regions.js and places.js, so files from
+// two different builds (an old one still in the browser cache, say) would put one country's regions on another. If the
+// stamps differ, fetch again past the cache once; if they still differ, leave regions and towns off rather than show wrong ones.
 function loadPlaces() {
+  const want = window.UNIT_TOPO && window.UNIT_TOPO.build;
   const add = (src) => new Promise((ok, no) => { const el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = no; document.head.appendChild(el); });
-  Promise.all([add('regions.js'), add('places.js')]).then(() => { CLUES.attach(window.REGIONS, window.TOWNS); if (searchReapply) searchReapply(); }).catch(() => {});
+  const fresh = () => window.REGIONS_BUILD === want && window.TOWNS_BUILD === want && (!window.WORLD_EXTRA || window.WORLD_EXTRA.build === want);
+  const load = (v) => Promise.all([add('regions.js?v=' + v), add('places.js?v=' + v)]);
+  load(want).then(() => fresh() ? null : load(want + '-' + Date.now())).then(() => {
+    if (!fresh()) { console.warn('Map files are from different builds; regions and towns are switched off.'); window.REGIONS = undefined; window.TOWNS = undefined; return; }
+    CLUES.attach(window.REGIONS, window.TOWNS); if (searchReapply) searchReapply();
+  }).catch(() => {});
 }
 
 

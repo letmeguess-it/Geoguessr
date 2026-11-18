@@ -17,7 +17,11 @@ Builds the map files in `site/`:
 - **`src`:** geoBoundaries ADM1, cut to the Natural Earth country outline. Slivers between the two are given to the region they touch most.
 - **`layers`:** shapes that take priority over the base. These are newer provinces built from districts (Kazakhstan 2022, Indonesia's Papua provinces, Negros Island Region, Vatovavy / Fitovinany, Kavango West, Songwe, Ménaka, Taoudénit, Palestine's governorates, Naso Tjër Di), or cities carved out of districts (Bishkek, Botswana's towns).
 - **`assign`:** Natural Earth unit to sheet region, for regrouped or renamed regions (Vietnam's 2025 merger, Norway's 2024 counties, FATA into Khyber Pakhtunkhwa, Moscow / Kyiv swaps, etc.).
+- **Swaps fixed:** Natural Earth (or the previous links) had these pairs the wrong way round, so `assign` corrects them: Napo / Tungurahua (Ecuador), City of Zagreb / Zagreb County, Sofia city / province, Minsk city / region, Moscow city / oblast, Kyiv city / oblast, Almaty, Vientiane.
+- **geoBoundaries instead of Natural Earth** where Natural Earth's own shapes are off: Egypt, San Marino, Liechtenstein, plus the countries above.
 - **Frame fixes in `step1_frames.py`:**
+  - A Natural Earth unit always goes to its own country, even when a region with the same name exists next door. The French Jura department had been drawn as part of Switzerland's Jura.
+  - The Auckland Islands are not part of the Auckland region.
   - Crimea and Sevastopol go with Ukraine.
   - Svalbard and Jan Mayen form their own territory.
   - Martinique and Réunion are not duplicated in France.
@@ -27,19 +31,30 @@ Builds the map files in `site/`:
 `sheet_patch.json` holds the region rows changed in the sheet in this release: Madagascar's 23 regions, Botswana's town districts and Panama's Naso Tjër Di.
 
 ## Run
-Needs Python 3 with `shapely`, and Node with `topojson-server` and `topojson-simplify`.
+Needs Python 3 with `shapely`, and Node.
 ```
 pip install shapely
-npm i topojson-server@3 topojson-simplify@3
+npm install                           # topojson-server, topojson-simplify
 ./fetch_sources.sh                    # downloads into ./work (or $BORDERS_WORK)
 node prepare_inputs.mjs               # reads site/ -> work/work_in.json
 python3 step1_frames.py               # Natural Earth units per country
 python3 step2_regions.py              # one shape per sheet region (prints problems per country; report in work/report.json)
 python3 step3_export.py               # units.geojson, world.geojson, REGIONS.json, areas.json, town links
+python3 step3b_clean_names.py         # drops other-names that point to another region or another country's town
 node step4_topo.mjs work/units.geojson ../../site/geo.js UNIT_TOPO u 2e5 1e-8
 node step4_topo.mjs work/world.geojson ../../site/world.js WORLD_TOPO w 2e5 1e-8
-python3 step5_write_site.py           # regions.js, places.js links, clues_world.js
+BUILD=2026-11-18b python3 step5_write_site.py   # regions.js, places.js links, clues_world.js, build stamps, ?v= in index.html
+python3 check_towns.py                # optional: regions named after a town must contain that town (flags need a human look)
 ```
+
+### Build stamp
+Region numbers in `geo.js` (and town links in `places.js`) point into `regions.js`. Files from two different builds would put one country's regions on another, for example an old `geo.js` still in the browser cache with a new `regions.js` showing Gujarat inside Vietnam. To stop this:
+- `step5_write_site.py` writes one stamp into `geo.js`, `regions.js`, `places.js` and `clues_world.js`, and adds `?v=<stamp>` to the script tags in `index.html`.
+- `loadPlaces()` in `app.js` loads regions and towns with the same `?v=`, and checks that every stamp matches.
+- If the stamps differ, it fetches past the cache once. If they still differ, it leaves regions and towns off rather than showing wrong ones.
+- The region tooltip also refuses a region whose country is not the one under the pointer.
+
+Always publish all stamped files together.
 `step4_topo.mjs` arguments: input, output, global variable, object name, quantization, and the smallest spherical triangle area kept (steradians). 1e-8 keeps outlines sharp at full zoom.
 
 `prepare_inputs.mjs` reads the region list that is currently in `site/`. Name matches are tried first, so re-running against the files built by this release gives the same result. The release itself was built against the previous version of `site/`, and re-running against that version reproduces it byte for byte.

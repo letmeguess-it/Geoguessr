@@ -1,0 +1,9 @@
+{
+  "name": "geoguessr-borders-build",
+  "private": true,
+  "description": "Builds the country and region outlines for site/ (see README.md)",
+  "dependencies": {
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3"
+  }
+}

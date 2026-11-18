@@ -14,3 +14,4 @@ window.WORLD_EXTRA = {
   dots: {'Cocos (Keeling) Islands': [96.84, -12.17], 'Midway Atoll': [-177.38, 28.21]}
 };
 })();
+window.WORLD_EXTRA.build="2026-11-18b";
