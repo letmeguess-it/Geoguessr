@@ -1,0 +1,2114 @@
+﻿Country,Regional Code,Area Code,Province
+Afghanistan,AF-BDS,05x,Badakhshan
+Afghanistan,AF-BDG,04x,Badghis
+Afghanistan,AF-BGL,05x,Baghlan
+Afghanistan,AF-BAL,050,Balkh
+Afghanistan,AF-BAM,02x,Bamyan
+Afghanistan,AF-DAY,02x,Daykundi
+Afghanistan,AF-FRA,04x,Farah
+Afghanistan,AF-FYB,05x,Faryab
+Afghanistan,AF-GHA,02x,Ghazni
+Afghanistan,AF-GHO,04x,Ghor
+Afghanistan,AF-HEL,03x,Helmand
+Afghanistan,AF-HER,040,Herat
+Afghanistan,AF-JOW,05x,Jowzjan
+Afghanistan,AF-KAB,020,Kabul
+Afghanistan,AF-KAN,030,Kandahar
+Afghanistan,AF-KAP,02x,Kapisa
+Afghanistan,AF-KHO,06x,Khost
+Afghanistan,AF-KNR,06x,Kunar
+Afghanistan,AF-KDZ,05x,Kunduz
+Afghanistan,AF-LAG,06x,Laghman
+Afghanistan,AF-LOG,02x,Logar
+Afghanistan,AF-NAN,060,Nangarhar
+Afghanistan,AF-NIM,03x,Nimruz
+Afghanistan,AF-NUR,06x,Nuristan
+Afghanistan,AF-PKA,06x,Paktika
+Afghanistan,AF-PIA,06x,Paktia
+Afghanistan,AF-PAN,02x,Panjshir
+Afghanistan,AF-PAR,02x,Parwan
+Afghanistan,AF-SAM,05x,Samangan
+Afghanistan,AF-SAR,05x,Sar-e Pul
+Afghanistan,AF-TAK,05x,Takhar
+Afghanistan,AF-URU,03x,Urozgan
+Afghanistan,AF-WAR,02x,Wardak
+Afghanistan,AF-ZAB,03x,Zabul
+Åland Islands,AX,018,Åland Islands
+Albania,AL-01,032,Berat
+Albania,AL-09,0218,Dibër
+Albania,AL-02,052,Durrës
+Albania,AL-03,054,Elbasan
+Albania,AL-04,034,Fier
+Albania,AL-05,084,Gjirokastër
+Albania,AL-06,082,Korçë
+Albania,AL-07,024,Kukës
+Albania,AL-08,0215,Lezhë
+Albania,AL-10,022,Shkodër
+Albania,AL-11,04,Tirana
+Albania,AL-12,033,Vlorë
+American Samoa,US-AS,684,Whole territory
+Andorra,AD-02,None,Canillo
+Andorra,AD-03,None,Encamp
+Andorra,AD-04,None,La Massana
+Andorra,AD-05,None,Ordino
+Andorra,AD-06,None,Sant Julià de Lòria
+Andorra,AD-07,None,Andorra la Vella
+Andorra,AD-08,None,Escaldes-Engordany
+Antarctica,AQ,None,Whole continent
+Argentina,AR-C,011,Ciudad Autónoma de Buenos Aires
+Argentina,AR-B,02xx (La Plata 0221),Buenos Aires
+Argentina,AR-K,0383,Catamarca
+Argentina,AR-H,0362,Chaco
+Argentina,AR-U,0280,Chubut
+Argentina,AR-X,0351,Córdoba
+Argentina,AR-W,0379,Corrientes
+Argentina,AR-E,0343,Entre Ríos
+Argentina,AR-P,0370,Formosa
+Argentina,AR-Y,0388,Jujuy
+Argentina,AR-L,02954,La Pampa
+Argentina,AR-F,0380,La Rioja
+Argentina,AR-M,0261,Mendoza
+Argentina,AR-N,0376,Misiones
+Argentina,AR-Q,0299,Neuquén
+Argentina,AR-R,02920,Río Negro
+Argentina,AR-A,0387,Salta
+Argentina,AR-J,0264,San Juan
+Argentina,AR-D,0266,San Luis
+Argentina,AR-Z,02966,Santa Cruz
+Argentina,AR-S,0342 (Rosario 0341),Santa Fe
+Argentina,AR-G,0385,Santiago del Estero
+Argentina,AR-V,02901,Tierra del Fuego
+Argentina,AR-T,0381,Tucumán
+Armenia,AM-ER,010,Yerevan
+Armenia,AM-AG,0232,Aragatsotn
+Armenia,AM-AR,0234,Ararat
+Armenia,AM-AV,0237,Armavir
+Armenia,AM-GR,0264,Gegharkunik
+Armenia,AM-KT,0223,Kotayk
+Armenia,AM-LO,0322,Lori
+Armenia,AM-SH,0312,Shirak
+Armenia,AM-SU,0285,Syunik
+Armenia,AM-TV,0263,Tavush
+Armenia,AM-VD,0281,Vayots Dzor
+Aruba,AW,None,Whole country
+Australia,AU-NSW,02,New South Wales
+Australia,AU-ACT,02,Australian Capital Territory
+Australia,AU-VIC,03,Victoria
+Australia,AU-TAS,03,Tasmania
+Australia,AU-QLD,07,Queensland
+Australia,AU-SA,08,South Australia
+Australia,AU-WA,08,Western Australia
+Australia,AU-NT,08,Northern Territory
+Austria,AT-1,02682,Burgenland
+Austria,AT-2,0463,Kärnten (Carinthia)
+Austria,AT-3,02742,Niederösterreich (Lower Austria)
+Austria,AT-4,0732,Oberösterreich (Upper Austria)
+Austria,AT-5,0662,Salzburg
+Austria,AT-6,0316,Steiermark (Styria)
+Austria,AT-7,0512,Tirol
+Austria,AT-8,05574,Vorarlberg
+Austria,AT-9,01,Wien (Vienna)
+Bangladesh,BD-A,0431,Barishal
+Bangladesh,BD-B,031,Chattogram
+Bangladesh,BD-C,02,Dhaka
+Bangladesh,BD-D,041,Khulna
+Bangladesh,BD-H,091,Mymensingh
+Bangladesh,BD-E,0721,Rajshahi
+Bangladesh,BD-F,0521,Rangpur
+Bangladesh,BD-G,0821,Sylhet
+Belarus,BY-BR,0162,Brest
+Belarus,BY-HO,0232,Homel
+Belarus,BY-HR,0152,Hrodna
+Belarus,BY-MA,0222,Mahilyow
+Belarus,BY-HM,017,Minsk (city)
+Belarus,BY-MI,017,Minsk Region
+Belarus,BY-VI,0212,Vitebsk
+Belgium,BE-BRU,02,Brussels-Capital
+Belgium,BE-VAN,03,Antwerp
+Belgium,BE-VLI,011,Limburg
+Belgium,BE-VOV,09,East Flanders
+Belgium,BE-VWV,050 / 056 / 059,West Flanders
+Belgium,BE-VBR,016,Flemish Brabant
+Belgium,BE-WBR,010,Walloon Brabant
+Belgium,BE-WHT,065 / 071,Hainaut
+Belgium,BE-WLG,04,Liège
+Belgium,BE-WLX,063 / 061,Luxembourg
+Belgium,BE-WNA,081,Namur
+Belize,BZ-BZ,None,Belize
+Belize,BZ-CY,None,Cayo
+Belize,BZ-CZL,None,Corozal
+Belize,BZ-OW,None,Orange Walk
+Belize,BZ-SC,None,Stann Creek
+Belize,BZ-TOL,None,Toledo
+Bermuda,BM,441,Whole territory
+Bhutan,BT-33,03,Bumthang
+Bhutan,BT-12,05,Chhukha
+Bhutan,BT-22,06,Dagana
+Bhutan,BT-GA,02,Gasa
+Bhutan,BT-13,08,Haa
+Bhutan,BT-44,04,Lhuentse
+Bhutan,BT-42,04,Mongar
+Bhutan,BT-11,08,Paro
+Bhutan,BT-43,07,Pemagatshel
+Bhutan,BT-23,02,Punakha
+Bhutan,BT-45,07,Samdrup Jongkhar
+Bhutan,BT-14,05,Samtse
+Bhutan,BT-31,06,Sarpang
+Bhutan,BT-15,02,Thimphu
+Bhutan,BT-41,04,Trashigang
+Bhutan,BT-TY,04,Trashi Yangtse
+Bhutan,BT-32,03,Trongsa
+Bhutan,BT-21,06,Tsirang
+Bhutan,BT-24,02,Wangdue Phodrang
+Bhutan,BT-34,03,Zhemgang
+Bolivia,BO-B,3,Beni
+Bolivia,BO-H,4,Chuquisaca
+Bolivia,BO-C,4,Cochabamba
+Bolivia,BO-L,2,La Paz
+Bolivia,BO-O,2,Oruro
+Bolivia,BO-N,3,Pando
+Bolivia,BO-P,2,Potosí
+Bolivia,BO-S,3,Santa Cruz
+Bolivia,BO-T,4,Tarija
+Bosnia and Herzegovina,BA-BIH,"03x (Sarajevo 033, Tuzla 035, Mostar 036)",Federation of Bosnia and Herzegovina
+Bosnia and Herzegovina,BA-SRP,"05x (Banja Luka 051, Bijeljina 055)",Republika Srpska
+Bosnia and Herzegovina,BA-BRC,049,Brčko District
+Botswana,BW-CE,None,Central
+Botswana,BW-CH,None,Chobe
+Botswana,BW-FR,None,Francistown
+Botswana,BW-GA,None,Gaborone
+Botswana,BW-GH,None,Ghanzi
+Botswana,BW-KG,None,Kgalagadi
+Botswana,BW-KL,None,Kgatleng
+Botswana,BW-KW,None,Kweneng
+Botswana,BW-NE,None,North East
+Botswana,BW-NW,None,North West
+Botswana,BW-SE,None,South East
+Botswana,BW-SO,None,Southern
+Brazil,BR-AC,68,Acre
+Brazil,BR-AL,82,Alagoas
+Brazil,BR-AP,96,Amapá
+Brazil,BR-AM,"92, 97",Amazonas
+Brazil,BR-BA,"71, 73, 74, 75, 77",Bahia
+Brazil,BR-CE,"85, 88",Ceará
+Brazil,BR-DF,61,Distrito Federal
+Brazil,BR-ES,"27, 28",Espírito Santo
+Brazil,BR-GO,"62, 64",Goiás
+Brazil,BR-MA,"98, 99",Maranhão
+Brazil,BR-MT,"65, 66",Mato Grosso
+Brazil,BR-MS,67,Mato Grosso do Sul
+Brazil,BR-MG,"31, 32, 33, 34, 35, 37, 38",Minas Gerais
+Brazil,BR-PA,"91, 93, 94",Pará
+Brazil,BR-PB,83,Paraíba
+Brazil,BR-PR,"41, 42, 43, 44, 45, 46",Paraná
+Brazil,BR-PE,"81, 87",Pernambuco
+Brazil,BR-PI,"86, 89",Piauí
+Brazil,BR-RJ,"21, 22, 24",Rio de Janeiro
+Brazil,BR-RN,84,Rio Grande do Norte
+Brazil,BR-RS,"51, 53, 54, 55",Rio Grande do Sul
+Brazil,BR-RO,69,Rondônia
+Brazil,BR-RR,95,Roraima
+Brazil,BR-SC,"47, 48, 49",Santa Catarina
+Brazil,BR-SP,"11, 12, 13, 14, 15, 16, 17, 18, 19",São Paulo
+Brazil,BR-SE,79,Sergipe
+Brazil,BR-TO,63,Tocantins
+British Indian Ocean Territory,IO,None,Whole territory
+Bulgaria,BG-01,073,Blagoevgrad
+Bulgaria,BG-02,056,Burgas
+Bulgaria,BG-08,058,Dobrich
+Bulgaria,BG-07,066,Gabrovo
+Bulgaria,BG-26,038,Haskovo
+Bulgaria,BG-09,0361,Kardzhali
+Bulgaria,BG-10,078,Kyustendil
+Bulgaria,BG-11,068,Lovech
+Bulgaria,BG-12,096,Montana
+Bulgaria,BG-13,034,Pazardzhik
+Bulgaria,BG-14,076,Pernik
+Bulgaria,BG-15,064,Pleven
+Bulgaria,BG-16,032,Plovdiv
+Bulgaria,BG-17,084,Razgrad
+Bulgaria,BG-18,082,Ruse
+Bulgaria,BG-27,054,Shumen
+Bulgaria,BG-19,086,Silistra
+Bulgaria,BG-20,044,Sliven
+Bulgaria,BG-21,0301,Smolyan
+Bulgaria,BG-22,02,Sofia (city)
+Bulgaria,BG-23,07xx (Botevgrad 0723),Sofia Province
+Bulgaria,BG-24,042,Stara Zagora
+Bulgaria,BG-25,0601,Targovishte
+Bulgaria,BG-03,052,Varna
+Bulgaria,BG-04,062,Veliko Tarnovo
+Bulgaria,BG-05,094,Vidin
+Bulgaria,BG-06,092,Vratsa
+Bulgaria,BG-28,046,Yambol
+Cambodia,KH-1,054,Banteay Meanchey
+Cambodia,KH-2,053,Battambang
+Cambodia,KH-3,042,Kampong Cham
+Cambodia,KH-4,026,Kampong Chhnang
+Cambodia,KH-5,025,Kampong Speu
+Cambodia,KH-6,062,Kampong Thom
+Cambodia,KH-7,033,Kampot
+Cambodia,KH-8,024,Kandal
+Cambodia,KH-23,036,Kep
+Cambodia,KH-9,035,Koh Kong
+Cambodia,KH-10,072,Kratie
+Cambodia,KH-11,073,Mondulkiri
+Cambodia,KH-22,065,Oddar Meanchey
+Cambodia,KH-24,055,Pailin
+Cambodia,KH-12,023,Phnom Penh
+Cambodia,KH-18,034,Preah Sihanouk
+Cambodia,KH-13,064,Preah Vihear
+Cambodia,KH-14,043,Prey Veng
+Cambodia,KH-15,052,Pursat
+Cambodia,KH-16,075,Ratanakiri
+Cambodia,KH-17,063,Siem Reap
+Cambodia,KH-19,074,Stung Treng
+Cambodia,KH-20,044,Svay Rieng
+Cambodia,KH-21,032,Takeo
+Cambodia,KH-25,042,Tbong Khmum
+Canada,CA-AB,"403, 587, 780, 825, 368",Alberta
+Canada,CA-BC,"604, 778, 236, 250, 672",British Columbia
+Canada,CA-MB,"204, 431, 584",Manitoba
+Canada,CA-NB,"506, 428",New Brunswick
+Canada,CA-NL,"709, 879",Newfoundland and Labrador
+Canada,CA-NS,"902, 782",Nova Scotia
+Canada,CA-NT,867,Northwest Territories
+Canada,CA-NU,867,Nunavut
+Canada,CA-ON,"416, 647, 437, 905, 289, 365, 613, 343, 705, 249, 519, 226, 548, 807",Ontario
+Canada,CA-PE,"902, 782",Prince Edward Island
+Canada,CA-QC,"514, 438, 450, 579, 418, 581, 819, 873",Quebec
+Canada,CA-SK,"306, 639, 474",Saskatchewan
+Canada,CA-YT,867,Yukon
+Chile,CL-AP,58,Arica y Parinacota
+Chile,CL-TA,57,Tarapacá
+Chile,CL-AN,55,Antofagasta
+Chile,CL-AT,52,Atacama
+Chile,CL-CO,"51, 53",Coquimbo
+Chile,CL-VS,"32, 33, 34, 35",Valparaíso
+Chile,CL-RM,2,Santiago Metropolitan
+Chile,CL-LI,72,O'Higgins
+Chile,CL-ML,"71, 73, 75",Maule
+Chile,CL-NB,42,Ñuble
+Chile,CL-BI,"41, 43",Biobío
+Chile,CL-AR,45,Araucanía
+Chile,CL-LR,63,Los Ríos
+Chile,CL-LL,"64, 65",Los Lagos
+Chile,CL-AI,67,Aysén
+Chile,CL-MA,61,Magallanes
+China,CN-AH,0551,Anhui
+China,CN-BJ,010,Beijing
+China,CN-CQ,023,Chongqing
+China,CN-FJ,0591,Fujian
+China,CN-GS,0931,Gansu
+China,CN-GD,020,Guangdong
+China,CN-GX,0771,Guangxi
+China,CN-GZ,0851,Guizhou
+China,CN-HI,0898,Hainan
+China,CN-HE,0311,Hebei
+China,CN-HL,0451,Heilongjiang
+China,CN-HA,0371,Henan
+China,CN-HB,027,Hubei
+China,CN-HN,0731,Hunan
+China,CN-NM,0471,Inner Mongolia
+China,CN-JS,025,Jiangsu
+China,CN-JX,0791,Jiangxi
+China,CN-JL,0431,Jilin
+China,CN-LN,024,Liaoning
+China,CN-NX,0951,Ningxia
+China,CN-QH,0971,Qinghai
+China,CN-SN,029,Shaanxi
+China,CN-SD,0531,Shandong
+China,CN-SH,021,Shanghai
+China,CN-SX,0351,Shanxi
+China,CN-SC,028,Sichuan
+China,CN-TJ,022,Tianjin
+China,CN-XZ,0891,Tibet
+China,CN-XJ,0991,Xinjiang
+China,CN-YN,0871,Yunnan
+China,CN-ZJ,0571,Zhejiang
+Christmas Island,CX,08,Whole territory
+Cocos (Keeling) Islands,CC,08,Whole territory
+Colombia,CO-AMA,608,Amazonas
+Colombia,CO-ANT,604,Antioquia
+Colombia,CO-ARA,607,Arauca
+Colombia,CO-ATL,605,Atlántico
+Colombia,CO-DC,601,Bogotá D.C.
+Colombia,CO-BOL,605,Bolívar
+Colombia,CO-BOY,608,Boyacá
+Colombia,CO-CAL,606,Caldas
+Colombia,CO-CAQ,608,Caquetá
+Colombia,CO-CAS,608,Casanare
+Colombia,CO-CAU,602,Cauca
+Colombia,CO-CES,605,Cesar
+Colombia,CO-CHO,604,Chocó
+Colombia,CO-COR,604,Córdoba
+Colombia,CO-CUN,601,Cundinamarca
+Colombia,CO-GUA,608,Guainía
+Colombia,CO-GUV,608,Guaviare
+Colombia,CO-HUI,608,Huila
+Colombia,CO-LAG,605,La Guajira
+Colombia,CO-MAG,605,Magdalena
+Colombia,CO-MET,608,Meta
+Colombia,CO-NAR,602,Nariño
+Colombia,CO-NSA,607,Norte de Santander
+Colombia,CO-PUT,608,Putumayo
+Colombia,CO-QUI,606,Quindío
+Colombia,CO-RIS,606,Risaralda
+Colombia,CO-SAP,608,San Andrés y Providencia
+Colombia,CO-SAN,607,Santander
+Colombia,CO-SUC,605,Sucre
+Colombia,CO-TOL,608,Tolima
+Colombia,CO-VAC,602,Valle del Cauca
+Colombia,CO-VAU,608,Vaupés
+Colombia,CO-VID,608,Vichada
+Costa Rica,CR-A,None,Alajuela
+Costa Rica,CR-C,None,Cartago
+Costa Rica,CR-G,None,Guanacaste
+Costa Rica,CR-H,None,Heredia
+Costa Rica,CR-L,None,Limón
+Costa Rica,CR-P,None,Puntarenas
+Costa Rica,CR-SJ,None,San José
+Croatia,HR-07,043,Bjelovar-Bilogora
+Croatia,HR-12,035,Brod-Posavina
+Croatia,HR-21,01,City of Zagreb
+Croatia,HR-19,020,Dubrovnik-Neretva
+Croatia,HR-18,052,Istria
+Croatia,HR-04,047,Karlovac
+Croatia,HR-06,048,Koprivnica-Križevci
+Croatia,HR-02,049,Krapina-Zagorje
+Croatia,HR-09,053,Lika-Senj
+Croatia,HR-20,040,Međimurje
+Croatia,HR-14,031,Osijek-Baranja
+Croatia,HR-11,034,Požega-Slavonia
+Croatia,HR-08,051,Primorje-Gorski Kotar
+Croatia,HR-03,044,Sisak-Moslavina
+Croatia,HR-17,021,Split-Dalmatia
+Croatia,HR-15,022,Šibenik-Knin
+Croatia,HR-05,042,Varaždin
+Croatia,HR-10,033,Virovitica-Podravina
+Croatia,HR-16,032,Vukovar-Srijem
+Croatia,HR-13,023,Zadar
+Croatia,HR-01,01,Zagreb County
+Curaçao,CW,9,Whole country
+Cyprus,CY-04,23,Famagusta
+Cyprus,CY-03,24,Larnaca
+Cyprus,CY-02,25,Limassol
+Cyprus,CY-01,22,Nicosia
+Cyprus,CY-05,26,Paphos
+Czechia (Czech Republic),CZ-10,2,Prague
+Czechia (Czech Republic),CZ-20,"31x, 32x",Central Bohemian
+Czechia (Czech Republic),CZ-31,38x,South Bohemian
+Czechia (Czech Republic),CZ-32,37x,Plzeň
+Czechia (Czech Republic),CZ-41,35x,Karlovy Vary
+Czechia (Czech Republic),CZ-42,"41x, 47x",Ústí nad Labem
+Czechia (Czech Republic),CZ-51,48x,Liberec
+Czechia (Czech Republic),CZ-52,49x,Hradec Králové
+Czechia (Czech Republic),CZ-53,46x,Pardubice
+Czechia (Czech Republic),CZ-63,56x,Vysočina
+Czechia (Czech Republic),CZ-64,"54x, 51x",South Moravian
+Czechia (Czech Republic),CZ-71,58x,Olomouc
+Czechia (Czech Republic),CZ-72,57x,Zlín
+Czechia (Czech Republic),CZ-80,55x,Moravian-Silesian
+Denmark,DK-84,None,Capital Region (Hovedstaden)
+Denmark,DK-82,None,Central Jutland (Midtjylland)
+Denmark,DK-81,None,North Jutland (Nordjylland)
+Denmark,DK-85,None,Zealand (Sjælland)
+Denmark,DK-83,None,Southern Denmark (Syddanmark)
+Dominican Republic,DO-02,"809, 829, 849",Azua
+Dominican Republic,DO-03,"809, 829, 849",Baoruco
+Dominican Republic,DO-04,"809, 829, 849",Barahona
+Dominican Republic,DO-05,"809, 829, 849",Dajabón
+Dominican Republic,DO-01,"809, 829, 849",Distrito Nacional
+Dominican Republic,DO-06,"809, 829, 849",Duarte
+Dominican Republic,DO-08,"809, 829, 849",El Seibo
+Dominican Republic,DO-07,"809, 829, 849",Elías Piña
+Dominican Republic,DO-09,"809, 829, 849",Espaillat
+Dominican Republic,DO-30,"809, 829, 849",Hato Mayor
+Dominican Republic,DO-19,"809, 829, 849",Hermanas Mirabal
+Dominican Republic,DO-10,"809, 829, 849",Independencia
+Dominican Republic,DO-11,"809, 829, 849",La Altagracia
+Dominican Republic,DO-12,"809, 829, 849",La Romana
+Dominican Republic,DO-13,"809, 829, 849",La Vega
+Dominican Republic,DO-14,"809, 829, 849",María Trinidad Sánchez
+Dominican Republic,DO-28,"809, 829, 849",Monseñor Nouel
+Dominican Republic,DO-15,"809, 829, 849",Monte Cristi
+Dominican Republic,DO-29,"809, 829, 849",Monte Plata
+Dominican Republic,DO-16,"809, 829, 849",Pedernales
+Dominican Republic,DO-17,"809, 829, 849",Peravia
+Dominican Republic,DO-18,"809, 829, 849",Puerto Plata
+Dominican Republic,DO-20,"809, 829, 849",Samaná
+Dominican Republic,DO-21,"809, 829, 849",San Cristóbal
+Dominican Republic,DO-31,"809, 829, 849",San José de Ocoa
+Dominican Republic,DO-22,"809, 829, 849",San Juan
+Dominican Republic,DO-23,"809, 829, 849",San Pedro de Macorís
+Dominican Republic,DO-24,"809, 829, 849",Sánchez Ramírez
+Dominican Republic,DO-25,"809, 829, 849",Santiago
+Dominican Republic,DO-26,"809, 829, 849",Santiago Rodríguez
+Dominican Republic,DO-32,"809, 829, 849",Santo Domingo
+Dominican Republic,DO-27,"809, 829, 849",Valverde
+Ecuador,EC-A,07,Azuay
+Ecuador,EC-B,03,Bolívar
+Ecuador,EC-F,07,Cañar
+Ecuador,EC-C,06,Carchi
+Ecuador,EC-H,03,Chimborazo
+Ecuador,EC-X,03,Cotopaxi
+Ecuador,EC-O,07,El Oro
+Ecuador,EC-E,06,Esmeraldas
+Ecuador,EC-W,05,Galápagos
+Ecuador,EC-G,04,Guayas
+Ecuador,EC-I,06,Imbabura
+Ecuador,EC-L,07,Loja
+Ecuador,EC-R,05,Los Ríos
+Ecuador,EC-M,05,Manabí
+Ecuador,EC-S,07,Morona Santiago
+Ecuador,EC-N,06,Napo
+Ecuador,EC-D,06,Orellana
+Ecuador,EC-Y,03,Pastaza
+Ecuador,EC-P,02,Pichincha
+Ecuador,EC-SE,04,Santa Elena
+Ecuador,EC-SD,02,Santo Domingo de los Tsáchilas
+Ecuador,EC-U,06,Sucumbíos
+Ecuador,EC-T,03,Tungurahua
+Ecuador,EC-Z,07,Zamora Chinchipe
+Egypt,EG-ALX,03,Alexandria
+Egypt,EG-ASN,097,Aswan
+Egypt,EG-AST,088,Asyut
+Egypt,EG-BH,045,Beheira
+Egypt,EG-BNS,082,Beni Suef
+Egypt,EG-C,02,Cairo
+Egypt,EG-DK,050,Dakahlia
+Egypt,EG-DT,057,Damietta
+Egypt,EG-FYM,084,Faiyum
+Egypt,EG-GH,040,Gharbia
+Egypt,EG-GZ,02,Giza
+Egypt,EG-IS,064,Ismailia
+Egypt,EG-KFS,047,Kafr el-Sheikh
+Egypt,EG-LX,095,Luxor
+Egypt,EG-MT,046,Matrouh
+Egypt,EG-MN,086,Minya
+Egypt,EG-MNF,048,Monufia
+Egypt,EG-WAD,092,New Valley
+Egypt,EG-SIN,068,North Sinai
+Egypt,EG-PTS,066,Port Said
+Egypt,EG-KB,013,Qalyubia
+Egypt,EG-KN,096,Qena
+Egypt,EG-BA,065,Red Sea
+Egypt,EG-SHR,055,Sharqia
+Egypt,EG-SHG,093,Sohag
+Egypt,EG-JS,069,South Sinai
+Egypt,EG-SUZ,062,Suez
+Estonia,EE-37,None,Harju
+Estonia,EE-39,None,Hiiu
+Estonia,EE-44,None,Ida-Viru
+Estonia,EE-49,None,Jõgeva
+Estonia,EE-51,None,Järva
+Estonia,EE-57,None,Lääne
+Estonia,EE-59,None,Lääne-Viru
+Estonia,EE-65,None,Põlva
+Estonia,EE-67,None,Pärnu
+Estonia,EE-70,None,Rapla
+Estonia,EE-74,None,Saare
+Estonia,EE-78,None,Tartu
+Estonia,EE-82,None,Valga
+Estonia,EE-84,None,Viljandi
+Estonia,EE-86,None,Võru
+Eswatini,SZ-HH,None,Hhohho
+Eswatini,SZ-LU,None,Lubombo
+Eswatini,SZ-MA,None,Manzini
+Eswatini,SZ-SH,None,Shiselweni
+Falkland Islands,FK,None,Whole territory
+Faroe Islands,FO,None,Whole territory
+Finland,FI-02,05,South Karelia
+Finland,FI-03,06,South Ostrobothnia
+Finland,FI-04,015,South Savo
+Finland,FI-05,08,Kainuu
+Finland,FI-06,03,Tavastia Proper (Kanta-Häme)
+Finland,FI-07,06,Central Ostrobothnia
+Finland,FI-08,014,Central Finland
+Finland,FI-09,05,Kymenlaakso
+Finland,FI-10,016,Lapland
+Finland,FI-11,03,Pirkanmaa
+Finland,FI-12,06,Ostrobothnia
+Finland,FI-13,013,North Karelia
+Finland,FI-14,08,North Ostrobothnia
+Finland,FI-15,017,North Savo
+Finland,FI-16,03,Päijänne Tavastia
+Finland,FI-17,02,Satakunta
+Finland,FI-18,"09, 019",Uusimaa
+Finland,FI-19,02,Southwest Finland
+France,FR-ARA,04,Auvergne-Rhône-Alpes
+France,FR-BFC,03,Bourgogne-Franche-Comté
+France,FR-BRE,02,Bretagne
+France,FR-CVL,02,Centre-Val de Loire
+France,FR-20R,04,Corse
+France,FR-GES,03,Grand Est
+France,FR-HDF,03,Hauts-de-France
+France,FR-IDF,01,Île-de-France
+France,FR-NOR,02,Normandie
+France,FR-NAQ,05,Nouvelle-Aquitaine
+France,FR-OCC,"04, 05",Occitanie
+France,FR-PDL,02,Pays de la Loire
+France,FR-PAC,04,Provence-Alpes-Côte d'Azur
+Georgia,GE-AJ,0422,Adjara
+Georgia,GE-GU,0496,Guria
+Georgia,GE-IM,0431,Imereti
+Georgia,GE-KA,0350,Kakheti
+Georgia,GE-KK,0341,Kvemo Kartli
+Georgia,GE-MM,03xx,Mtskheta-Mtianeti
+Georgia,GE-RL,0439,Racha-Lechkhumi and Kvemo Svaneti
+Georgia,GE-SZ,0415,Samegrelo-Zemo Svaneti
+Georgia,GE-SJ,0365,Samtskhe-Javakheti
+Georgia,GE-SK,0370,Shida Kartli
+Georgia,GE-TB,032,Tbilisi
+Germany,DE-BW,07 (Stuttgart 0711),Baden-Württemberg
+Germany,DE-BY,"08, 09 (Munich 089, Nuremberg 0911)",Bavaria (Bayern)
+Germany,DE-BE,030,Berlin
+Germany,DE-BB,03 (Potsdam 0331),Brandenburg
+Germany,DE-HB,0421,Bremen
+Germany,DE-HH,040,Hamburg
+Germany,DE-HE,"06 (Frankfurt 069, Wiesbaden 0611)",Hesse (Hessen)
+Germany,DE-NI,"04, 05 (Hanover 0511)",Lower Saxony (Niedersachsen)
+Germany,DE-MV,"03 (Schwerin 0385, Rostock 0381)",Mecklenburg-Vorpommern
+Germany,DE-NW,"02 (Cologne 0221, Düsseldorf 0211)",North Rhine-Westphalia (Nordrhein-Westfalen)
+Germany,DE-RP,06 (Mainz 06131),Rhineland-Palatinate (Rheinland-Pfalz)
+Germany,DE-SL,068 (Saarbrücken 0681),Saarland
+Germany,DE-SN,"03 (Dresden 0351, Leipzig 0341)",Saxony (Sachsen)
+Germany,DE-ST,03 (Magdeburg 0391),Saxony-Anhalt (Sachsen-Anhalt)
+Germany,DE-SH,04 (Kiel 0431),Schleswig-Holstein
+Germany,DE-TH,03 (Erfurt 0361),Thuringia (Thüringen)
+Ghana,GH-AF,035,Ahafo
+Ghana,GH-AH,032,Ashanti
+Ghana,GH-BO,035,Bono
+Ghana,GH-BE,035,Bono East
+Ghana,GH-CP,033,Central
+Ghana,GH-EP,034,Eastern
+Ghana,GH-AA,030,Greater Accra
+Ghana,GH-NE,037,North East
+Ghana,GH-NP,037,Northern
+Ghana,GH-OT,036,Oti
+Ghana,GH-SV,037,Savannah
+Ghana,GH-UE,038,Upper East
+Ghana,GH-UW,039,Upper West
+Ghana,GH-TV,036,Volta
+Ghana,GH-WP,031,Western
+Ghana,GH-WN,031,Western North
+Gibraltar,GI,None,Whole territory
+Greece,GR-I,21,Attica
+Greece,GR-A,25x (Komotini 2531),East Macedonia and Thrace
+Greece,GR-B,23x (Thessaloniki 231),Central Macedonia
+Greece,GR-C,246x (Kozani 2461),West Macedonia
+Greece,GR-D,26x (Ioannina 2651),Epirus
+Greece,GR-E,24x (Larissa 241),Thessaly
+Greece,GR-F,26x (Corfu 2661),Ionian Islands
+Greece,GR-G,26x (Patras 261),West Greece
+Greece,GR-H,22x (Lamia 2231),Central Greece
+Greece,GR-J,27x (Tripoli 271),Peloponnese
+Greece,GR-K,22x (Mytilene 2251),North Aegean
+Greece,GR-L,22x (Rhodes 2241),South Aegean
+Greece,GR-M,28x (Heraklion 281),Crete
+Greece,GR-69,2377,Mount Athos
+Greenland,GL-AV,None,Avannaata
+Greenland,GL-KU,None,Kujalleq
+Greenland,GL-QT,None,Qeqertalik
+Greenland,GL-QE,None,Qeqqata
+Greenland,GL-SM,None,Sermersooq
+Guam,US-GU,671,Whole territory
+Guatemala,GT-16,None,Alta Verapaz
+Guatemala,GT-15,None,Baja Verapaz
+Guatemala,GT-04,None,Chimaltenango
+Guatemala,GT-20,None,Chiquimula
+Guatemala,GT-02,None,El Progreso
+Guatemala,GT-05,None,Escuintla
+Guatemala,GT-01,None,Guatemala
+Guatemala,GT-13,None,Huehuetenango
+Guatemala,GT-18,None,Izabal
+Guatemala,GT-21,None,Jalapa
+Guatemala,GT-22,None,Jutiapa
+Guatemala,GT-17,None,Petén
+Guatemala,GT-09,None,Quetzaltenango
+Guatemala,GT-14,None,Quiché
+Guatemala,GT-11,None,Retalhuleu
+Guatemala,GT-03,None,Sacatepéquez
+Guatemala,GT-12,None,San Marcos
+Guatemala,GT-06,None,Santa Rosa
+Guatemala,GT-07,None,Sololá
+Guatemala,GT-10,None,Suchitepéquez
+Guatemala,GT-08,None,Totonicapán
+Guatemala,GT-19,None,Zacapa
+Hong Kong,HK,None,Whole territory
+Hungary,HU-BU,1,Budapest
+Hungary,HU-BK,"76, 77, 78, 79",Bács-Kiskun
+Hungary,HU-BA,"72, 73",Baranya
+Hungary,HU-BE,"66, 68",Békés
+Hungary,HU-BZ,"46, 47, 48, 49",Borsod-Abaúj-Zemplén
+Hungary,HU-CS,"62, 63",Csongrád-Csanád
+Hungary,HU-FE,"22, 25",Fejér
+Hungary,HU-GS,"96, 99",Győr-Moson-Sopron
+Hungary,HU-HB,"52, 54",Hajdú-Bihar
+Hungary,HU-HE,"36, 37",Heves
+Hungary,HU-JN,"56, 57, 59",Jász-Nagykun-Szolnok
+Hungary,HU-KE,"33, 34",Komárom-Esztergom
+Hungary,HU-NO,"32, 35",Nógrád
+Hungary,HU-PE,"23, 24, 26, 27, 28, 29, 53",Pest
+Hungary,HU-SO,"82, 84, 85",Somogy
+Hungary,HU-SZ,"42, 44, 45",Szabolcs-Szatmár-Bereg
+Hungary,HU-TO,"74, 75",Tolna
+Hungary,HU-VA,"94, 95",Vas
+Hungary,HU-VE,"88, 89",Veszprém
+Hungary,HU-ZA,"83, 92, 93",Zala
+Iceland,IS-1,None,Capital Region (Höfuðborgarsvæði)
+Iceland,IS-2,None,Southern Peninsula (Suðurnes)
+Iceland,IS-3,None,Western Region (Vesturland)
+Iceland,IS-4,None,Westfjords (Vestfirðir)
+Iceland,IS-5,None,Northwestern Region (Norðurland vestra)
+Iceland,IS-6,None,Northeastern Region (Norðurland eystra)
+Iceland,IS-7,None,Eastern Region (Austurland)
+Iceland,IS-8,None,Southern Region (Suðurland)
+India,IN-AN,03192,Andaman and Nicobar Islands
+India,IN-AP,0863,Andhra Pradesh
+India,IN-AR,0360,Arunachal Pradesh
+India,IN-AS,0361,Assam
+India,IN-BR,0612,Bihar
+India,IN-CH,0172,Chandigarh
+India,IN-CG,0771,Chhattisgarh
+India,IN-DH,0260,Dadra and Nagar Haveli and Daman and Diu
+India,IN-DL,011,Delhi
+India,IN-GA,0832,Goa
+India,IN-GJ,079,Gujarat
+India,IN-HR,0172,Haryana
+India,IN-HP,0177,Himachal Pradesh
+India,IN-JK,"0194, 0191",Jammu and Kashmir
+India,IN-JH,0651,Jharkhand
+India,IN-KA,080,Karnataka
+India,IN-KL,0471,Kerala
+India,IN-LA,01982,Ladakh
+India,IN-LD,04896,Lakshadweep
+India,IN-MP,0755,Madhya Pradesh
+India,IN-MH,022,Maharashtra
+India,IN-MN,0385,Manipur
+India,IN-ML,0364,Meghalaya
+India,IN-MZ,0389,Mizoram
+India,IN-NL,0370,Nagaland
+India,IN-OD,0674,Odisha
+India,IN-PY,0413,Puducherry
+India,IN-PB,0172,Punjab
+India,IN-RJ,0141,Rajasthan
+India,IN-SK,03592,Sikkim
+India,IN-TN,044,Tamil Nadu
+India,IN-TS,040,Telangana
+India,IN-TR,0381,Tripura
+India,IN-UP,0522,Uttar Pradesh
+India,IN-UK,0135,Uttarakhand
+India,IN-WB,033,West Bengal
+Indonesia,ID-AC,0651,Aceh
+Indonesia,ID-BA,0361,Bali
+Indonesia,ID-BB,0717,Bangka Belitung Islands
+Indonesia,ID-BT,0254,Banten
+Indonesia,ID-BE,0736,Bengkulu
+Indonesia,ID-GO,0435,Gorontalo
+Indonesia,ID-JK,021,Jakarta
+Indonesia,ID-JA,0741,Jambi
+Indonesia,ID-JB,022,West Java
+Indonesia,ID-JT,024,Central Java
+Indonesia,ID-JI,031,East Java
+Indonesia,ID-KB,0561,West Kalimantan
+Indonesia,ID-KS,0511,South Kalimantan
+Indonesia,ID-KT,0536,Central Kalimantan
+Indonesia,ID-KI,0541,East Kalimantan
+Indonesia,ID-KU,0552,North Kalimantan
+Indonesia,ID-KR,"0771, 0778",Riau Islands
+Indonesia,ID-LA,0721,Lampung
+Indonesia,ID-MA,0911,Maluku
+Indonesia,ID-MU,0921,North Maluku
+Indonesia,ID-NB,0370,West Nusa Tenggara
+Indonesia,ID-NT,0380,East Nusa Tenggara
+Indonesia,ID-PA,0967,Papua
+Indonesia,ID-PB,0986,West Papua
+Indonesia,ID-PD,0951,Southwest Papua
+Indonesia,ID-PT,0984,Central Papua
+Indonesia,ID-PE,0969,Highland Papua
+Indonesia,ID-PS,0971,South Papua
+Indonesia,ID-RI,0761,Riau
+Indonesia,ID-SR,0426,West Sulawesi
+Indonesia,ID-SN,0411,South Sulawesi
+Indonesia,ID-ST,0451,Central Sulawesi
+Indonesia,ID-SG,0401,Southeast Sulawesi
+Indonesia,ID-SA,0431,North Sulawesi
+Indonesia,ID-SB,0751,West Sumatra
+Indonesia,ID-SS,0711,South Sumatra
+Indonesia,ID-SU,061,North Sumatra
+Indonesia,ID-YO,0274,Yogyakarta
+Iraq,IQ-AN,024,Anbar
+Iraq,IQ-BB,030,Babylon
+Iraq,IQ-BG,01,Baghdad
+Iraq,IQ-BA,040,Basra
+Iraq,IQ-DQ,042,Dhi Qar
+Iraq,IQ-DI,025,Diyala
+Iraq,IQ-DA,062,Duhok
+Iraq,IQ-AR,066,Erbil
+Iraq,IQ-KA,032,Karbala
+Iraq,IQ-KI,050,Kirkuk
+Iraq,IQ-MA,043,Maysan
+Iraq,IQ-MU,037,Muthanna
+Iraq,IQ-NA,033,Najaf
+Iraq,IQ-NI,060,Nineveh
+Iraq,IQ-QA,036,Qadisiyyah
+Iraq,IQ-SD,021,Saladin
+Iraq,IQ-SU,053,Sulaymaniyah
+Iraq,IQ-WA,023,Wasit
+Ireland,IE-CW,059,Carlow
+Ireland,IE-CN,049,Cavan
+Ireland,IE-CE,065,Clare
+Ireland,IE-CO,"021, 022, 023, 024, 025, 026, 027, 028, 029",Cork
+Ireland,IE-DL,074,Donegal
+Ireland,IE-D,01,Dublin
+Ireland,IE-G,"091, 090, 093, 095",Galway
+Ireland,IE-KY,"066, 064",Kerry
+Ireland,IE-KE,045,Kildare
+Ireland,IE-KK,056,Kilkenny
+Ireland,IE-LS,057,Laois
+Ireland,IE-LM,071,Leitrim
+Ireland,IE-LK,"061, 063, 069",Limerick
+Ireland,IE-LD,043,Longford
+Ireland,IE-LH,"041, 042",Louth
+Ireland,IE-MO,"094, 096, 098",Mayo
+Ireland,IE-MH,046,Meath
+Ireland,IE-MN,"047, 042",Monaghan
+Ireland,IE-OY,057,Offaly
+Ireland,IE-RN,090,Roscommon
+Ireland,IE-SO,071,Sligo
+Ireland,IE-TA,"052, 062, 067",Tipperary
+Ireland,IE-WD,"051, 058",Waterford
+Ireland,IE-WH,"044, 090",Westmeath
+Ireland,IE-WX,053,Wexford
+Ireland,IE-WW,"0404, 01",Wicklow
+Isle of Man,IM,01624,Whole territory
+Israel,IL-D,08,Southern District
+Israel,IL-M,"03, 08, 09",Central District
+Israel,IL-Z,04,Northern District
+Israel,IL-HA,04,Haifa District
+Israel,IL-TA,03,Tel Aviv District
+Israel,IL-JM,02,Jerusalem District
+Italy,IT-65,"085, 0862",Abruzzo
+Italy,IT-77,0971,Basilicata
+Italy,IT-78,0961,Calabria
+Italy,IT-72,081,Campania
+Italy,IT-45,051,Emilia-Romagna
+Italy,IT-36,040,Friuli-Venezia Giulia
+Italy,IT-62,06,Lazio
+Italy,IT-42,010,Liguria
+Italy,IT-25,02,Lombardia
+Italy,IT-57,071,Marche
+Italy,IT-67,0874,Molise
+Italy,IT-21,011,Piemonte
+Italy,IT-75,080,Puglia
+Italy,IT-88,070,Sardegna
+Italy,IT-82,091,Sicilia
+Italy,IT-52,055,Toscana
+Italy,IT-32,"0461, 0471",Trentino-Alto Adige
+Italy,IT-55,075,Umbria
+Italy,IT-23,0165,Valle d'Aosta
+Italy,IT-34,041,Veneto
+Japan,JP-01,011,Hokkaido
+Japan,JP-02,017,Aomori
+Japan,JP-03,019,Iwate
+Japan,JP-04,022,Miyagi
+Japan,JP-05,018,Akita
+Japan,JP-06,023,Yamagata
+Japan,JP-07,024,Fukushima
+Japan,JP-08,029,Ibaraki
+Japan,JP-09,028,Tochigi
+Japan,JP-10,027,Gunma
+Japan,JP-11,048,Saitama
+Japan,JP-12,043,Chiba
+Japan,JP-13,03,Tokyo
+Japan,JP-14,045,Kanagawa
+Japan,JP-15,025,Niigata
+Japan,JP-16,076,Toyama
+Japan,JP-17,076,Ishikawa
+Japan,JP-18,0776,Fukui
+Japan,JP-19,055,Yamanashi
+Japan,JP-20,026,Nagano
+Japan,JP-21,058,Gifu
+Japan,JP-22,054,Shizuoka
+Japan,JP-23,052,Aichi
+Japan,JP-24,059,Mie
+Japan,JP-25,077,Shiga
+Japan,JP-26,075,Kyoto
+Japan,JP-27,06,Osaka
+Japan,JP-28,078,Hyogo
+Japan,JP-29,0742,Nara
+Japan,JP-30,073,Wakayama
+Japan,JP-31,0857,Tottori
+Japan,JP-32,0852,Shimane
+Japan,JP-33,086,Okayama
+Japan,JP-34,082,Hiroshima
+Japan,JP-35,083,Yamaguchi
+Japan,JP-36,088,Tokushima
+Japan,JP-37,087,Kagawa
+Japan,JP-38,089,Ehime
+Japan,JP-39,088,Kochi
+Japan,JP-40,092,Fukuoka
+Japan,JP-41,0952,Saga
+Japan,JP-42,095,Nagasaki
+Japan,JP-43,096,Kumamoto
+Japan,JP-44,097,Oita
+Japan,JP-45,0985,Miyazaki
+Japan,JP-46,099,Kagoshima
+Japan,JP-47,098,Okinawa
+Jersey,JE,01534,Whole territory
+Jordan,JO-AJ,02,Ajloun
+Jordan,JO-AM,06,Amman
+Jordan,JO-AQ,03,Aqaba
+Jordan,JO-BA,05,Balqa
+Jordan,JO-IR,02,Irbid
+Jordan,JO-JA,02,Jerash
+Jordan,JO-KA,03,Karak
+Jordan,JO-MN,03,Ma'an
+Jordan,JO-MD,05,Madaba
+Jordan,JO-MA,02,Mafraq
+Jordan,JO-AT,03,Tafilah
+Jordan,JO-AZ,05,Zarqa
+Kazakhstan,KZ-10,7222,Abai
+Kazakhstan,KZ-11,7162,Akmola
+Kazakhstan,KZ-15,7132,Aktobe
+Kazakhstan,KZ-75,727,Almaty (city)
+Kazakhstan,KZ-19,72772,Almaty Region
+Kazakhstan,KZ-71,7172,Astana (city)
+Kazakhstan,KZ-23,7122,Atyrau
+Kazakhstan,KZ-63,7232,East Kazakhstan
+Kazakhstan,KZ-31,7262,Jambyl
+Kazakhstan,KZ-33,7282,Jetisu
+Kazakhstan,KZ-35,7212,Karaganda
+Kazakhstan,KZ-39,7142,Kostanay
+Kazakhstan,KZ-43,7242,Kyzylorda
+Kazakhstan,KZ-47,7292,Mangystau
+Kazakhstan,KZ-59,7152,North Kazakhstan
+Kazakhstan,KZ-55,7182,Pavlodar
+Kazakhstan,KZ-79,7252,Shymkent (city)
+Kazakhstan,KZ-61,72533,Turkistan
+Kazakhstan,KZ-62,7102,Ulytau
+Kazakhstan,KZ-27,7112,West Kazakhstan
+Kenya,KE-01,053,Baringo
+Kenya,KE-02,052,Bomet
+Kenya,KE-03,055,Bungoma
+Kenya,KE-04,055,Busia
+Kenya,KE-05,053,Elgeyo-Marakwet
+Kenya,KE-06,068,Embu
+Kenya,KE-07,046,Garissa
+Kenya,KE-08,059,Homa Bay
+Kenya,KE-09,064,Isiolo
+Kenya,KE-10,045,Kajiado
+Kenya,KE-11,056,Kakamega
+Kenya,KE-12,052,Kericho
+Kenya,KE-13,"066, 067",Kiambu
+Kenya,KE-14,042,Kilifi
+Kenya,KE-15,063,Kirinyaga
+Kenya,KE-16,058,Kisii
+Kenya,KE-17,057,Kisumu
+Kenya,KE-18,044,Kitui
+Kenya,KE-19,040,Kwale
+Kenya,KE-20,062,Laikipia
+Kenya,KE-21,042,Lamu
+Kenya,KE-22,044,Machakos
+Kenya,KE-23,044,Makueni
+Kenya,KE-24,046,Mandera
+Kenya,KE-25,069,Marsabit
+Kenya,KE-26,064,Meru
+Kenya,KE-27,059,Migori
+Kenya,KE-28,041,Mombasa
+Kenya,KE-29,060,Murang'a
+Kenya,KE-30,020,Nairobi City
+Kenya,KE-31,051,Nakuru
+Kenya,KE-32,053,Nandi
+Kenya,KE-33,050,Narok
+Kenya,KE-34,058,Nyamira
+Kenya,KE-35,065,Nyandarua
+Kenya,KE-36,061,Nyeri
+Kenya,KE-37,065,Samburu
+Kenya,KE-38,057,Siaya
+Kenya,KE-39,043,Taita-Taveta
+Kenya,KE-40,046,Tana River
+Kenya,KE-41,064,Tharaka-Nithi
+Kenya,KE-42,054,Trans Nzoia
+Kenya,KE-43,054,Turkana
+Kenya,KE-44,053,Uasin Gishu
+Kenya,KE-45,056,Vihiga
+Kenya,KE-46,046,Wajir
+Kenya,KE-47,054,West Pokot
+Kosovo,XK,0280,Gjilan
+Kosovo,XK,0390,Gjakova
+Kosovo,XK,0290,Ferizaj
+Kosovo,XK,028,Mitrovica
+Kosovo,XK,039,Peja
+Kosovo,XK,038,Prishtina
+Kosovo,XK,029,Prizren
+Kyrgyzstan,KG-B,03622,Batken
+Kyrgyzstan,KG-GB,0312,Bishkek (city)
+Kyrgyzstan,KG-C,0313x,Chüy
+Kyrgyzstan,KG-Y,03922,Issyk-Kul
+Kyrgyzstan,KG-J,03722,Jalal-Abad
+Kyrgyzstan,KG-N,03522,Naryn
+Kyrgyzstan,KG-GO,03222,Osh (city)
+Kyrgyzstan,KG-O,0322x,Osh Region
+Kyrgyzstan,KG-T,03422,Talas
+Laos,LA-AT,036,Attapeu
+Laos,LA-BK,084,Bokeo
+Laos,LA-BL,054,Bolikhamxay
+Laos,LA-CH,031,Champasak
+Laos,LA-HO,064,Houaphanh
+Laos,LA-KH,051,Khammouane
+Laos,LA-LM,086,Luang Namtha
+Laos,LA-LP,071,Luang Prabang
+Laos,LA-OU,081,Oudomxay
+Laos,LA-PH,088,Phongsaly
+Laos,LA-SL,034,Salavan
+Laos,LA-SV,041,Savannakhet
+Laos,LA-VT,021,Vientiane Capital
+Laos,LA-VI,023,Vientiane Province
+Laos,LA-XA,074,Xayaboury
+Laos,LA-XS,023,Xaisomboun
+Laos,LA-XE,038,Sekong
+Laos,LA-XI,061,Xiangkhouang
+Latvia,LV,None,Riga
+Latvia,LV,None,Vidzeme
+Latvia,LV,None,Kurzeme
+Latvia,LV,None,Zemgale
+Latvia,LV,None,Latgale
+Lebanon,LB-AK,06,Akkar
+Lebanon,LB-BH,08,Baalbek-Hermel
+Lebanon,LB-BA,01,Beirut
+Lebanon,LB-BI,08,Beqaa
+Lebanon,LB-JL,"04, 05, 09",Mount Lebanon
+Lebanon,LB-NA,07,Nabatieh
+Lebanon,LB-AS,06,North
+Lebanon,LB-JA,07,South
+Lesotho,LS-D,None,Berea
+Lesotho,LS-B,None,Butha-Buthe
+Lesotho,LS-C,None,Leribe
+Lesotho,LS-E,None,Mafeteng
+Lesotho,LS-A,None,Maseru
+Lesotho,LS-F,None,Mohale's Hoek
+Lesotho,LS-J,None,Mokhotlong
+Lesotho,LS-H,None,Qacha's Nek
+Lesotho,LS-G,None,Quthing
+Lesotho,LS-K,None,Thaba-Tseka
+Liechtenstein,LI-01,None,Balzers
+Liechtenstein,LI-02,None,Eschen
+Liechtenstein,LI-03,None,Gamprin
+Liechtenstein,LI-04,None,Mauren
+Liechtenstein,LI-05,None,Planken
+Liechtenstein,LI-06,None,Ruggell
+Liechtenstein,LI-07,None,Schaan
+Liechtenstein,LI-08,None,Schellenberg
+Liechtenstein,LI-09,None,Triesen
+Liechtenstein,LI-10,None,Triesenberg
+Liechtenstein,LI-11,None,Vaduz
+Lithuania,LT-AL,315,Alytus
+Lithuania,LT-KU,37,Kaunas
+Lithuania,LT-KL,46,Klaipėda
+Lithuania,LT-MR,343,Marijampolė
+Lithuania,LT-PN,45,Panevėžys
+Lithuania,LT-SA,41,Šiauliai
+Lithuania,LT-TA,446,Tauragė
+Lithuania,LT-TE,444,Telšiai
+Lithuania,LT-UT,389,Utena
+Lithuania,LT-VL,5,Vilnius
+Luxembourg,LU-CA,None,Capellen
+Luxembourg,LU-CL,None,Clervaux
+Luxembourg,LU-DI,None,Diekirch
+Luxembourg,LU-EC,None,Echternach
+Luxembourg,LU-ES,None,Esch-sur-Alzette
+Luxembourg,LU-GR,None,Grevenmacher
+Luxembourg,LU-LU,None,Luxembourg
+Luxembourg,LU-ME,None,Mersch
+Luxembourg,LU-RD,None,Redange
+Luxembourg,LU-RM,None,Remich
+Luxembourg,LU-VD,None,Vianden
+Luxembourg,LU-WI,None,Wiltz
+Macau,MO,None,Whole territory
+Madagascar,MG-T,20 22,Antananarivo
+Madagascar,MG-D,20 82,Antsiranana
+Madagascar,MG-F,20 75,Fianarantsoa
+Madagascar,MG-M,20 62,Mahajanga
+Madagascar,MG-A,20 53,Toamasina
+Madagascar,MG-U,20 94,Toliara
+Malaysia,MY-01,07,Johor
+Malaysia,MY-02,04,Kedah
+Malaysia,MY-03,09,Kelantan
+Malaysia,MY-14,03,Kuala Lumpur
+Malaysia,MY-15,087,Labuan
+Malaysia,MY-04,06,Melaka
+Malaysia,MY-05,06,Negeri Sembilan
+Malaysia,MY-06,09,Pahang
+Malaysia,MY-07,04,Penang (Pulau Pinang)
+Malaysia,MY-08,05,Perak
+Malaysia,MY-09,04,Perlis
+Malaysia,MY-16,03,Putrajaya
+Malaysia,MY-12,"087, 088, 089",Sabah
+Malaysia,MY-13,"082, 083, 084, 085, 086",Sarawak
+Malaysia,MY-10,03,Selangor
+Malaysia,MY-11,09,Terengganu
+Maldives,MV,None,Whole country
+Mali,ML-BKO,None,Bamako
+Mali,ML-7,None,Gao
+Mali,ML-1,None,Kayes
+Mali,ML-8,None,Kidal
+Mali,ML-2,None,Koulikoro
+Mali,ML-9,None,Ménaka
+Mali,ML-5,None,Mopti
+Mali,ML-4,None,Ségou
+Mali,ML-3,None,Sikasso
+Mali,ML-10,None,Taoudénit
+Mali,ML-6,None,Tombouctou
+Malta,MT,None,Whole country
+Martinique,MQ,0596,Whole territory
+Mexico,MX-AGU,449,Aguascalientes
+Mexico,MX-BCN,"664, 686",Baja California
+Mexico,MX-BCS,"612, 624",Baja California Sur
+Mexico,MX-CAM,981,Campeche
+Mexico,MX-CHP,"961, 962",Chiapas
+Mexico,MX-CHH,"614, 656",Chihuahua
+Mexico,MX-CMX,"55, 56",Ciudad de México
+Mexico,MX-COA,"844, 871",Coahuila
+Mexico,MX-COL,"312, 314",Colima
+Mexico,MX-DUR,618,Durango
+Mexico,MX-GUA,"477, 473",Guanajuato
+Mexico,MX-GRO,"744, 747",Guerrero
+Mexico,MX-HID,771,Hidalgo
+Mexico,MX-JAL,33,Jalisco
+Mexico,MX-MEX,"722, 55",México (State)
+Mexico,MX-MIC,443,Michoacán
+Mexico,MX-MOR,777,Morelos
+Mexico,MX-NAY,311,Nayarit
+Mexico,MX-NLE,81,Nuevo León
+Mexico,MX-OAX,951,Oaxaca
+Mexico,MX-PUE,222,Puebla
+Mexico,MX-QUE,442,Querétaro
+Mexico,MX-ROO,"998, 983, 984",Quintana Roo
+Mexico,MX-SLP,444,San Luis Potosí
+Mexico,MX-SIN,"667, 669",Sinaloa
+Mexico,MX-SON,662,Sonora
+Mexico,MX-TAB,993,Tabasco
+Mexico,MX-TAM,"834, 899",Tamaulipas
+Mexico,MX-TLA,246,Tlaxcala
+Mexico,MX-VER,"228, 229",Veracruz
+Mexico,MX-YUC,999,Yucatán
+Mexico,MX-ZAC,492,Zacatecas
+Midway Atoll,UM-71,808,Whole territory
+Monaco,MC,None,Whole country
+Mongolia,MN-1,11,Ulaanbaatar
+Mongolia,MN-073,133,Arkhangai
+Mongolia,MN-071,142,Bayan-Ölgii
+Mongolia,MN-069,144,Bayankhongor
+Mongolia,MN-067,134,Bulgan
+Mongolia,MN-037,137,Darkhan-Uul
+Mongolia,MN-061,158,Dornod
+Mongolia,MN-063,152,Dornogovi
+Mongolia,MN-059,159,Dundgovi
+Mongolia,MN-065,148,Govi-Altai
+Mongolia,MN-064,154,Govįsümber
+Mongolia,MN-039,156,Khentii
+Mongolia,MN-043,143,Khovd
+Mongolia,MN-041,138,Khövsgöl
+Mongolia,MN-053,153,Ömnögovi
+Mongolia,MN-035,135,Orkhon
+Mongolia,MN-055,132,Övörkhangai
+Mongolia,MN-049,136,Selenge
+Mongolia,MN-051,151,Sükhbaatar
+Mongolia,MN-047,127,Töv
+Mongolia,MN-046,145,Uvs
+Mongolia,MN-057,146,Zavkhan
+Montenegro,ME-01,051,Andrijevica
+Montenegro,ME-02,030,Bar
+Montenegro,ME-03,051,Berane
+Montenegro,ME-04,050,Bijelo Polje
+Montenegro,ME-05,033,Budva
+Montenegro,ME-06,041,Cetinje
+Montenegro,ME-07,020,Danilovgrad
+Montenegro,ME-22,051,Gusinje
+Montenegro,ME-08,031,Herceg Novi
+Montenegro,ME-09,020,Kolašin
+Montenegro,ME-10,032,Kotor
+Montenegro,ME-11,050,Mojkovac
+Montenegro,ME-12,040,Nikšić
+Montenegro,ME-23,051,Petnjica
+Montenegro,ME-13,051,Plav
+Montenegro,ME-14,052,Pljevlja
+Montenegro,ME-15,040,Plužine
+Montenegro,ME-16,020,Podgorica
+Montenegro,ME-17,051,Rožaje
+Montenegro,ME-18,040,Šavnik
+Montenegro,ME-19,032,Tivat
+Montenegro,ME-24,020,Tuzi
+Montenegro,ME-20,030,Ulcinj
+Montenegro,ME-21,052,Žabljak
+Montenegro,ME-25,020,Zeta
+Namibia,NA-ER,064,Erongo
+Namibia,NA-HA,063,Hardap
+Namibia,NA-KA,063,//Karas
+Namibia,NA-KE,066,Kavango East
+Namibia,NA-KW,066,Kavango West
+Namibia,NA-KH,061,Khomas
+Namibia,NA-KU,"065, 067",Kunene
+Namibia,NA-OW,065,Ohangwena
+Namibia,NA-OH,062,Omaheke
+Namibia,NA-OS,065,Omusati
+Namibia,NA-ON,065,Oshana
+Namibia,NA-OT,"065, 067",Oshikoto
+Namibia,NA-OD,067,Otjozondjupa
+Namibia,NA-CA,066,Zambezi
+Nepal,NP-P1,021,Koshi
+Nepal,NP-P2,041,Madhesh
+Nepal,NP-P3,01,Bagmati
+Nepal,NP-P4,061,Gandaki
+Nepal,NP-P5,071,Lumbini
+Nepal,NP-P6,083,Karnali
+Nepal,NP-P7,091,Sudurpashchim
+Netherlands,NL-DR,0592,Drenthe
+Netherlands,NL-FL,"036, 0320",Flevoland
+Netherlands,NL-FR,058,Friesland
+Netherlands,NL-GE,"026, 024, 055",Gelderland
+Netherlands,NL-GR,050,Groningen
+Netherlands,NL-LI,"043, 077",Limburg
+Netherlands,NL-NB,"073, 040, 076, 013",North Brabant
+Netherlands,NL-NH,"020, 023, 072",North Holland
+Netherlands,NL-OV,"038, 053",Overijssel
+Netherlands,NL-UT,030,Utrecht
+Netherlands,NL-ZE,0118,Zeeland
+Netherlands,NL-ZH,"070, 010, 071",South Holland
+New Zealand,NZ-NTL,09,Northland
+New Zealand,NZ-AUK,09,Auckland
+New Zealand,NZ-WKO,07,Waikato
+New Zealand,NZ-BOP,07,Bay of Plenty
+New Zealand,NZ-GIS,06,Gisborne
+New Zealand,NZ-HKB,06,Hawke's Bay
+New Zealand,NZ-TKI,06,Taranaki
+New Zealand,NZ-MWT,06,Manawatū-Whanganui
+New Zealand,NZ-WGN,04,Wellington
+New Zealand,NZ-TAS,03,Tasman
+New Zealand,NZ-NSN,03,Nelson
+New Zealand,NZ-MBH,03,Marlborough
+New Zealand,NZ-WTC,03,West Coast
+New Zealand,NZ-CAN,03,Canterbury
+New Zealand,NZ-OTA,03,Otago
+New Zealand,NZ-STL,03,Southland
+Nigeria,NG-AB,082,Abia
+Nigeria,NG-FC,09,Abuja (FCT)
+Nigeria,NG-AD,075,Adamawa
+Nigeria,NG-AK,085,Akwa Ibom
+Nigeria,NG-AN,"048, 046",Anambra
+Nigeria,NG-BA,077,Bauchi
+Nigeria,NG-BY,089,Bayelsa
+Nigeria,NG-BE,044,Benue
+Nigeria,NG-BO,076,Borno
+Nigeria,NG-CR,087,Cross River
+Nigeria,NG-DE,"053, 056",Delta
+Nigeria,NG-EB,043,Ebonyi
+Nigeria,NG-ED,052,Edo
+Nigeria,NG-EK,030,Ekiti
+Nigeria,NG-EN,042,Enugu
+Nigeria,NG-GO,072,Gombe
+Nigeria,NG-IM,083,Imo
+Nigeria,NG-JI,064,Jigawa
+Nigeria,NG-KD,062,Kaduna
+Nigeria,NG-KN,064,Kano
+Nigeria,NG-KT,065,Katsina
+Nigeria,NG-KE,068,Kebbi
+Nigeria,NG-KO,058,Kogi
+Nigeria,NG-KW,031,Kwara
+Nigeria,NG-LA,01,Lagos
+Nigeria,NG-NA,047,Nasarawa
+Nigeria,NG-NI,066,Niger
+Nigeria,NG-OG,039,Ogun
+Nigeria,NG-ON,034,Ondo
+Nigeria,NG-OS,035,Osun
+Nigeria,NG-OY,02,Oyo
+Nigeria,NG-PL,073,Plateau
+Nigeria,NG-RI,084,Rivers
+Nigeria,NG-SO,060,Sokoto
+Nigeria,NG-TA,079,Taraba
+Nigeria,NG-YO,071,Yobe
+Nigeria,NG-ZA,063,Zamfara
+North Macedonia,MK,02,Skopje
+North Macedonia,MK,031,Northeastern
+North Macedonia,MK,032,Eastern
+North Macedonia,MK,034,Southeastern
+North Macedonia,MK,043,Vardar
+North Macedonia,MK,044,Polog
+North Macedonia,MK,046,Southwestern
+North Macedonia,MK,"047, 048",Pelagonia
+Northern Mariana Islands,US-MP,670,Whole territory
+Norway,NO-42,None,Agder
+Norway,NO-32,None,Akershus
+Norway,NO-33,None,Buskerud
+Norway,NO-56,None,Finnmark
+Norway,NO-34,None,Innlandet
+Norway,NO-15,None,Møre og Romsdal
+Norway,NO-18,None,Nordland
+Norway,NO-03,None,Oslo
+Norway,NO-11,None,Rogaland
+Norway,NO-40,None,Telemark
+Norway,NO-55,None,Troms
+Norway,NO-50,None,Trøndelag
+Norway,NO-39,None,Vestfold
+Norway,NO-46,None,Vestland
+Norway,NO-31,None,Østfold
+Oman,OM-DA,25,Ad Dakhiliyah
+Oman,OM-ZA,25,Ad Dhahirah
+Oman,OM-BJ,26,Al Batinah South
+Oman,OM-BS,26,Al Batinah North
+Oman,OM-BU,25,Al Buraimi
+Oman,OM-WU,23,Al Wusta
+Oman,OM-SJ,25,Ash Sharqiyah South
+Oman,OM-SS,25,Ash Sharqiyah North
+Oman,OM-ZU,23,Dhofar
+Oman,OM-MA,24,Muscat
+Oman,OM-MU,26,Musandam
+Pakistan,PK-JK,05822,Azad Jammu and Kashmir
+Pakistan,PK-BA,081,Balochistan
+Pakistan,PK-GB,05811,Gilgit-Baltistan
+Pakistan,PK-IS,051,Islamabad Capital Territory
+Pakistan,PK-KP,091,Khyber Pakhtunkhwa
+Pakistan,PK-PB,042,Punjab
+Pakistan,PK-SD,021,Sindh
+Palestine,PS-BTH,02,Bethlehem
+Palestine,PS-DEB,08,Deir al-Balah
+Palestine,PS-GZA,08,Gaza
+Palestine,PS-HBN,02,Hebron
+Palestine,PS-JEN,04,Jenin
+Palestine,PS-JRH,02,Jericho
+Palestine,PS-JEM,02,Jerusalem
+Palestine,PS-KYS,08,Khan Yunis
+Palestine,PS-NBS,09,Nablus
+Palestine,PS-NGZ,08,North Gaza
+Palestine,PS-QQA,09,Qalqilya
+Palestine,PS-RFH,08,Rafah
+Palestine,PS-RBH,02,Ramallah and al-Bireh
+Palestine,PS-SLT,09,Salfit
+Palestine,PS-TBS,09,Tubas
+Palestine,PS-TKM,09,Tulkarm
+Panama,PA-1,None,Bocas del Toro
+Panama,PA-4,None,Chiriquí
+Panama,PA-2,None,Coclé
+Panama,PA-3,None,Colón
+Panama,PA-5,None,Darién
+Panama,PA-EM,None,Emberá
+Panama,PA-KY,None,Guna Yala
+Panama,PA-6,None,Herrera
+Panama,PA-7,None,Los Santos
+Panama,PA-NB,None,Ngäbe-Buglé
+Panama,PA-8,None,Panamá
+Panama,PA-10,None,Panamá Oeste
+Panama,PA-9,None,Veraguas
+Paraguay,PY-ASU,021,Asunción
+Paraguay,PY-16,049x,Alto Paraguay
+Paraguay,PY-10,061,Alto Paraná
+Paraguay,PY-13,036,Amambay
+Paraguay,PY-19,0491,Boquerón
+Paraguay,PY-5,"0521, 0522",Caaguazú
+Paraguay,PY-6,0542,Caazapá
+Paraguay,PY-14,046,Canindeyú
+Paraguay,PY-11,021,Central
+Paraguay,PY-1,031,Concepción
+Paraguay,PY-3,0511,Cordillera
+Paraguay,PY-4,0541,Guairá
+Paraguay,PY-7,071,Itapúa
+Paraguay,PY-8,081,Misiones
+Paraguay,PY-12,086,Ñeembucú
+Paraguay,PY-9,0531,Paraguarí
+Paraguay,PY-15,0226,Presidente Hayes
+Paraguay,PY-2,04x,San Pedro
+Peru,PE-AMA,041,Amazonas
+Peru,PE-ANC,043,Áncash
+Peru,PE-APU,083,Apurímac
+Peru,PE-ARE,054,Arequipa
+Peru,PE-AYA,066,Ayacucho
+Peru,PE-CAJ,076,Cajamarca
+Peru,PE-CAL,01,Callao
+Peru,PE-CUS,084,Cusco
+Peru,PE-HUV,067,Huancavelica
+Peru,PE-HUC,062,Huánuco
+Peru,PE-ICA,056,Ica
+Peru,PE-JUN,064,Junín
+Peru,PE-LAL,044,La Libertad
+Peru,PE-LAM,074,Lambayeque
+Peru,PE-LMA,01,Lima Metropolitan
+Peru,PE-LIM,01,Lima Region
+Peru,PE-LOR,065,Loreto
+Peru,PE-MDD,082,Madre de Dios
+Peru,PE-MOQ,053,Moquegua
+Peru,PE-PAS,063,Pasco
+Peru,PE-PIU,073,Piura
+Peru,PE-PUN,051,Puno
+Peru,PE-SAM,042,San Martín
+Peru,PE-TAC,052,Tacna
+Peru,PE-TUM,072,Tumbes
+Peru,PE-UCA,061,Ucayali
+Philippines,PH-00,02,National Capital Region (Metro Manila)
+Philippines,PH-15,074,Cordillera Administrative Region
+Philippines,PH-01,"072, 077",Ilocos Region
+Philippines,PH-02,078,Cagayan Valley
+Philippines,PH-03,"044, 045, 047",Central Luzon
+Philippines,PH-40,"043, 046, 049",Calabarzon
+Philippines,PH-41,"043, 048",Mimaropa
+Philippines,PH-05,"052, 054",Bicol Region
+Philippines,PH-06,"033, 036",Western Visayas
+Philippines,PH,"034, 035",Negros Island Region
+Philippines,PH-07,"032, 038",Central Visayas
+Philippines,PH-08,"053, 055",Eastern Visayas
+Philippines,PH-09,062,Zamboanga Peninsula
+Philippines,PH-10,088,Northern Mindanao
+Philippines,PH-11,082,Davao Region
+Philippines,PH-12,083,Soccsksargen
+Philippines,PH-13,"085, 086",Caraga
+Philippines,PH-14,"064, 068",Bangsamoro (BARMM)
+Pitcairn Islands,PN,None,Whole territory
+Poland,PL-02,"71, 74, 75, 76",Lower Silesian (Dolnośląskie)
+Poland,PL-04,"52, 54, 56",Kuyavian-Pomeranian (Kujawsko-pomorskie)
+Poland,PL-06,"81, 82, 84",Lublin (Lubelskie)
+Poland,PL-08,"68, 95",Lubusz (Lubuskie)
+Poland,PL-10,"42, 43, 44, 46",Łódź (Łódzkie)
+Poland,PL-12,"12, 14, 18",Lesser Poland (Małopolskie)
+Poland,PL-14,"22, 23, 24, 25, 29, 48",Masovian (Mazowieckie)
+Poland,PL-16,77,Opole (Opolskie)
+Poland,PL-18,"13, 15, 16, 17",Subcarpathian (Podkarpackie)
+Poland,PL-20,"85, 86, 87",Podlaskie
+Poland,PL-22,"58, 59",Pomeranian (Pomorskie)
+Poland,PL-24,"32, 33, 34",Silesian (Śląskie)
+Poland,PL-26,41,Świętokrzyskie
+Poland,PL-28,"55, 87, 89",Warmian-Masurian (Warmińsko-mazurskie)
+Poland,PL-30,"61, 62, 63, 65, 67",Greater Poland (Wielkopolskie)
+Poland,PL-32,"91, 94",West Pomeranian (Zachodniopomorskie)
+Portugal,PT-01,234,Aveiro
+Portugal,PT-20,"292, 295, 296",Azores (Açores)
+Portugal,PT-02,284,Beja
+Portugal,PT-03,253,Braga
+Portugal,PT-04,273,Bragança
+Portugal,PT-05,272,Castelo Branco
+Portugal,PT-06,239,Coimbra
+Portugal,PT-07,266,Évora
+Portugal,PT-08,289,Faro
+Portugal,PT-09,271,Guarda
+Portugal,PT-10,244,Leiria
+Portugal,PT-11,21,Lisboa
+Portugal,PT-30,291,Madeira
+Portugal,PT-12,245,Portalegre
+Portugal,PT-13,22,Porto
+Portugal,PT-14,243,Santarém
+Portugal,PT-15,265,Setúbal
+Portugal,PT-16,258,Viana do Castelo
+Portugal,PT-17,259,Vila Real
+Portugal,PT-18,232,Viseu
+Puerto Rico,US-PR,"787, 939",Whole territory
+Qatar,QA-DA,None,Doha
+Qatar,QA-KH,None,Al Khor
+Qatar,QA-WA,None,Al Wakrah
+Qatar,QA-RA,None,Al Rayyan
+Qatar,QA-MS,None,Al Shamal
+Qatar,QA-ZA,None,Al Daayen
+Qatar,QA-US,None,Umm Salal
+Qatar,QA-SH,None,Al Shahaniya
+Réunion,RE,0262,Whole territory
+Romania,RO-AB,0258,Alba
+Romania,RO-AR,0257,Arad
+Romania,RO-AG,0248,Argeș
+Romania,RO-BC,0234,Bacău
+Romania,RO-BH,0259,Bihor
+Romania,RO-BN,0263,Bistrița-Năsăud
+Romania,RO-BT,0231,Botoșani
+Romania,RO-BR,0239,Brăila
+Romania,RO-BV,0268,Brașov
+Romania,RO-B,021,Bucharest
+Romania,RO-BZ,0238,Buzău
+Romania,RO-CL,0242,Călărași
+Romania,RO-CS,0255,Caraș-Severin
+Romania,RO-CJ,0264,Cluj
+Romania,RO-CT,0241,Constanța
+Romania,RO-CV,0267,Covasna
+Romania,RO-DB,0245,Dâmbovița
+Romania,RO-DJ,0251,Dolj
+Romania,RO-GL,0236,Galați
+Romania,RO-GR,0246,Giurgiu
+Romania,RO-GJ,0253,Gorj
+Romania,RO-HR,0266,Harghita
+Romania,RO-HD,0254,Hunedoara
+Romania,RO-IL,0243,Ialomița
+Romania,RO-IS,0232,Iași
+Romania,RO-IF,021,Ilfov
+Romania,RO-MM,0262,Maramureș
+Romania,RO-MH,0252,Mehedinți
+Romania,RO-MS,0265,Mureș
+Romania,RO-NT,0233,Neamț
+Romania,RO-OT,0249,Olt
+Romania,RO-PH,0244,Prahova
+Romania,RO-SJ,0260,Sălaj
+Romania,RO-SM,0261,Satu Mare
+Romania,RO-SB,0269,Sibiu
+Romania,RO-SV,0230,Suceava
+Romania,RO-TR,0247,Teleorman
+Romania,RO-TM,0256,Timiș
+Romania,RO-TL,0240,Tulcea
+Romania,RO-VL,0250,Vâlcea
+Romania,RO-VS,0235,Vaslui
+Romania,RO-VN,0237,Vrancea
+Russia,RU-AD,877,Adygea
+Russia,RU-AL,388,Altai Republic
+Russia,RU-ALT,385,Altai Krai
+Russia,RU-AMU,416,Amur Oblast
+Russia,RU-ARK,818,Arkhangelsk Oblast
+Russia,RU-AST,851,Astrakhan Oblast
+Russia,RU-BA,347,Bashkortostan
+Russia,RU-BEL,472,Belgorod Oblast
+Russia,RU-BRY,483,Bryansk Oblast
+Russia,RU-BU,301,Buryatia
+Russia,RU-CE,871,Chechnya
+Russia,RU-CHE,351,Chelyabinsk Oblast
+Russia,RU-CHU,427,Chukotka
+Russia,RU-CU,835,Chuvashia
+Russia,RU-DA,872,Dagestan
+Russia,RU-IN,873,Ingushetia
+Russia,RU-IRK,395,Irkutsk Oblast
+Russia,RU-IVA,493,Ivanovo Oblast
+Russia,RU-YEV,426,Jewish Autonomous Oblast
+Russia,RU-KB,866,Kabardino-Balkaria
+Russia,RU-KGD,401,Kaliningrad Oblast
+Russia,RU-KL,847,Kalmykia
+Russia,RU-KLU,484,Kaluga Oblast
+Russia,RU-KAM,415,Kamchatka Krai
+Russia,RU-KC,878,Karachay-Cherkessia
+Russia,RU-KR,814,Karelia
+Russia,RU-KEM,384,Kemerovo Oblast
+Russia,RU-KHA,421,Khabarovsk Krai
+Russia,RU-KK,390,Khakassia
+Russia,RU-KHM,346,Khanty-Mansi
+Russia,RU-KIR,833,Kirov Oblast
+Russia,RU-KO,821,Komi
+Russia,RU-KOS,494,Kostroma Oblast
+Russia,RU-KDA,"861, 862",Krasnodar Krai
+Russia,RU-KYA,391,Krasnoyarsk Krai
+Russia,RU-KGN,352,Kurgan Oblast
+Russia,RU-KRS,471,Kursk Oblast
+Russia,RU-LEN,813,Leningrad Oblast
+Russia,RU-LIP,474,Lipetsk Oblast
+Russia,RU-MAG,413,Magadan Oblast
+Russia,RU-ME,836,Mari El
+Russia,RU-MO,834,Mordovia
+Russia,RU-MOW,"495, 499",Moscow (city)
+Russia,RU-MOS,"496, 498",Moscow Oblast
+Russia,RU-MUR,815,Murmansk Oblast
+Russia,RU-NEN,818,Nenets
+Russia,RU-NIZ,831,Nizhny Novgorod Oblast
+Russia,RU-SE,867,North Ossetia-Alania
+Russia,RU-NGR,816,Novgorod Oblast
+Russia,RU-NVS,383,Novosibirsk Oblast
+Russia,RU-OMS,381,Omsk Oblast
+Russia,RU-ORE,353,Orenburg Oblast
+Russia,RU-ORL,486,Oryol Oblast
+Russia,RU-PNZ,841,Penza Oblast
+Russia,RU-PER,342,Perm Krai
+Russia,RU-PRI,423,Primorsky Krai
+Russia,RU-PSK,811,Pskov Oblast
+Russia,RU-ROS,863,Rostov Oblast
+Russia,RU-RYA,491,Ryazan Oblast
+Russia,RU-SPE,812,Saint Petersburg
+Russia,RU-SA,411,Sakha (Yakutia)
+Russia,RU-SAK,424,Sakhalin Oblast
+Russia,RU-SAM,846,Samara Oblast
+Russia,RU-SAR,845,Saratov Oblast
+Russia,RU-SMO,481,Smolensk Oblast
+Russia,RU-STA,865,Stavropol Krai
+Russia,RU-SVE,343,Sverdlovsk Oblast
+Russia,RU-TAM,475,Tambov Oblast
+Russia,RU-TA,"843, 855",Tatarstan
+Russia,RU-TOM,382,Tomsk Oblast
+Russia,RU-TUL,487,Tula Oblast
+Russia,RU-TY,394,Tuva
+Russia,RU-TVE,482,Tver Oblast
+Russia,RU-TYU,345,Tyumen Oblast
+Russia,RU-UD,341,Udmurtia
+Russia,RU-ULY,842,Ulyanovsk Oblast
+Russia,RU-VLA,492,Vladimir Oblast
+Russia,RU-VGG,844,Volgograd Oblast
+Russia,RU-VLG,817,Vologda Oblast
+Russia,RU-VOR,473,Voronezh Oblast
+Russia,RU-YAN,349,Yamalo-Nenets
+Russia,RU-YAR,485,Yaroslavl Oblast
+Russia,RU-ZAB,302,Zabaykalsky Krai
+Rwanda,RW-01,None,Kigali
+Rwanda,RW-02,None,Eastern
+Rwanda,RW-03,None,Northern
+Rwanda,RW-04,None,Western
+Rwanda,RW-05,None,Southern
+Saint Pierre and Miquelon,PM,None,Whole territory
+San Marino,SM-01,0549,Acquaviva
+San Marino,SM-06,0549,Borgo Maggiore
+San Marino,SM-02,0549,Chiesanuova
+San Marino,SM-07,0549,Città di San Marino
+San Marino,SM-03,0549,Domagnano
+San Marino,SM-04,0549,Faetano
+San Marino,SM-05,0549,Fiorentino
+San Marino,SM-08,0549,Montegiardino
+San Marino,SM-09,0549,Serravalle
+São Tomé and Príncipe,ST-01,None,Água Grande
+São Tomé and Príncipe,ST-02,None,Cantagalo
+São Tomé and Príncipe,ST-03,None,Caué
+São Tomé and Príncipe,ST-04,None,Lembá
+São Tomé and Príncipe,ST-05,None,Lobata
+São Tomé and Príncipe,ST-06,None,Mé-Zóchi
+São Tomé and Príncipe,ST-P,None,Príncipe
+Senegal,SN-DK,None,Dakar
+Senegal,SN-DB,None,Diourbel
+Senegal,SN-FK,None,Fatick
+Senegal,SN-KA,None,Kaffrine
+Senegal,SN-KL,None,Kaolack
+Senegal,SN-KE,None,Kédougou
+Senegal,SN-KD,None,Kolda
+Senegal,SN-LG,None,Louga
+Senegal,SN-MT,None,Matam
+Senegal,SN-SL,None,Saint-Louis
+Senegal,SN-SE,None,Sédhiou
+Senegal,SN-TC,None,Tambacounda
+Senegal,SN-TH,None,Thiès
+Senegal,SN-ZG,None,Ziguinchor
+Serbia,RS-00,011,Belgrade
+Serbia,RS-14,030,Bor
+Serbia,RS-11,012,Braničevo
+Serbia,RS-02,023,Central Banat
+Serbia,RS-23,016,Jablanica
+Serbia,RS-09,014,Kolubara
+Serbia,RS-08,015,Mačva
+Serbia,RS-17,032,Moravica
+Serbia,RS-20,018,Nišava
+Serbia,RS-01,024,North Bačka
+Serbia,RS-03,0230,North Banat
+Serbia,RS-24,017,Pčinja
+Serbia,RS-22,010,Pirot
+Serbia,RS-10,026,Podunavlje
+Serbia,RS-13,035,Pomoravlje
+Serbia,RS-19,037,Rasina
+Serbia,RS-18,"036, 020",Raška
+Serbia,RS-06,021,South Bačka
+Serbia,RS-04,013,South Banat
+Serbia,RS-07,022,Srem
+Serbia,RS-12,034,Šumadija
+Serbia,RS-21,027,Toplica
+Serbia,RS-05,025,West Bačka
+Serbia,RS-15,019,Zaječar
+Serbia,RS-16,"031, 033",Zlatibor
+Singapore,SG-01,None,Central Singapore
+Singapore,SG-02,None,North East
+Singapore,SG-03,None,North West
+Singapore,SG-04,None,South East
+Singapore,SG-05,None,South West
+Slovakia,SK-BL,02,Bratislava
+Slovakia,SK-TA,033,Trnava
+Slovakia,SK-TC,032,Trenčín
+Slovakia,SK-NI,037,Nitra
+Slovakia,SK-ZI,041,Žilina
+Slovakia,SK-BC,048,Banská Bystrica
+Slovakia,SK-PV,051,Prešov
+Slovakia,SK-KI,055,Košice
+Slovenia,SI,01,Central Slovenia (Osrednjeslovenska)
+Slovenia,SI,02,Drava (Podravska)
+Slovenia,SI,02,Mura (Pomurska)
+Slovenia,SI,02,Carinthia (Koroška)
+Slovenia,SI,03,Savinja (Savinjska)
+Slovenia,SI,03,Central Sava (Zasavska)
+Slovenia,SI,07,Lower Sava (Posavska)
+Slovenia,SI,07,Southeast Slovenia (Jugovzhodna)
+Slovenia,SI,04,Upper Carniola (Gorenjska)
+Slovenia,SI,05,Littoral-Inner Carniola (Primorsko-notranjska)
+Slovenia,SI,05,Gorizia (Goriška)
+Slovenia,SI,05,Coastal-Karst (Obalno-kraška)
+South Africa,ZA-EC,"04x (Gqeberha 041, East London 043)",Eastern Cape
+South Africa,ZA-FS,05x (Bloemfontein 051),Free State
+South Africa,ZA-GP,"010, 011, 012, 016",Gauteng
+South Africa,ZA-KZN,03x (Durban 031),KwaZulu-Natal
+South Africa,ZA-LP,015,Limpopo
+South Africa,ZA-MP,"013, 017",Mpumalanga
+South Africa,ZA-NC,"053, 054, 027",Northern Cape
+South Africa,ZA-NW,"014, 018",North West
+South Africa,ZA-WC,02x (Cape Town 021),Western Cape
+South Georgia and the South Sandwich Islands,GS,None,Whole territory
+South Korea,KR-11,02,Seoul
+South Korea,KR-26,051,Busan
+South Korea,KR-27,053,Daegu
+South Korea,KR-28,032,Incheon
+South Korea,KR-29,062,Gwangju
+South Korea,KR-30,042,Daejeon
+South Korea,KR-31,052,Ulsan
+South Korea,KR-50,044,Sejong
+South Korea,KR-41,031,Gyeonggi
+South Korea,KR-42,033,Gangwon
+South Korea,KR-43,043,North Chungcheong
+South Korea,KR-44,041,South Chungcheong
+South Korea,KR-45,063,North Jeolla (Jeonbuk)
+South Korea,KR-46,061,South Jeolla
+South Korea,KR-47,054,North Gyeongsang
+South Korea,KR-48,055,South Gyeongsang
+South Korea,KR-49,064,Jeju
+Spain,ES-AN,95x (Seville 954),Andalucía
+Spain,ES-AR,"974, 976, 978",Aragón
+Spain,ES-AS,985,Asturias
+Spain,ES-IB,971,Balearic Islands (Illes Balears)
+Spain,ES-PV,"943, 944, 945, 946",Basque Country (País Vasco)
+Spain,ES-CN,"922, 928",Canary Islands (Canarias)
+Spain,ES-CB,942,Cantabria
+Spain,ES-CM,"925, 926, 949, 967, 969",Castilla-La Mancha
+Spain,ES-CL,"920, 921, 923, 947, 975, 979, 980, 983, 987",Castilla y León
+Spain,ES-CT,"93, 972, 973, 977",Catalonia (Cataluña)
+Spain,ES-CE,956,Ceuta
+Spain,ES-EX,"924, 927",Extremadura
+Spain,ES-GA,"981, 982, 986, 988",Galicia
+Spain,ES-RI,941,La Rioja
+Spain,ES-MD,91,Madrid
+Spain,ES-ML,952,Melilla
+Spain,ES-MC,968,Murcia
+Spain,ES-NC,948,Navarra
+Spain,ES-VC,"96x (Valencia 963, Alicante 965, Castellón 964)",Valencian Community
+Sri Lanka,LK-2,081,Central
+Sri Lanka,LK-5,"026, 065",Eastern
+Sri Lanka,LK-7,025,North Central
+Sri Lanka,LK-6,037,North Western
+Sri Lanka,LK-4,021,Northern
+Sri Lanka,LK-9,045,Sabaragamuwa
+Sri Lanka,LK-3,091,Southern
+Sri Lanka,LK-8,055,Uva
+Sri Lanka,LK-1,011,Western
+Svalbard,SJ,79,Whole territory
+Sweden,SE-K,0455,Blekinge
+Sweden,SE-W,023,Dalarna
+Sweden,SE-I,0498,Gotland
+Sweden,SE-X,026,Gävleborg
+Sweden,SE-N,035,Halland
+Sweden,SE-Z,063,Jämtland
+Sweden,SE-F,036,Jönköping
+Sweden,SE-H,0480,Kalmar
+Sweden,SE-G,0470,Kronoberg
+Sweden,SE-BD,0920,Norrbotten
+Sweden,SE-M,"040, 042, 046",Skåne
+Sweden,SE-AB,08,Stockholm
+Sweden,SE-D,016,Södermanland
+Sweden,SE-C,018,Uppsala
+Sweden,SE-S,054,Värmland
+Sweden,SE-AC,090,Västerbotten
+Sweden,SE-Y,"060, 0611",Västernorrland
+Sweden,SE-U,021,Västmanland
+Sweden,SE-O,031,Västra Götaland
+Sweden,SE-T,019,Örebro
+Sweden,SE-E,"011, 013",Östergötland
+Switzerland,CH-AG,"056, 062",Aargau
+Switzerland,CH-AI,071,Appenzell Innerrhoden
+Switzerland,CH-AR,071,Appenzell Ausserrhoden
+Switzerland,CH-BE,"031, 032, 033, 034",Bern
+Switzerland,CH-BL,061,Basel-Landschaft
+Switzerland,CH-BS,061,Basel-Stadt
+Switzerland,CH-FR,026,Fribourg
+Switzerland,CH-GE,022,Geneva
+Switzerland,CH-GL,055,Glarus
+Switzerland,CH-GR,081,Graubünden
+Switzerland,CH-JU,032,Jura
+Switzerland,CH-LU,041,Lucerne
+Switzerland,CH-NE,032,Neuchâtel
+Switzerland,CH-NW,041,Nidwalden
+Switzerland,CH-OW,041,Obwalden
+Switzerland,CH-SG,"055, 071, 081",St. Gallen
+Switzerland,CH-SH,052,Schaffhausen
+Switzerland,CH-SO,"032, 062",Solothurn
+Switzerland,CH-SZ,"041, 055",Schwyz
+Switzerland,CH-TG,"052, 071",Thurgau
+Switzerland,CH-TI,091,Ticino
+Switzerland,CH-UR,041,Uri
+Switzerland,CH-VD,"021, 024",Vaud
+Switzerland,CH-VS,"024, 027",Valais
+Switzerland,CH-ZG,041,Zug
+Switzerland,CH-ZH,"043, 044, 052",Zürich
+Taiwan,TW-CHA,04,Changhua County
+Taiwan,TW-CYI,05,Chiayi City
+Taiwan,TW-CYQ,05,Chiayi County
+Taiwan,TW-HSZ,03,Hsinchu City
+Taiwan,TW-HSQ,03,Hsinchu County
+Taiwan,TW-HUA,03,Hualien County
+Taiwan,TW-KHH,07,Kaohsiung
+Taiwan,TW-KEE,02,Keelung
+Taiwan,TW-KIN,082,Kinmen County
+Taiwan,TW-LIE,0836,Lienchiang County (Matsu)
+Taiwan,TW-MIA,037,Miaoli County
+Taiwan,TW-NAN,049,Nantou County
+Taiwan,TW-NWT,02,New Taipei
+Taiwan,TW-PEN,06,Penghu County
+Taiwan,TW-PIF,08,Pingtung County
+Taiwan,TW-TXG,04,Taichung
+Taiwan,TW-TNN,06,Tainan
+Taiwan,TW-TPE,02,Taipei
+Taiwan,TW-TTT,089,Taitung County
+Taiwan,TW-TAO,03,Taoyuan
+Taiwan,TW-ILA,03,Yilan County
+Taiwan,TW-YUN,05,Yunlin County
+Tanzania,TZ-01,027,Arusha
+Tanzania,TZ-02,022,Dar es Salaam
+Tanzania,TZ-03,026,Dodoma
+Tanzania,TZ-27,028,Geita
+Tanzania,TZ-04,026,Iringa
+Tanzania,TZ-05,028,Kagera
+Tanzania,TZ-28,025,Katavi
+Tanzania,TZ-08,028,Kigoma
+Tanzania,TZ-09,027,Kilimanjaro
+Tanzania,TZ-12,023,Lindi
+Tanzania,TZ-26,027,Manyara
+Tanzania,TZ-13,028,Mara
+Tanzania,TZ-14,025,Mbeya
+Tanzania,TZ-16,023,Morogoro
+Tanzania,TZ-17,023,Mtwara
+Tanzania,TZ-18,028,Mwanza
+Tanzania,TZ-29,026,Njombe
+Tanzania,TZ-06,024,Pemba North
+Tanzania,TZ-10,024,Pemba South
+Tanzania,TZ-19,023,Pwani (Coast)
+Tanzania,TZ-20,025,Rukwa
+Tanzania,TZ-21,025,Ruvuma
+Tanzania,TZ-22,028,Shinyanga
+Tanzania,TZ-30,028,Simiyu
+Tanzania,TZ-23,026,Singida
+Tanzania,TZ-31,025,Songwe
+Tanzania,TZ-24,026,Tabora
+Tanzania,TZ-25,027,Tanga
+Tanzania,TZ-07,024,Zanzibar North
+Tanzania,TZ-11,024,Zanzibar South
+Tanzania,TZ-15,024,Zanzibar West (Mjini Magharibi)
+Thailand,TH-10,02,Bangkok
+Thailand,TH-11,02,Samut Prakan
+Thailand,TH-12,02,Nonthaburi
+Thailand,TH-13,02,Pathum Thani
+Thailand,TH-14,035,Phra Nakhon Si Ayutthaya
+Thailand,TH-15,035,Ang Thong
+Thailand,TH-16,036,Lopburi
+Thailand,TH-17,036,Sing Buri
+Thailand,TH-18,056,Chai Nat
+Thailand,TH-19,036,Saraburi
+Thailand,TH-20,038,Chonburi
+Thailand,TH-21,038,Rayong
+Thailand,TH-22,039,Chanthaburi
+Thailand,TH-23,039,Trat
+Thailand,TH-24,038,Chachoengsao
+Thailand,TH-25,037,Prachinburi
+Thailand,TH-26,037,Nakhon Nayok
+Thailand,TH-27,037,Sa Kaeo
+Thailand,TH-30,044,Nakhon Ratchasima
+Thailand,TH-31,044,Buriram
+Thailand,TH-32,044,Surin
+Thailand,TH-33,045,Sisaket
+Thailand,TH-34,045,Ubon Ratchathani
+Thailand,TH-35,045,Yasothon
+Thailand,TH-36,044,Chaiyaphum
+Thailand,TH-37,045,Amnat Charoen
+Thailand,TH-38,042,Bueng Kan
+Thailand,TH-39,042,Nong Bua Lamphu
+Thailand,TH-40,043,Khon Kaen
+Thailand,TH-41,042,Udon Thani
+Thailand,TH-42,042,Loei
+Thailand,TH-43,042,Nong Khai
+Thailand,TH-44,043,Maha Sarakham
+Thailand,TH-45,043,Roi Et
+Thailand,TH-46,043,Kalasin
+Thailand,TH-47,042,Sakon Nakhon
+Thailand,TH-48,042,Nakhon Phanom
+Thailand,TH-49,042,Mukdahan
+Thailand,TH-50,053,Chiang Mai
+Thailand,TH-51,053,Lamphun
+Thailand,TH-52,054,Lampang
+Thailand,TH-53,055,Uttaradit
+Thailand,TH-54,054,Phrae
+Thailand,TH-55,054,Nan
+Thailand,TH-56,054,Phayao
+Thailand,TH-57,053,Chiang Rai
+Thailand,TH-58,053,Mae Hong Son
+Thailand,TH-60,056,Nakhon Sawan
+Thailand,TH-61,056,Uthai Thani
+Thailand,TH-62,055,Kamphaeng Phet
+Thailand,TH-63,055,Tak
+Thailand,TH-64,055,Sukhothai
+Thailand,TH-65,055,Phitsanulok
+Thailand,TH-66,056,Phichit
+Thailand,TH-67,056,Phetchabun
+Thailand,TH-70,032,Ratchaburi
+Thailand,TH-71,034,Kanchanaburi
+Thailand,TH-72,035,Suphanburi
+Thailand,TH-73,034,Nakhon Pathom
+Thailand,TH-74,034,Samut Sakhon
+Thailand,TH-75,034,Samut Songkhram
+Thailand,TH-76,032,Phetchaburi
+Thailand,TH-77,032,Prachuap Khiri Khan
+Thailand,TH-80,075,Nakhon Si Thammarat
+Thailand,TH-81,075,Krabi
+Thailand,TH-82,076,Phang Nga
+Thailand,TH-83,076,Phuket
+Thailand,TH-84,077,Surat Thani
+Thailand,TH-85,077,Ranong
+Thailand,TH-86,077,Chumphon
+Thailand,TH-90,074,Songkhla
+Thailand,TH-91,074,Satun
+Thailand,TH-92,075,Trang
+Thailand,TH-93,074,Phatthalung
+Thailand,TH-94,073,Pattani
+Thailand,TH-95,073,Yala
+Thailand,TH-96,073,Narathiwat
+Tunisia,TN-12,"70, 71",Ariana
+Tunisia,TN-31,78,Béja
+Tunisia,TN-13,79,Ben Arous
+Tunisia,TN-23,72,Bizerte
+Tunisia,TN-81,75,Gabès
+Tunisia,TN-71,76,Gafsa
+Tunisia,TN-32,78,Jendouba
+Tunisia,TN-41,77,Kairouan
+Tunisia,TN-42,77,Kasserine
+Tunisia,TN-73,75,Kebili
+Tunisia,TN-33,78,Kef
+Tunisia,TN-53,73,Mahdia
+Tunisia,TN-14,"70, 71",Manouba
+Tunisia,TN-82,75,Medenine
+Tunisia,TN-52,73,Monastir
+Tunisia,TN-21,72,Nabeul
+Tunisia,TN-61,74,Sfax
+Tunisia,TN-43,76,Sidi Bouzid
+Tunisia,TN-34,78,Siliana
+Tunisia,TN-51,73,Sousse
+Tunisia,TN-83,75,Tataouine
+Tunisia,TN-72,76,Tozeur
+Tunisia,TN-11,71,Tunis
+Tunisia,TN-22,72,Zaghouan
+Türkiye (Turkey),TR-01,0322,Adana
+Türkiye (Turkey),TR-02,0416,Adıyaman
+Türkiye (Turkey),TR-03,0272,Afyonkarahisar
+Türkiye (Turkey),TR-04,0472,Ağrı
+Türkiye (Turkey),TR-05,0358,Amasya
+Türkiye (Turkey),TR-06,0312,Ankara
+Türkiye (Turkey),TR-07,0242,Antalya
+Türkiye (Turkey),TR-08,0466,Artvin
+Türkiye (Turkey),TR-09,0256,Aydın
+Türkiye (Turkey),TR-10,0266,Balıkesir
+Türkiye (Turkey),TR-11,0228,Bilecik
+Türkiye (Turkey),TR-12,0426,Bingöl
+Türkiye (Turkey),TR-13,0434,Bitlis
+Türkiye (Turkey),TR-14,0374,Bolu
+Türkiye (Turkey),TR-15,0248,Burdur
+Türkiye (Turkey),TR-16,0224,Bursa
+Türkiye (Turkey),TR-17,0286,Çanakkale
+Türkiye (Turkey),TR-18,0376,Çankırı
+Türkiye (Turkey),TR-19,0364,Çorum
+Türkiye (Turkey),TR-20,0258,Denizli
+Türkiye (Turkey),TR-21,0412,Diyarbakır
+Türkiye (Turkey),TR-22,0284,Edirne
+Türkiye (Turkey),TR-23,0424,Elazığ
+Türkiye (Turkey),TR-24,0446,Erzincan
+Türkiye (Turkey),TR-25,0442,Erzurum
+Türkiye (Turkey),TR-26,0222,Eskişehir
+Türkiye (Turkey),TR-27,0342,Gaziantep
+Türkiye (Turkey),TR-28,0454,Giresun
+Türkiye (Turkey),TR-29,0456,Gümüşhane
+Türkiye (Turkey),TR-30,0438,Hakkari
+Türkiye (Turkey),TR-31,0326,Hatay
+Türkiye (Turkey),TR-32,0246,Isparta
+Türkiye (Turkey),TR-33,0324,Mersin
+Türkiye (Turkey),TR-34,"0212, 0216",Istanbul
+Türkiye (Turkey),TR-35,0232,İzmir
+Türkiye (Turkey),TR-36,0474,Kars
+Türkiye (Turkey),TR-37,0366,Kastamonu
+Türkiye (Turkey),TR-38,0352,Kayseri
+Türkiye (Turkey),TR-39,0288,Kırklareli
+Türkiye (Turkey),TR-40,0386,Kırşehir
+Türkiye (Turkey),TR-41,0262,Kocaeli
+Türkiye (Turkey),TR-42,0332,Konya
+Türkiye (Turkey),TR-43,0274,Kütahya
+Türkiye (Turkey),TR-44,0422,Malatya
+Türkiye (Turkey),TR-45,0236,Manisa
+Türkiye (Turkey),TR-46,0344,Kahramanmaraş
+Türkiye (Turkey),TR-47,0482,Mardin
+Türkiye (Turkey),TR-48,0252,Muğla
+Türkiye (Turkey),TR-49,0436,Muş
+Türkiye (Turkey),TR-50,0384,Nevşehir
+Türkiye (Turkey),TR-51,0388,Niğde
+Türkiye (Turkey),TR-52,0452,Ordu
+Türkiye (Turkey),TR-53,0464,Rize
+Türkiye (Turkey),TR-54,0264,Sakarya
+Türkiye (Turkey),TR-55,0362,Samsun
+Türkiye (Turkey),TR-56,0484,Siirt
+Türkiye (Turkey),TR-57,0368,Sinop
+Türkiye (Turkey),TR-58,0346,Sivas
+Türkiye (Turkey),TR-59,0282,Tekirdağ
+Türkiye (Turkey),TR-60,0356,Tokat
+Türkiye (Turkey),TR-61,0462,Trabzon
+Türkiye (Turkey),TR-62,0428,Tunceli
+Türkiye (Turkey),TR-63,0414,Şanlıurfa
+Türkiye (Turkey),TR-64,0276,Uşak
+Türkiye (Turkey),TR-65,0432,Van
+Türkiye (Turkey),TR-66,0354,Yozgat
+Türkiye (Turkey),TR-67,0372,Zonguldak
+Türkiye (Turkey),TR-68,0382,Aksaray
+Türkiye (Turkey),TR-69,0458,Bayburt
+Türkiye (Turkey),TR-70,0338,Karaman
+Türkiye (Turkey),TR-71,0318,Kırıkkale
+Türkiye (Turkey),TR-72,0488,Batman
+Türkiye (Turkey),TR-73,0486,Şırnak
+Türkiye (Turkey),TR-74,0378,Bartın
+Türkiye (Turkey),TR-75,0478,Ardahan
+Türkiye (Turkey),TR-76,0476,Iğdır
+Türkiye (Turkey),TR-77,0226,Yalova
+Türkiye (Turkey),TR-78,0370,Karabük
+Türkiye (Turkey),TR-79,0348,Kilis
+Türkiye (Turkey),TR-80,0328,Osmaniye
+Türkiye (Turkey),TR-81,0380,Düzce
+Uganda,UG-C,041,Central
+Uganda,UG-E,"043, 045",Eastern
+Uganda,UG-N,047,Northern
+Uganda,UG-W,048,Western
+Ukraine,UA-71,0472,Cherkasy
+Ukraine,UA-74,0462,Chernihiv
+Ukraine,UA-77,0372,Chernivtsi
+Ukraine,UA-43,065,Crimea
+Ukraine,UA-12,056,Dnipropetrovsk
+Ukraine,UA-14,062,Donetsk
+Ukraine,UA-26,0342,Ivano-Frankivsk
+Ukraine,UA-63,057,Kharkiv
+Ukraine,UA-65,0552,Kherson
+Ukraine,UA-68,0382,Khmelnytskyi
+Ukraine,UA-35,0522,Kirovohrad
+Ukraine,UA-30,044,Kyiv (city)
+Ukraine,UA-32,045,Kyiv Oblast
+Ukraine,UA-09,064,Luhansk
+Ukraine,UA-46,032,Lviv
+Ukraine,UA-48,0512,Mykolaiv
+Ukraine,UA-51,048,Odesa
+Ukraine,UA-53,0532,Poltava
+Ukraine,UA-56,0362,Rivne
+Ukraine,UA-40,0692,Sevastopol
+Ukraine,UA-59,0542,Sumy
+Ukraine,UA-61,0352,Ternopil
+Ukraine,UA-05,0432,Vinnytsia
+Ukraine,UA-07,0332,Volyn
+Ukraine,UA-21,0312,Zakarpattia
+Ukraine,UA-23,061,Zaporizhzhia
+Ukraine,UA-18,0412,Zhytomyr
+United Arab Emirates,AE-AZ,02,Abu Dhabi
+United Arab Emirates,AE-AJ,06,Ajman
+United Arab Emirates,AE-DU,04,Dubai
+United Arab Emirates,AE-FU,09,Fujairah
+United Arab Emirates,AE-RK,07,Ras al-Khaimah
+United Arab Emirates,AE-SH,06,Sharjah
+United Arab Emirates,AE-UQ,06,Umm al-Quwain
+United Kingdom,GB-ENG,"01, 02 (London 020, Birmingham 0121, Manchester 0161)",England
+United Kingdom,GB-NIR,028,Northern Ireland
+United Kingdom,GB-SCT,"01 (Edinburgh 0131, Glasgow 0141)",Scotland
+United Kingdom,GB-WLS,"01, 029 (Cardiff 029)",Wales
+United States,US-AL,"205, 251, 256, 334, 659, 938",Alabama
+United States,US-AK,907,Alaska
+United States,US-AZ,"480, 520, 602, 623, 928",Arizona
+United States,US-AR,"327, 479, 501, 870",Arkansas
+United States,US-CA,"209, 213, 279, 310, 323, 341, 350, 408, 415, 424, 442, 510, 530, 559, 562, 619, 626, 628, 650, 657, 661, 669, 707, 714, 747, 760, 805, 818, 820, 831, 840, 858, 909, 916, 925, 949, 951",California
+United States,US-CO,"303, 719, 720, 970, 983",Colorado
+United States,US-CT,"203, 475, 860, 959",Connecticut
+United States,US-DE,302,Delaware
+United States,US-DC,"202, 771",District of Columbia
+United States,US-FL,"239, 305, 321, 324, 352, 386, 407, 448, 561, 645, 656, 689, 727, 728, 754, 772, 786, 813, 850, 863, 904, 941, 954",Florida
+United States,US-GA,"229, 404, 470, 478, 678, 706, 762, 770, 912, 943",Georgia
+United States,US-HI,808,Hawaii
+United States,US-ID,"208, 986",Idaho
+United States,US-IL,"217, 224, 309, 312, 331, 447, 464, 618, 630, 708, 730, 773, 779, 815, 847, 861, 872",Illinois
+United States,US-IN,"219, 260, 317, 463, 574, 765, 812, 930",Indiana
+United States,US-IA,"319, 515, 563, 641, 712",Iowa
+United States,US-KS,"316, 620, 785, 913",Kansas
+United States,US-KY,"270, 364, 502, 606, 859",Kentucky
+United States,US-LA,"225, 318, 337, 504, 985",Louisiana
+United States,US-ME,207,Maine
+United States,US-MD,"227, 240, 301, 410, 443, 667",Maryland
+United States,US-MA,"339, 351, 413, 508, 617, 774, 781, 857, 978",Massachusetts
+United States,US-MI,"231, 248, 269, 313, 517, 586, 616, 679, 734, 810, 906, 947, 989",Michigan
+United States,US-MN,"218, 320, 507, 612, 651, 763, 952",Minnesota
+United States,US-MS,"228, 601, 662, 769",Mississippi
+United States,US-MO,"314, 417, 557, 573, 636, 660, 816, 975",Missouri
+United States,US-MT,406,Montana
+United States,US-NE,"308, 402, 531",Nebraska
+United States,US-NV,"702, 725, 775",Nevada
+United States,US-NH,603,New Hampshire
+United States,US-NJ,"201, 551, 609, 640, 732, 848, 856, 862, 908, 973",New Jersey
+United States,US-NM,"505, 575",New Mexico
+United States,US-NY,"212, 315, 329, 332, 347, 363, 516, 518, 585, 607, 624, 631, 646, 680, 716, 718, 838, 845, 914, 917, 929, 934",New York
+United States,US-NC,"252, 336, 472, 704, 743, 828, 910, 919, 980, 984",North Carolina
+United States,US-ND,701,North Dakota
+United States,US-OH,"216, 220, 234, 283, 326, 330, 380, 419, 436, 440, 513, 567, 614, 740, 937",Ohio
+United States,US-OK,"405, 539, 572, 580, 918",Oklahoma
+United States,US-OR,"458, 503, 541, 971",Oregon
+United States,US-PA,"215, 223, 267, 272, 412, 445, 484, 570, 582, 610, 717, 724, 814, 835, 878",Pennsylvania
+United States,US-RI,401,Rhode Island
+United States,US-SC,"803, 821, 839, 843, 854, 864",South Carolina
+United States,US-SD,605,South Dakota
+United States,US-TN,"423, 615, 629, 731, 865, 901, 931",Tennessee
+United States,US-TX,"210, 214, 254, 281, 325, 346, 361, 409, 430, 432, 469, 512, 682, 713, 726, 737, 806, 817, 830, 832, 903, 915, 936, 940, 945, 956, 972, 979",Texas
+United States,US-UT,"385, 435, 801",Utah
+United States,US-VT,802,Vermont
+United States,US-VA,"276, 434, 540, 571, 686, 703, 757, 804, 826, 948",Virginia
+United States,US-WA,"206, 253, 360, 425, 509, 564",Washington
+United States,US-WV,"304, 681",West Virginia
+United States,US-WI,"262, 274, 353, 414, 534, 608, 715, 920",Wisconsin
+United States,US-WY,307,Wyoming
+U.S. Virgin Islands,US-VI,340,Whole territory
+Uruguay,UY-AR,477,Artigas
+Uruguay,UY-CA,"2, 43x",Canelones
+Uruguay,UY-CL,464,Cerro Largo
+Uruguay,UY-CO,452,Colonia
+Uruguay,UY-DU,436,Durazno
+Uruguay,UY-FS,436,Flores
+Uruguay,UY-FD,435,Florida
+Uruguay,UY-LA,444,Lavalleja
+Uruguay,UY-MA,42,Maldonado
+Uruguay,UY-MO,2,Montevideo
+Uruguay,UY-PA,472,Paysandú
+Uruguay,UY-RN,456,Río Negro
+Uruguay,UY-RV,462,Rivera
+Uruguay,UY-RO,445,Rocha
+Uruguay,UY-SA,473,Salto
+Uruguay,UY-SJ,434,San José
+Uruguay,UY-SO,453,Soriano
+Uruguay,UY-TA,463,Tacuarembó
+Uruguay,UY-TT,445,Treinta y Tres
+Vanuatu,VU-MAP,None,Malampa
+Vanuatu,VU-PAM,None,Penama
+Vanuatu,VU-SAM,None,Sanma
+Vanuatu,VU-SEE,None,Shefa
+Vanuatu,VU-TAE,None,Tafea
+Vanuatu,VU-TOB,None,Torba
+Vietnam,VN-44,"0296, 0297",An Giang
+Vietnam,VN-56,"0222, 0204",Bắc Ninh
+Vietnam,VN-59,"0290, 0291",Cà Mau
+Vietnam,VN-04,0206,Cao Bằng
+Vietnam,VN-CT,"0292, 0293, 0299",Cần Thơ (city)
+Vietnam,VN-DN,"0236, 0235",Đà Nẵng (city)
+Vietnam,VN-33,"0262, 0257",Đắk Lắk
+Vietnam,VN-71,0215,Điện Biên
+Vietnam,VN-39,"0251, 0271",Đồng Nai
+Vietnam,VN-45,"0277, 0273",Đồng Tháp
+Vietnam,VN-30,"0269, 0256",Gia Lai
+Vietnam,VN-HN,024,Hà Nội (city)
+Vietnam,VN-23,0239,Hà Tĩnh
+Vietnam,VN-HP,"0225, 0220",Hải Phòng (city)
+Vietnam,VN-SG,"028, 0274, 0254",Hồ Chí Minh City
+Vietnam,VN-26,0234,Huế (city)
+Vietnam,VN-66,"0221, 0227",Hưng Yên
+Vietnam,VN-34,"0258, 0259",Khánh Hòa
+Vietnam,VN-01,0213,Lai Châu
+Vietnam,VN-35,"0263, 0261, 0252",Lâm Đồng
+Vietnam,VN-09,0205,Lạng Sơn
+Vietnam,VN-02,"0214, 0216",Lào Cai
+Vietnam,VN-22,0238,Nghệ An
+Vietnam,VN-18,"0229, 0226, 0228",Ninh Bình
+Vietnam,VN-68,"0210, 0211, 0218",Phú Thọ
+Vietnam,VN-29,"0255, 0260",Quảng Ngãi
+Vietnam,VN-13,0203,Quảng Ninh
+Vietnam,VN-25,"0233, 0232",Quảng Trị
+Vietnam,VN-05,0212,Sơn La
+Vietnam,VN-37,"0276, 0272",Tây Ninh
+Vietnam,VN-69,"0208, 0209",Thái Nguyên
+Vietnam,VN-21,0237,Thanh Hóa
+Vietnam,VN-07,"0207, 0219",Tuyên Quang
+Vietnam,VN-49,"0270, 0275, 0294",Vĩnh Long
