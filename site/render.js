@@ -250,29 +250,44 @@
   function plate(spec) {
     const s = parse(spec);
     if (!Object.keys(s).length) return '';
-    const short = s.size === 'short';
-    const PW = short ? 124 : 224, PH = short ? 62 : 50;
+    const short = s.size === 'short', na = s.size === 'na';
+    const PW = short ? 124 : na ? 150 : 224, PH = short ? 62 : na ? 76 : 50;
+    const BG = {white: '#fafaf7', yellow: '#f7d117', black: '#141414', green: '#1f7a3e', blue: '#1d4fa0', red: '#c62828', maroon: '#7a1f2b', silver: '#d9dcdf', orange: '#f08a24'};
+    const COL = {red: '#c8313e', green: '#4aa657', blue: '#0057b7', yellow: '#ffd700', white: '#ffffff', black: '#111', teal: '#00a3c4', orange: '#f2a800', maroon: '#7a1f2b', navy: '#1e3a8a'};
+    const DARK = {black: 1, green: 1, blue: 1, red: 1, maroon: 1};
+    const FONT = "Arial, 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Thai', 'Noto Sans Bengali', 'Noto Sans Devanagari', 'Noto Sans CJK', sans-serif";
+    const tx = (x, y, t, fs, fill, anchor, w) => `<text x="${x}" y="${y}" text-anchor="${anchor || 'middle'}" font-size="${fs}" font-weight="${w || 700}" font-family="${FONT}" fill="${fill}">${esc(t)}</text>`;
+    const fit = (t, room, max) => Math.max(7, Math.min(max, room / Math.max(1, [...String(t)].length) * 1.75));
     const one = (bgName, y) => {
-      const bg = {white: '#fafaf7', yellow: '#f7d117', black: '#141414'}[bgName] || '#fafaf7';
-      const ink = {black: '#111', red: '#b3171f', blue: '#1f3f9a', white: '#f4f4f4'}[s.ink] || (bgName === 'black' ? '#f4f4f4' : '#111');
+      const bg = BG[bgName] || BG.white;
+      const ink = {black: '#111', red: '#b3171f', blue: '#1f3f9a', white: '#f4f4f4', green: '#1d6b38', yellow: '#f7d117'}[s.ink] || (DARK[bgName] ? '#f4f4f4' : '#111');
       let o = `<rect x="2" y="${y + 2}" width="${PW - 4}" height="${PH - 4}" rx="5" fill="${bg}" stroke="#2b2b2b" stroke-width="2"/>`;
       if (s.border === 'red') o += `<rect x="5" y="${y + 5}" width="${PW - 10}" height="${PH - 10}" rx="3" fill="none" stroke="#c8102e" stroke-width="2.4"/>`;
       if (s.border === 'green') o += `<rect x="5" y="${y + 5}" width="${PW - 10}" height="${PH - 10}" rx="3" fill="none" stroke="#2e8b3d" stroke-width="2"/>`;
       if (s.border === 'red-tb') o += r(6, y + 5, PW - 12, 3, '#c8102e') + r(6, y + PH - 8, PW - 12, 3, '#c8102e');
-      let x0 = 10;
+      let x0 = 10, yTop = y + 4;
       const band = s.band;
       const code = esc(s.code || '');
       if (band === 'eu' || band === 'eu-double' || band === 'blue') {
         o += `<path d="M4 ${y + 4} h20 v${PH - 8} h-20 z" fill="#1e40a8"/>`;
         if (band !== 'blue') for (let i = 0; i < 12; i++) { const a = i * Math.PI / 6; o += `<circle cx="${14 + 6 * Math.cos(a)}" cy="${y + 16 + 6 * Math.sin(a)}" r="1.1" fill="#ffd200"/>`; }
-        o += `<text x="14" y="${y + PH - 9}" text-anchor="middle" font-size="${code.length > 2 ? 8 : 10}" font-weight="700" font-family="Arial, sans-serif" fill="#fff">${code}</text>`;
+        o += `<text x="14" y="${y + PH - 9}" text-anchor="middle" font-size="${code.length > 3 ? 6 : code.length > 2 ? 8 : 10}" font-weight="700" font-family="Arial, sans-serif" fill="#fff">${code}</text>`;
         x0 = 28;
       } else if (band === 'flag') {
-        const cols = String(s.flag || 'red-green').split('-').map((c) => ({red: '#c8313e', green: '#4aa657', blue: '#0057b7', yellow: '#ffd700', white: '#fff'}[c] || c));
-        o += r(7, y + 9, 16, 6, cols[0]) + r(7, y + 15, 16, 6, cols[1] || cols[0]);
-        o += `<text x="15" y="${y + PH - 10}" text-anchor="middle" font-size="9" font-weight="700" font-family="Arial, sans-serif" fill="#1e40a8">${code}</text>`;
+        const cols = String(s.flag || 'red-green').split('-').map((c) => COL[c] || c);
+        const n = Math.min(3, cols.length), fh = 12 / n;
+        for (let i = 0; i < n; i++) o += n === 2 ? r(7, y + 9 + i * 6, 16, 6, cols[i]) : r(7, y + 9 + i * fh, 16, fh + 0.2, cols[i]);
+        if (cols.includes('#ffffff')) o += `<rect x="7" y="${y + 9}" width="16" height="12" fill="none" stroke="#999" stroke-width="0.4"/>`;
+        o += `<text x="15" y="${y + PH - 10}" text-anchor="middle" font-size="${code.length > 3 ? 6 : 9}" font-weight="700" font-family="Arial, sans-serif" fill="#1e40a8">${code}</text>`;
+        x0 = 28;
+      } else if (band && COL[band]) {
+        o += `<path d="M4 ${y + 4} h20 v${PH - 8} h-20 z" fill="${COL[band]}"/>`;
+        const cl = code.length, vert = cl > 3;
+        if (vert) o += `<text x="14" y="${y + PH / 2}" text-anchor="middle" dominant-baseline="middle" font-size="7" font-weight="700" font-family="Arial, sans-serif" fill="${band === 'white' || band === 'yellow' ? '#111' : '#fff'}" transform="rotate(-90 14 ${y + PH / 2})">${code}</text>`;
+        else o += `<text x="14" y="${y + PH - 9}" text-anchor="middle" font-size="${cl > 2 ? 8 : 10}" font-weight="700" font-family="Arial, sans-serif" fill="${band === 'white' || band === 'yellow' ? '#111' : '#fff'}">${code}</text>`;
         x0 = 28;
       }
+      if (s.topbar) { const tb = COL[s.topbar] || s.topbar; o += `<path d="M4 ${y + 4} h${PW - 8} v${PH * 0.26} h-${PW - 8} z" fill="${tb}"/>`; yTop = y + 4 + PH * 0.26; }
       let xr = PW - 10;
       if (band === 'eu-double') { o += `<path d="M${PW - 24} ${y + 4} h20 v${PH - 8} h-20 z" fill="#1e40a8"/><text x="${PW - 14}" y="${y + PH - 10}" text-anchor="middle" font-size="9" font-weight="700" font-family="Arial, sans-serif" fill="#fff">${s.code === 'F' ? '75' : ''}</text>`; xr = PW - 28; }
       if (s.rbox === 'yes') {
@@ -282,8 +297,21 @@
         o += `<text x="${PW - 34}" y="${y + 44}" font-size="6" font-family="Arial, sans-serif" fill="${ink}">RUS</text>`;
         xr = PW - 50;
       }
-      const cx = (x0 + xr) / 2;
-      if (short) {
+      const cx = (x0 + xr) / 2, room = xr - x0;
+      if (s.txt || s.top || s.sub) { // sample registration with optional small lines above and below
+        const main = s.txt || 'AB 123';
+        const hasTop = !!s.top && !s.topbar, hasSub = !!s.sub;
+        if (s.topbar && s.top) o += tx(PW / 2, y + 4 + PH * 0.2, s.top, fit(s.top, PW - 16, 10), '#fff');
+        const lines = (hasTop ? 1 : 0) + (hasSub ? 1 : 0);
+        const big = Math.min(fit(main, room, short ? 21 : na ? 24 : 25), (PH - 10 - (s.topbar ? PH * 0.26 : 0)) * (lines ? 0.5 : 0.62));
+        const small = Math.min(fit(s.top || s.sub || '', room, short || na ? 11 : 9), big * 0.62);
+        const area0 = yTop + 2, area1 = y + PH - 4, mid = (area0 + area1) / 2;
+        if (hasTop) o += tx(cx, area0 + small + 1, s.top, small, ink, 'middle', 600);
+        const my = hasTop && hasSub ? mid + big * 0.36 : hasTop ? area1 - (area1 - area0 - small) / 2 + big * 0.3 : hasSub ? area0 + (area1 - area0 - small) / 2 + big * 0.3 : mid + big * 0.36;
+        o += tx(cx, my, main, big, ink);
+        if (hasSub) o += tx(cx, area1 - 2, s.sub, small, ink, 'middle', 600);
+        if (s.crest === 'yes') o += `<path d="M${x0 - 2} ${y + 10} h10 v8 q0 5 -5 7 q-5 -2 -5 -7 z" fill="#c8102e" stroke="#c6a000" stroke-width="0.8"/>`;
+      } else if (short) {
         o += `<text x="${cx}" y="${y + 27}" text-anchor="middle" font-size="19" font-weight="700" font-family="Arial, sans-serif" fill="${ink}">AB</text>`;
         o += `<text x="${cx}" y="${y + 50}" text-anchor="middle" font-size="19" font-weight="700" font-family="Arial, sans-serif" fill="${ink}">1234</text>`;
         if (s.crest === 'yes') o += `<path d="M10 ${y + 10} h12 v9 q0 6 -6 8 q-6 -2 -6 -8 z" fill="#c8102e" stroke="#c6a000" stroke-width="1"/>`;

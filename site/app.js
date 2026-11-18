@@ -24,7 +24,7 @@ const labelName = (n) => LABEL[n] || SHORT(n);
 const BYC = new Map(C.map((c) => [c.code, c]));
 CLUES.init(C);
 
-const SCRIPT_OF = {'Belarus': 'cyr', 'Bulgaria': 'cyr', 'North Macedonia': 'cyr', 'Russia': 'cyr', 'Ukraine': 'cyr', 'Bosnia and Herzegovina': 'mix', 'Montenegro': 'mix', 'Serbia': 'mix', 'Greece': 'greek', 'Cyprus': 'greek'};
+const SCRIPT_OF = {'Belarus': 'cyr', 'Bulgaria': 'cyr', 'North Macedonia': 'cyr', 'Russia': 'cyr', 'Ukraine': 'cyr', 'Bosnia and Herzegovina': 'mix', 'Montenegro': 'mix', 'Serbia': 'mix', 'Greece': 'greek', 'Cyprus': 'greek', 'Singapore': 'latin', 'Christmas Island': 'latin', 'Cocos (Keeling) Islands': 'latin', 'Maldives': 'thaana'};
 // outside Europe: the alphabet of the sample text in the Language Clues tab when there is one, else the main script of the country (a short list in clues_world.js), else Latin
 const SCRIPT_RX = [['cyr', /\p{Script=Cyrillic}/u], ['greek', /\p{Script=Greek}/u], ['arabic', /\p{Script=Arabic}/u], ['cauc', /[\p{Script=Hebrew}\p{Script=Armenian}\p{Script=Georgian}]/u], ['sea', /[\p{Script=Thai}\p{Script=Lao}\p{Script=Khmer}]/u],
   ['cjk', /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u], ['indic', /[\p{Script=Devanagari}\p{Script=Bengali}\p{Script=Tamil}\p{Script=Sinhala}\p{Script=Tibetan}]/u]];
@@ -68,7 +68,8 @@ const LENSES = [
     {id: 'cjk', label: 'Chinese, Japanese or Korean', hue: 0, pat: 1},
     {id: 'indic', label: 'Indic or Tibetan', hue: 0, pat: 2},
     {id: 'sea', label: 'Thai, Lao or Khmer', hue: 1, pat: 2},
-    {id: 'cauc', label: 'Armenian, Georgian or Hebrew', hue: 2, pat: 2}],
+    {id: 'cauc', label: 'Armenian, Georgian or Hebrew', hue: 2, pat: 2},
+    {id: 'thaana', label: 'Thaana (Dhivehi)', hue: 1, pat: 1}],
    cls: scriptCat,
    view: (c) => `<div class="txt-tile">${esc(c.script || '')}<small>${esc(c.lang || '')}</small></div>`,
    cap: (c) => c.note || ''},
@@ -80,13 +81,21 @@ const LENSES = [
     {id: 'compact', label: 'Compact, with crest', hue: 1, pat: 1},
     {id: 'plain', label: 'Plain, no strip', hue: 1, pat: 2},
     {id: 'yellow', label: 'Yellow front and rear', hue: 2, pat: 0},
-    {id: 'rear', label: 'White front, yellow rear', hue: 2, pat: 1}],
+    {id: 'rear', label: 'White front, yellow rear', hue: 2, pat: 1},
+    {id: 'color', label: 'Coloured side strip', hue: 2, pat: 2},
+    {id: 'na', label: 'US-size plate', hue: 0, pat: 1},
+    {id: 'dark', label: 'Black or coloured plate', hue: 1, pat: 1},
+    {id: 'short', label: 'Short two-line plate', hue: 1, pat: 2}],
    cls: (c) => {
      const s = c.pS; if (!c.ps) return null;
      if (s.rear === 'yellow') return 'rear'; if (s.bg === 'yellow') return 'yellow';
      if (s.band === 'eu-double') return 'double'; if (s.band === 'eu') return 'eu';
      if (s.band === 'blue') return 'blue'; if (s.band === 'flag') return 'flag';
-     if (s.size === 'short' || s.crest === 'yes') return 'compact';
+     if (s.band && s.band !== 'none') return 'color';
+     if (s.crest === 'yes' || (s.size === 'short' && !s.txt)) return 'compact';
+     if (s.size === 'na') return 'na';
+     if (s.bg && s.bg !== 'white') return 'dark';
+     if (s.size === 'short') return 'short';
      return 'plain';
    },
    view: (c) => draw('plate', c.ps), cap: (c) => (c.plate || '').replace(/^[^:]+:\s*/, '')},
@@ -112,12 +121,19 @@ const LENSES = [
     {id: 'ladder', label: 'Ladder or waffle concrete', hue: 0, pat: 2},
     {id: 'octo', label: 'Octagonal with strut', hue: 1, pat: 0},
     {id: 'wood', label: 'Plain wood', hue: 2, pat: 0},
-    {id: 'woodStay', label: 'Wood, H-pole or stay wire', hue: 2, pat: 1}],
+    {id: 'woodStay', label: 'Wood, H-pole or stay wire', hue: 2, pat: 1},
+    {id: 'sqholes', label: 'Square concrete with small holes', hue: 0, pat: 0},
+    {id: 'striped', label: 'Concrete with hazard stripes', hue: 1, pat: 1},
+    {id: 'steel', label: 'Steel or Stobie pole', hue: 1, pat: 2},
+    {id: 'concrete', label: 'Plain concrete', hue: 2, pat: 2}],
    cls: (c) => {
      const p = c.pO; if (!c.po) return null;
      if (p.holes === 'full' || p.holes === 'above-base') return 'holey'; if (p.holes === 'slots') return 'slots';
      if (p.holes === 'steps' || p.holes === 'ladder' || p.holes === 'waffle') return 'ladder';
+     if (p.holes === 'square-holes') return 'sqholes'; if (p.stripes) return 'striped';
      if (p.form === 'octagonal') return 'octo';
+     if (p.mat === 'steel' || p.form === 'segments' || p.form === 'stobie') return 'steel';
+     if (p.mat === 'concrete' || p.mat === 'black') return 'concrete';
      return (p.form === 'H' || p.stay === 'yes') ? 'woodStay' : 'wood';
    },
    view: (c) => draw('pole', c.po), cap: (c) => c.pot || c.pos || ''},
@@ -125,10 +141,11 @@ const LENSES = [
     {id: 'white', label: 'White centre, solid white edges', hue: 0, pat: 0},
     {id: 'dashedEdge', label: 'White centre, dashed edges', hue: 0, pat: 1},
     {id: 'yellowCenter', label: 'Yellow centre line', hue: 1, pat: 0},
-    {id: 'yellowEdge', label: 'Dashed yellow edges', hue: 2, pat: 0}],
+    {id: 'yellowEdge', label: 'Dashed yellow edges', hue: 2, pat: 0},
+    {id: 'yellowSolid', label: 'Solid yellow edges', hue: 2, pat: 1}],
    cls: (c) => {
      const r = c.rO; if (!r.center && !r.edge) return null;
-     if ((r.edge || '').indexOf('yellow') === 0) return 'yellowEdge'; if ((r.center || '').indexOf('yellow') === 0) return 'yellowCenter';
+     if (r.edge === 'yellow-solid') return 'yellowSolid'; if ((r.edge || '').indexOf('yellow') === 0) return 'yellowEdge'; if ((r.center || '').indexOf('yellow') === 0) return 'yellowCenter';
      return /dashed/.test(r.edge || '') ? 'dashedEdge' : 'white';
    },
    view: (c) => draw('road', c.ro), cap: (c) => roadDesc(c)},
@@ -164,7 +181,7 @@ function buildChrome() {
   $('#drive').innerHTML = `<button class="dchip" data-d="R" style="--c:var(--s1)" aria-pressed="false" title="Show only right-hand traffic"><i></i>Right <span class="n">${nR}</span></button><button class="dchip" data-d="L" style="--c:var(--s2)" aria-pressed="false" title="Show only left-hand traffic"><i></i>Left <span class="n">${nL}</span></button>`;
   $('#about').innerHTML = `<p><b>How to use</b>: drag the globe, zoom with + / − or Ctrl/⌘ + scroll, click a country to open its Key Card. Hover a drawing in the card for the details.</p>
     <p>Blue countries drive on the right, orange on the left. Grey land is not on the sheet. Zoom in and the regions of each country appear: hover one to see its name, ISO code and phone area codes. Type something you read (a street word, letter, route, region, town, phone area code or .domain) in the search line and the countries it could be light up on the globe. A region gets its outline and a town gets a dot. Press / to jump to the search line.</p>
-    <p>Data: your Geoguessr learning sheet (${C.length} countries, snapshot ${esc(D.snapshot)}) and the Beginner, Amateur and Pro cheatsheets. Script and plate groupings are derived from those sheets. Borders and regions: Natural Earth (public domain), matched to the sheet's region list. Towns: GeoNames (CC BY 4.0). Flags: country-flag-icons (MIT). Flags and clue drawings are simplified.</p>`;
+    <p>Data: your Geoguessr learning sheet (${C.length} countries, snapshot ${esc(D.snapshot)}) and the Beginner, Amateur and Pro cheatsheets. Script and plate groupings are derived from those sheets. Borders: Natural Earth (public domain). Regions: Natural Earth and geoBoundaries (CC BY 4.0), brought up to the current provinces and matched to the sheet's region list. Towns: GeoNames (CC BY 4.0). Flags: country-flag-icons (MIT). Flags and clue drawings are simplified.</p>`;
 }
 function syncChrome() {
   document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.v === S.view)));

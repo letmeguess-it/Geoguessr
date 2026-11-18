@@ -178,13 +178,17 @@ Botswana,BW-CH,None,Chobe
 Botswana,BW-FR,None,Francistown
 Botswana,BW-GA,None,Gaborone
 Botswana,BW-GH,None,Ghanzi
+Botswana,BW-JW,None,Jwaneng
 Botswana,BW-KG,None,Kgalagadi
 Botswana,BW-KL,None,Kgatleng
 Botswana,BW-KW,None,Kweneng
+Botswana,BW-LO,None,Lobatse
 Botswana,BW-NE,None,North East
 Botswana,BW-NW,None,North West
+Botswana,BW-SP,None,Selebi-Phikwe
 Botswana,BW-SE,None,South East
 Botswana,BW-SO,None,Southern
+Botswana,BW-ST,None,Sowa Town
 Brazil,BR-AC,68,Acre
 Brazil,BR-AL,82,Alagoas
 Brazil,BR-AP,96,Amapá
@@ -1027,12 +1031,29 @@ Luxembourg,LU-RM,None,Remich
 Luxembourg,LU-VD,None,Vianden
 Luxembourg,LU-WI,None,Wiltz
 Macau,MO,None,Whole territory
-Madagascar,MG-T,20 22,Antananarivo
-Madagascar,MG-D,20 82,Antsiranana
-Madagascar,MG-F,20 75,Fianarantsoa
-Madagascar,MG-M,20 62,Mahajanga
-Madagascar,MG-A,20 53,Toamasina
-Madagascar,MG-U,20 94,Toliara
+Madagascar,MG-T,20 22,Analamanga
+Madagascar,MG-T,20 22,Bongolava
+Madagascar,MG-T,20 22,Itasy
+Madagascar,MG-T,20 44,Vakinankaratra
+Madagascar,MG-D,20 82,Diana
+Madagascar,MG-D,20 82,Sava
+Madagascar,MG-F,20 75,Amoron'i Mania
+Madagascar,MG-F,20 75,Atsimo-Atsinanana
+Madagascar,MG-F,20 75,Haute Matsiatra
+Madagascar,MG-F,20 75,Ihorombe
+Madagascar,MG-F,20 75,Vatovavy
+Madagascar,MG-F,20 75,Fitovinany
+Madagascar,MG-M,20 62,Betsiboka
+Madagascar,MG-M,20 62,Boeny
+Madagascar,MG-M,20 62,Melaky
+Madagascar,MG-M,20 62,Sofia
+Madagascar,MG-A,20 53,Alaotra-Mangoro
+Madagascar,MG-A,20 53,Analanjirofo
+Madagascar,MG-A,20 53,Atsinanana
+Madagascar,MG-U,20 94,Androy
+Madagascar,MG-U,20 94,Anosy
+Madagascar,MG-U,20 94,Atsimo-Andrefana
+Madagascar,MG-U,20 94,Menabe
 Malaysia,MY-01,07,Johor
 Malaysia,MY-02,04,Kedah
 Malaysia,MY-03,09,Kelantan
@@ -1297,6 +1318,7 @@ Panama,PA-EM,None,Emberá
 Panama,PA-KY,None,Guna Yala
 Panama,PA-6,None,Herrera
 Panama,PA-7,None,Los Santos
+Panama,PA-NT,None,Naso Tjër Di
 Panama,PA-NB,None,Ngäbe-Buglé
 Panama,PA-8,None,Panamá
 Panama,PA-10,None,Panamá Oeste

@@ -6,7 +6,7 @@ This project combines our own work with open data and libraries. Each keeps its 
 | What | Files | Licence |
 |---|---|---|
 | Source code | `site/index.html`, `site/app.js`, `site/search.js`, `site/render.js` | MIT, see `LICENSE` |
-| Route numbering build scripts | `scripts/routes/*` | MIT, see `LICENSE` |
+| Route numbering and border build scripts | `scripts/routes/*`, `scripts/borders/*` | MIT, see `LICENSE` |
 | Clue content: country rows, sign and road-line specs, bollard and pole specs, language notes, hand-written search clues, route numbering rules and schematics | `site/data.js`, `site/clues.js`, `site/clues_world.js`, `site/routes.js`, `data/csv/*.csv` | CC BY 4.0, see `LICENSE-DATA` |
 
 ## Third-party data
@@ -14,7 +14,8 @@ This project combines our own work with open data and libraries. Each keeps its 
 |---|---|---|---|
 | Country borders and region outlines (admin-1) | [Natural Earth](https://www.naturalearthdata.com/) | Public domain | Simplified for the web. No credit required; we give it anyway. |
 | Country outlines on the route maps (admin-0, 10m) | [Natural Earth](https://www.naturalearthdata.com/) | Public domain | Simplified for the web. |
-| World base layer | [world-atlas](https://github.com/topojson/world-atlas) (built from Natural Earth) | ISC | |
+| Current regions where Natural Earth is out of date, and districts used to build newer provinces | [geoBoundaries](https://www.geoboundaries.org/) gbOpen (Runfola et al. 2020) | CC BY 4.0 | **Credit required.** Shown in the About popover. Cut to the Natural Earth country outlines and simplified. |
+| World base layer (countries without coverage) | [Natural Earth](https://www.naturalearthdata.com/) 10m admin-0 | Public domain | |
 | Towns (name, position, population) | [GeoNames](https://www.geonames.org/) via the npm package `all-the-cities` | CC BY 4.0 | **Credit required.** Data from GeoNames, https://www.geonames.org, licensed under CC BY 4.0. |
 | `all-the-cities` package (build step only) | npm | MIT | |
 
