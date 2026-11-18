@@ -2,6 +2,8 @@
 
 An interactive globe for learning GeoGuessr metas. It covers the 143 countries with official GeoGuessr coverage: driving side, number plates, bollards, utility poles, road lines, language clues and regions.
 
+https://letmeguess-it.github.io/Geoguessr/
+
 > Unofficial fan project. Not affiliated with GeoGuessr. Much of the data was drafted with AI from public information and then curated, so double-check anything important.
 
 ## What it does
