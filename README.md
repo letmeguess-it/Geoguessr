@@ -7,7 +7,7 @@ https://letmeguess-it.github.io/Geoguessr/
 > Unofficial fan project. Not affiliated with GeoGuessr. Much of the data was drafted with AI from public information and then curated, so double-check anything important.
 
 ## What it does
-- **Globe:** every covered country, coloured by driving side. Zoom in to see region borders; national borders are drawn thicker than state and province lines.
+- **Globe:** every covered country, coloured by driving side. Open a country and zoom in to see its region borders (states, provinces) and hover them for names and codes; the search line sits in the header.
 - **Key Card:** click a country for plate, language, pole, bollard and road-line drawings, plus street words, route names, letters and regions to look for.
 - **Routes tab (Europe, Asia, Oceania and the Americas):** a simplified map of each European country's main numbered routes, with a legend showing how the numbers work: odd or even, north-south or east-west, numbered clockwise from the capital, or zones.
 - **Decode search:** type what you read on a sign (a street word, route code, region, town, script, domain or calling code) and the countries, regions and towns it could be light up on the globe.
