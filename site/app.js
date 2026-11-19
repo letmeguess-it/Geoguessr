@@ -360,6 +360,7 @@ const GEO = (() => {
 function mountGlobe(host) {
   host.innerHTML = `<div class="globewrap" id="gwrap"><canvas class="globe" id="globecv" role="img" aria-label="Globe. Drag to rotate and click a country to open its Key Card. The Find box in the header gives keyboard access."></canvas>
     <div class="gctl"><button class="ib" id="g-in" aria-label="Zoom in" title="Zoom in">+</button><button class="ib" id="g-out" aria-label="Zoom out" title="Zoom out">−</button><button class="ib" id="g-eu" aria-label="Reset the view to Europe" title="Reset the view">⟲</button></div>
+    <div class="glegend" id="glegend">Select a country &amp; zoom in to learn its states &amp; meta</div>
     <div class="gmsg hide" id="gmsg" role="status" aria-live="polite"></div></div>`;
   const FG = window.FastGlobe;
   const wrap = $('#gwrap'), cv = $('#globecv'), sel3 = d3.select(cv), msgEl = $('#gmsg'), ctx = cv.getContext('2d');
