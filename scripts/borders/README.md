@@ -47,13 +47,14 @@ python3 step3b_clean_names.py         # drops other-names that point to another 
 node step4_topo.mjs work/units.geojson ../../site/geo.js UNIT_TOPO u 2e5 1e-8
 node step4_topo.mjs work/world.geojson ../../site/world.js WORLD_TOPO w 2e5 1e-8
 BUILD=2026-11-19a python3 step5_write_site.py   # regions.js, places.js links, clues_world.js, build stamps, ?v= in index.html
+node make_geo_lite.cjs ../../site     # geo_lite.js (countries only, the file the globe starts from); run after step5 so it carries the stamp
 python3 check_towns.py                # optional: regions named after a town must contain that town (flags need a human look)
 ```
 
 ### Build stamp
 Region numbers in `geo.js` (and town links in `places.js`) point into `regions.js`. Files from two different builds would put one country's regions on another, for example an old `geo.js` still in the browser cache with a new `regions.js` showing Gujarat inside Vietnam. To stop this:
-- `step5_write_site.py` writes one stamp into `geo.js`, `regions.js`, `places.js` and `clues_world.js`, and adds `?v=<stamp>` to the script tags in `index.html`.
-- `loadPlaces()` in `app.js` loads regions and towns with the same `?v=`, and checks that every stamp matches.
+- `step5_write_site.py` writes one stamp into `geo.js`, `regions.js`, `places.js` and `clues_world.js`, and adds `?v=<stamp>` to the script tags in `index.html`. `make_geo_lite.cjs` copies the stamp from `geo.js` into `geo_lite.js`.
+- `app.js` loads `geo.js`, `regions.js` and `places.js` on demand (`GEO.loadFull`, `loadRegionNames`, `loadPlaces`) with the same `?v=`, and checks that every stamp matches.
 - If the stamps differ, it fetches past the cache once. If they still differ, it leaves regions and towns off rather than showing wrong ones.
 - The region tooltip also refuses a region whose country is not the one under the pointer.
 

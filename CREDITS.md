@@ -23,7 +23,6 @@ This project combines our own work with open data and libraries. Each keeps its 
 | Library (files in `site/`) | Licence |
 |---|---|
 | [d3](https://d3js.org/) v7 | ISC |
-| [topojson-client](https://github.com/topojson/topojson-client) | ISC |
 | [country-flag-icons](https://gitlab.com/catamphetamine/country-flag-icons) | MIT |
 
 Keep each library's licence header in its file if you copy it.
