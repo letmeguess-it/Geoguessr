@@ -30,7 +30,7 @@ cd site
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
-It first loads about 2.5 MB (borders without their finest detail, `geo_lite.js`), then fetches the full borders, towns and regions in the background.
+It first loads about 2.3 MB: country outlines only, without their finest detail (`geo_lite.js`). Regions (`geo.js`, `regions.js`) are fetched when a country is opened or the pointer rests on one, and towns (`places.js`) when the search line is used.
 
 ## Known gaps
 - Osh (city), and Tuzi and Zeta in Montenegro, have no outline yet (no open border data). A few new provinces are approximated from older districts, see `scripts/borders/README.md`.

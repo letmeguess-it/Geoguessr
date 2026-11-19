@@ -65,7 +65,7 @@
         off[n] = p;
         Object.assign(this, {N, xyz, lv, off, sk, ek, cap, levelW: t.levels || this.levelW});
         this.TOP = this.levelW.length - 1;
-        this.L[this.TOP] = undefined; // the coarser copies hold exactly the same points as before, only the finest one changes
+        this.L = []; // every level is made again from the new points (a countries-only start file has no lines inside countries at any level)
         done();
       };
       later(step);

@@ -185,7 +185,7 @@ function buildChrome() {
   $('#tabs').innerHTML = VIEWS.map(([id, l]) => `<button class="tab" role="tab" data-v="${id}" aria-selected="false">${l}</button>`).join('');
   $('#drive').innerHTML = `<button class="dchip" data-d="R" style="--c:var(--s1)" aria-pressed="false" title="Show only right-hand traffic"><i></i>Right <span class="n">${nR}</span></button><button class="dchip" data-d="L" style="--c:var(--s2)" aria-pressed="false" title="Show only left-hand traffic"><i></i>Left <span class="n">${nL}</span></button>`;
   $('#about').innerHTML = `<p><b>How to use</b>: drag the globe, zoom with + / − or Ctrl/⌘ + scroll, click a country to open its Key Card. Hover a drawing in the card for the details.</p>
-    <p>Blue countries drive on the right, orange on the left. Grey land is not on the sheet. Zoom in and the regions of each country appear: hover one to see its name, ISO code and phone area codes. Type something you read (a street word, letter, route, region, town, phone area code or .domain) in the search line and the countries it could be light up on the globe. A region gets its outline and a town gets a dot. Press / to jump to the search line.</p>
+    <p>Blue countries drive on the right, orange on the left. Grey land is not on the sheet. Click a country and, once it is big enough on screen, its regions appear: hover one to see its name, ISO code and phone area codes. Type something you read (a street word, letter, route, region, town, phone area code or .domain) in the search line and the countries it could be light up on the globe. A region gets its outline and a town gets a dot. Press / to jump to the search line.</p>
     <p>Data: your Geoguessr learning sheet (${C.length} countries, snapshot ${esc(D.snapshot)}) and the Beginner, Amateur and Pro cheatsheets. Script and plate groupings are derived from those sheets. Borders: Natural Earth (public domain). Regions: Natural Earth and geoBoundaries (CC BY 4.0), brought up to the current provinces and matched to the sheet's region list. Towns: GeoNames (CC BY 4.0). Flags: country-flag-icons (MIT). Flags and clue drawings are simplified.</p>`;
 }
 function syncChrome() {
@@ -197,6 +197,7 @@ function syncChrome() {
 function select(name, opts = {}) {
   if (opts.toggle && name && S.sel === name) name = null; // clicking the open country again closes its card
   S.sel = name;
+  if (name) openCountryData();
   renderCard();
   refresh();
 }
@@ -256,17 +257,27 @@ const flagUri = (c) => 'data:image/svg+xml;utf8,' + encodeURIComponent(c.flag);
 const GEO = (() => {
   const FG = window.FastGlobe;
   const UT = new FG.Topo(window.UNIT_TOPO), WT = new FG.Topo(window.WORLD_TOPO), TOP = UT.TOP;
-  const byCountry = new Map(), byRegion = new Map();
-  UT.objects.u.geometries.forEach((g) => {
-    const {c, r} = g.properties;
-    if (!byCountry.has(c)) byCountry.set(c, []); byCountry.get(c).push(g);
-    if (r >= 0) { if (!byRegion.has(r)) byRegion.set(r, []); byRegion.get(r).push(g); }
-  });
+  // geo_lite.js holds countries only (each one's outline, its region count in properties.n); the regions themselves
+  // (geometries and the lines between them) come with geo.js, fetched when a country is opened, the search is used or the view zooms in close
+  const nat = !!window.UNIT_TOPO.nat;
+  const byCountry = new Map(), regsOf = new Map(), byRegion = new Map(), nRegions = new Map();
+  const addRegions = (geoms) => {
+    geoms.forEach((g) => {
+      const {c, r} = g.properties;
+      if (!regsOf.has(c)) regsOf.set(c, []); regsOf.get(c).push(g);
+      if (r >= 0) { if (!byRegion.has(r)) byRegion.set(r, []); byRegion.get(r).push(g); }
+    });
+    regsOf.forEach((gs, c) => nRegions.set(c, new Set(gs.map((g) => g.properties.r).filter((r) => r >= 0)).size));
+  };
+  UT.objects.u.geometries.forEach((g) => { const c = g.properties.c; if (!byCountry.has(c)) byCountry.set(c, []); byCountry.get(c).push(g); if (nat) nRegions.set(c, g.properties.n || 0); });
+  if (!nat) addRegions(UT.objects.u.geometries);
   const worldGeoms = WT.objects.w.geometries;
-  const cShape = new Map(), rShape = new Map(), wShape = new Map(), rGeo = new Map(), regionLists = new Map();
+  const cShape = new Map(), rShape = new Map(), wShape = new Map(), rGeo = new Map(), regionLists = new Map(), iLines = new Map();
   const memo = (m, k, f) => { if (!m.has(k)) m.set(k, f()); return m.get(k); };
   const countryShape = (n) => memo(cShape, n, () => (byCountry.has(n) ? UT.shape(byCountry.get(n)) : null));
-  const regionShape = (r) => memo(rShape, r, () => (byRegion.has(r) ? UT.shape(byRegion.get(r)) : null));
+  const regionShape = (r) => (byRegion.has(r) ? memo(rShape, r, () => UT.shape(byRegion.get(r))) : null);
+  const NONE = new Int32Array(0);
+  const innerOf = (n) => (regsOf.has(n) ? memo(iLines, n, () => UT.shape(regsOf.get(n)).inner) : NONE); // the lines between a country's regions
   const baseShape = (i) => memo(wShape, i, () => WT.shape([worldGeoms[i]]));
   const smallest = (c) => { let a = 1e9, b = -1e9, e = 1e9, f = -1e9; for (const p of c) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < e) e = p[1]; if (p[1] > f) f = p[1]; } return b - a <= 2 && f - e <= 2; };
   const small = (c) => { let a = 1e9, b = -1e9, e = 1e9, f = -1e9; for (const p of c) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < e) e = p[1]; if (p[1] > f) f = p[1]; } return b - a <= 8 && f - e <= 8; };
@@ -312,6 +323,7 @@ const GEO = (() => {
       if (!t || t.lite || t.build !== build) { fullState = 3; return; }
       UT.upgrade(t).then(() => {
         lite = false; fullState = 2; t.arcs = null; // the decoded copy is all the page needs
+        if (nat) addRegions(t.objects.u.geometries);
         const recap = (sh) => { if (!sh) return; sh.ringCap.forEach((c, i) => c.splice(0, 6, ...UT.capOf(sh.rings[i]))); sh.cap.splice(0, 6, ...UT.capOf(Array.from(sh.border.length ? sh.border : sh.inner))); };
         cShape.forEach(recap); rShape.forEach(recap); rGeo.clear(); regionLists.clear();
         onFull.forEach((f) => f());
@@ -321,9 +333,9 @@ const GEO = (() => {
     document.head.appendChild(el);
   };
   return {
-    UT, WT, TOP, info, countryShape, countryGeoms: (n) => byCountry.get(n) || [], baseGeoms: (i) => [worldGeoms[i]], regionShape, baseShape, regionGeom, loadFull, onFull, isLite: () => lite,
-    levelFor: (rpx) => UT.levelFor(rpx),
-    regionCount: (name) => (byCountry.get(name) || []).filter((g) => g.properties.r >= 0).length,
+    UT, WT, TOP, info, countryShape, countryGeoms: (n) => byCountry.get(n) || [], baseGeoms: (i) => [worldGeoms[i]], regionShape, baseShape, regionGeom, innerOf, loadFull, onFull, isLite: () => lite,
+    levelFor: (rpx) => UT.levelFor(rpx), hasRegions: () => byRegion.size > 0,
+    regionCount: (name) => nRegions.get(name) || 0,
     world: () => worldGeoms.map((g, i) => ({i, n: g.properties.n})),
     warm: (done) => { // build the coarser copies of the points while the page is idle, one per tick
       const todo = []; for (let L = 0; L <= TOP; L++) todo.push(() => UT.lev(L), () => WT.lev(L));
@@ -331,7 +343,8 @@ const GEO = (() => {
       setTimeout(step, 600);
     },
     regionAt: (name, ll) => { // which region of this country holds the point (each ring counted, so holes work)
-      const list = memo(regionLists, name, () => [...new Set((byCountry.get(name) || []).map((g) => g.properties.r).filter((r) => r >= 0))]
+      if (!regsOf.has(name)) return null;
+      const list = memo(regionLists, name, () => [...new Set(regsOf.get(name).map((g) => g.properties.r).filter((r) => r >= 0))]
         .map((r) => { const g = regionGeom(r); return g ? {r, g, bb: d3.geoBounds(g)} : null; }).filter(Boolean));
       for (const q of list) {
         const [[w, so], [e, n]] = q.bb;
@@ -460,10 +473,10 @@ function mountGlobe(host) {
       for (const it of g.list) { const p = new Path2D(); if (FG.shapePath(it[0].T, it[2], F, it[0].sh, p, d3path)) { ctx.fill(p, 'evenodd'); hitSet.push([it[0], p]); } }
     }
     ctx.globalAlpha = 1;
-    // region lines once a country is big enough on screen (faint), then country borders: thicker (1.5) for a country showing its region lines
-    const lined = (d) => d.own && d.nreg > 1 && d.rad * s > REGION_PX;
+    // region lines: only for the open country, once it is big enough on screen (faint); then country borders, thicker (1.5) around a country showing its regions
+    const lined = (d) => d.own && d.n === S.sel && d.nreg > 1 && d.rad * s > REGION_PX && GEO.hasRegions();
     const pr = FG.newPass();
-    strokeWith(COL.surface, 0.55, 0.6, () => { for (const g of groups.values()) for (const [d] of g.list) if (lined(d)) FG.arcLines(UT, VU, F, d.sh.inner, ctx, pr); });
+    strokeWith(COL.surface, 0.55, 0.6, () => { for (const g of groups.values()) for (const [d] of g.list) if (lined(d)) FG.arcLines(UT, VU, F, GEO.innerOf(d.n), ctx, pr); });
     for (const a of [1, 0.5, 0.2]) for (const w of [0.8, 1.5]) {
       const pu = FG.newPass(), pw = FG.newPass();
       strokeWith(COL.surface, w, a, () => { for (const g of groups.values()) if (g.a === a) for (const [d, , V] of g.list) if ((lined(d) ? 1.5 : 0.8) === w) FG.arcLines(d.T, V, F, d.sh.border, ctx, d.own ? pu : pw); });
@@ -593,8 +606,8 @@ function mountGlobe(host) {
     return `<div class="tp">${esc(R.n)}${R.e && R.e !== R.n ? ' (' + esc(R.e) + ')' : ''}${R.i ? ' · ' + esc(R.i) : ''}${R.k ? ' · ☎ ' + esc(R.k) : ''}</div>`;
   };
   const tipOf = (c, q) => `<div class="h"><span class="fl">${c.flag}</span>${esc(c.short)}</div>${q ? regionLine(q) : ''}${S.why && S.why.get(c.n) ? `<div class="tp">${esc(S.why.get(c.n))}</div>` : ''}`;
-  const regionUnder = (ll, d) => { // the region under the pointer, once the country is big enough on screen for regions to be readable
-    if (!window.REGIONS || !(d.nreg > 1) || d.rad * R0 * K <= REGION_PX) return null;
+  const regionUnder = (ll, d) => { // the region under the pointer: only in the open country, once it is big enough on screen for regions to be readable
+    if (d.n !== S.sel || !window.REGIONS || !(d.nreg > 1) || d.rad * R0 * K <= REGION_PX) return null;
     const q = GEO.regionAt(d.n, ll);
     return q ? Object.assign({c: d.c.code}, q) : null;
   };
@@ -611,13 +624,15 @@ function mountGlobe(host) {
     return null;
   }
   const local = (e) => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-  let lastHit = null;
+  let lastHit = null, intent = 0;
   cv.addEventListener('pointermove', (e) => {
     if (dragging || pinch || e.pointerType === 'touch') return;
     const [x, y] = local(e), h = hitAt(x, y); lastHit = h;
     cv.classList.toggle('pt', !!h && h.k !== 'base');
+    if (!h || (h.k !== 'mk' && h.k !== 'set')) { clearTimeout(intent); intent = 0; }
     if (!h) { setHover(null); setRegion(null); hideTip(); return; }
     if (h.k === 'mk' || h.k === 'set') {
+      if (!intent) intent = setTimeout(openCountryData, 500); // resting on a country: fetch the region data now, so it is there when it is opened
       setHover(h.d.c.n);
       const q = h.k === 'set' ? regionUnder(h.ll, h.d) : null; setRegion(q);
       if (e.pointerType === 'mouse') showTip(tipOf(h.d.c, q), e);
@@ -650,7 +665,7 @@ function mountGlobe(host) {
   }
 
   GEO.warm(() => dead); // the finer and coarser copies of the map are made quietly once the page is up
-  const onFull = () => { if (!dead) schedule(); }; GEO.onFull.push(onFull);
+  const onFull = () => { if (!dead) { plFor = undefined; paint(); } }; GEO.onFull.push(onFull); // region shapes for searched regions arrive with geo.js
   // arrival: spin in from the Americas on the first visit
   shiftTarget = wantShift(); shift = {x: shiftTarget.x, y: shiftTarget.y};
   if (!GLOBE_SEEN && !S.sel && !reduceMotion()) { rot = [95, -12, 0]; K = 0.9; render(); fly(-GLOBE_HOME[0], -GLOBE_HOME[1], 1, 1900); }
@@ -801,7 +816,7 @@ function mountSearch() {
     clearTimeout(ft); ft = setTimeout(() => { if (VIEW && VIEW.focusOn) VIEW.focusOn(focus, pl); }, 350);
   }
   function choose(i) { const e = sug[i]; if (!e) return; inp.value = e.type === 'try' ? e.k : CLUES.complete(inp.value, e); closeSug(); apply(); }
-  function setText(t) { inp.value = t; closeSug(); apply(); }
+  function setText(t) { if (t) loadPlaces(); inp.value = t; closeSug(); apply(); }
   searchSet = setText;
   searchReapply = () => { if (inp.value) apply(); else drawSug(); }; // runs once the region and town files have arrived
   inp.addEventListener('input', () => { drawSug(); apply(); });
@@ -824,24 +839,26 @@ function mountSearch() {
   xb.onclick = () => { setText(''); inp.focus(); };
   res.addEventListener('click', (e) => { const b = e.target.closest('[data-n]'); if (b) pick(b.dataset.n); });
 }
-// region outlines and towns arrive after the first paint (about 3 MB), so the page starts as fast as before
+// Region names (regions.js, 1 MB) and towns (places.js, 4 MB) are only fetched when needed: region names when a country is
+// opened (its region hover names them), both as soon as the search line is used (they feed its index). geo.js comes with them.
 // Every map file carries the same build stamp. Region numbers in geo.js point into regions.js and places.js, so files from
 // two different builds (an old one still in the browser cache, say) would put one country's regions on another. If the
 // stamps differ, fetch again past the cache once; if they still differ, leave regions and towns off rather than show wrong ones.
-// They are downloaded at once but only run after the opening spin (or as soon as the search box is used), so the spin stays smooth.
-let placesStarted = false;
-function preloadPlaces() {
-  const want = window.UNIT_TOPO && window.UNIT_TOPO.build;
-  ['regions.js', 'places.js'].forEach((f) => { const l = document.createElement('link'); l.rel = 'preload'; l.as = 'script'; l.href = f + '?v=' + want; document.head.appendChild(l); });
+const BUILD = window.UNIT_TOPO && window.UNIT_TOPO.build;
+const addScript = (src) => new Promise((ok, no) => { const el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = no; document.head.appendChild(el); });
+const loadStamped = (file, fresh) => addScript(file + '?v=' + BUILD).then(() => (fresh() ? null : addScript(file + '?v=' + BUILD + '-' + Date.now())))
+  .then(() => { if (!fresh()) throw new Error(file + ' is from another build'); });
+const extraFresh = () => !window.WORLD_EXTRA || window.WORLD_EXTRA.build === BUILD;
+let regionsP = null, placesStarted = false;
+function loadRegionNames() {
+  return regionsP || (regionsP = loadStamped('regions.js', () => window.REGIONS_BUILD === BUILD && extraFresh())
+    .catch(() => { console.warn('Map files are from different builds; regions and towns are switched off.'); window.REGIONS = undefined; }));
 }
+function openCountryData() { GEO.loadFull(); loadRegionNames(); } // a country was opened: its region lines and names
 function loadPlaces() {
   if (placesStarted) return; placesStarted = true;
-  const want = window.UNIT_TOPO && window.UNIT_TOPO.build;
-  const add = (src) => new Promise((ok, no) => { const el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = no; document.head.appendChild(el); });
-  const fresh = () => window.REGIONS_BUILD === want && window.TOWNS_BUILD === want && (!window.WORLD_EXTRA || window.WORLD_EXTRA.build === want);
-  const load = (v) => Promise.all([add('regions.js?v=' + v), add('places.js?v=' + v)]);
-  load(want).then(() => fresh() ? null : load(want + '-' + Date.now())).then(() => {
-    if (!fresh()) { console.warn('Map files are from different builds; regions and towns are switched off.'); window.REGIONS = undefined; window.TOWNS = undefined; return; }
+  Promise.all([loadRegionNames(), loadStamped('places.js', () => window.TOWNS_BUILD === BUILD).catch(() => { window.TOWNS = undefined; })]).then(() => {
+    if (!window.REGIONS || !window.TOWNS) { window.REGIONS = undefined; window.TOWNS = undefined; return; }
     return CLUES.attachAsync(window.REGIONS, window.TOWNS).then(() => { if (searchReapply) searchReapply(); });
   }).catch(() => {}).then(() => GEO.loadFull());
 }
@@ -984,12 +1001,11 @@ function renderCard() {
 /* ---------- wiring ---------- */
 buildChrome();
 mountSearch();
-setTimeout(preloadPlaces, 300);
 setTimeout(() => { // the route schematics (Key Card, Routes tab) are not needed for the first picture
   const el = document.createElement('script'); el.src = 'routes.js?v=2026-11-19a'; el.onload = () => { if (S.sel) renderCard(); }; document.head.appendChild(el);
 }, 150);
-setTimeout(loadPlaces, 2300);
 $('#sq').addEventListener('focus', loadPlaces);
+$('#sbox').addEventListener('pointerenter', loadPlaces); // a pointer heading for the search line: start fetching its index
 const about = $('#about');
 document.addEventListener('click', (e) => {
   const t = e.target.closest('button');
