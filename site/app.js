@@ -39,7 +39,8 @@ const scriptCat = (c) => {
 function roadDesc(c) {
   const r = c.rO; const parts = [];
   const col = (v) => (String(v).indexOf('yellow') === 0 ? 'yellow' : 'white');
-  if (r.center) parts.push(r.center === 'yellow-double' ? 'double yellow centre line' : `${col(r.center)} ${/dashed/.test(r.center) ? 'dashed ' : ''}centre line`);
+  const CEN = {'yellow-double': 'double yellow centre line', 'yellow-white': 'solid yellow centre line beside white dashes', triple: 'triple centre line (yellow, white dashes, yellow)'};
+  if (r.center) parts.push(CEN[r.center] || `${col(r.center)} ${/dashed/.test(r.center) ? 'dashed ' : ''}centre line`);
   if (r.edge) parts.push(`${/dashed/.test(r.edge) ? 'dashed' : 'solid'} ${col(r.edge)} outer edges`);
   if (r.warn) parts.push({'tri-white': 'white warning triangles with a red border', 'tri-yellow': 'warning triangles on a yellow background', 'diamond-yellow': 'yellow diamond warning signs'}[r.warn] || '');
   if (r.word) parts.push(`street names use '${r.word}'`);
@@ -85,10 +86,11 @@ const LENSES = [
     {id: 'color', label: 'Coloured side strip', hue: 2, pat: 2},
     {id: 'na', label: 'US-size plate', hue: 0, pat: 1},
     {id: 'dark', label: 'Black or coloured plate', hue: 1, pat: 1},
-    {id: 'short', label: 'Short two-line plate', hue: 1, pat: 2}],
+    {id: 'short', label: 'Short two-line plate', hue: 1, pat: 2},
+    {id: 'top', label: 'Coloured band across the top', hue: 2, pat: 0}],
    cls: (c) => {
      const s = c.pS; if (!c.ps) return null;
-     if (s.rear === 'yellow') return 'rear'; if (s.bg === 'yellow') return 'yellow';
+     if (s.rear === 'yellow') return 'rear'; if (s.bg === 'yellow') return 'yellow'; if (s.topbar) return 'top';
      if (s.band === 'eu-double') return 'double'; if (s.band === 'eu') return 'eu';
      if (s.band === 'blue') return 'blue'; if (s.band === 'flag') return 'flag';
      if (s.band && s.band !== 'none') return 'color';
@@ -103,35 +105,37 @@ const LENSES = [
     {id: 'angRed', label: 'Angled top, red reflector', hue: 0, pat: 0},
     {id: 'angWhite', label: 'Angled top, white strip', hue: 0, pat: 1},
     {id: 'angWarm', label: 'Angled top, orange or yellow', hue: 0, pat: 2},
-    {id: 'flatRed', label: 'Flat top, black cap, red', hue: 1, pat: 0},
-    {id: 'thin', label: 'Flat or thin, yellow band or blue', hue: 1, pat: 1},
+    {id: 'flatRed', label: 'Flat top, red reflector', hue: 1, pat: 0},
+    {id: 'thin', label: 'Flat or thin, yellow or blue reflector', hue: 1, pat: 1},
     {id: 'diag', label: 'Black diagonal stripe', hue: 2, pat: 0},
     {id: 'round', label: 'Round post, red band', hue: 2, pat: 1},
+    {id: 'roundOther', label: 'Round post, black or white marks', hue: 2, pat: 0},
     {id: 'black', label: 'Black post', hue: 2, pat: 2}],
    cls: (c) => {
      const b = c.bO; if (!c.bo) return null;
-     if (b.body === 'black') return 'black'; if (b.band === 'black-diag') return 'diag'; if (b.top === 'round') return 'round';
+     if (b.body === 'black') return 'black'; if (b.band === 'black-diag') return 'diag'; if (b.top === 'round') return /^red/.test(b.refl || '') ? 'round' : 'roundOther';
      if (b.top === 'angled') return b.refl === 'white-vert' ? 'angWhite' : (b.refl === 'orange-2' || b.refl === 'yellow-rect') ? 'angWarm' : 'angRed';
-     return (b.refl === 'yellow-band' || b.refl === 'blue-vert') ? 'thin' : 'flatRed';
+     return (b.refl === 'yellow-band' || b.refl === 'blue-vert' || b.refl === 'yellow-rect') ? 'thin' : 'flatRed';
    },
    view: (c) => draw('bollard', c.bo), cap: (c) => c.bot || c.bos || ''},
   {id: 'pole', label: 'Utility poles', cats: [
     {id: 'holey', label: 'Holey concrete', hue: 0, pat: 0},
     {id: 'slots', label: 'Slotted concrete', hue: 0, pat: 1},
     {id: 'ladder', label: 'Ladder or waffle concrete', hue: 0, pat: 2},
-    {id: 'octo', label: 'Octagonal with strut', hue: 1, pat: 0},
+    {id: 'octo', label: 'Octagonal concrete', hue: 1, pat: 0},
     {id: 'wood', label: 'Plain wood', hue: 2, pat: 0},
     {id: 'woodStay', label: 'Wood, H-pole or stay wire', hue: 2, pat: 1},
     {id: 'sqholes', label: 'Square concrete with small holes', hue: 0, pat: 0},
     {id: 'striped', label: 'Concrete with hazard stripes', hue: 1, pat: 1},
     {id: 'steel', label: 'Steel or Stobie pole', hue: 1, pat: 2},
-    {id: 'concrete', label: 'Plain concrete', hue: 2, pat: 2}],
+    {id: 'concrete', label: 'Plain concrete', hue: 2, pat: 2},
+    {id: 'painted', label: 'Painted base (red, black, yellow or white)', hue: 1, pat: 0}],
    cls: (c) => {
      const p = c.pO; if (!c.po) return null;
      if (p.holes === 'full' || p.holes === 'above-base') return 'holey'; if (p.holes === 'slots') return 'slots';
      if (p.holes === 'steps' || p.holes === 'ladder' || p.holes === 'waffle') return 'ladder';
      if (p.holes === 'square-holes') return 'sqholes'; if (p.stripes) return 'striped';
-     if (p.form === 'octagonal') return 'octo';
+     if (p.form === 'octagonal') return 'octo'; if (p.base) return 'painted';
      if (p.mat === 'steel' || p.form === 'segments' || p.form === 'stobie') return 'steel';
      if (p.mat === 'concrete' || p.mat === 'black') return 'concrete';
      return (p.form === 'H' || p.stay === 'yes') ? 'woodStay' : 'wood';
@@ -141,11 +145,12 @@ const LENSES = [
     {id: 'white', label: 'White centre, solid white edges', hue: 0, pat: 0},
     {id: 'dashedEdge', label: 'White centre, dashed edges', hue: 0, pat: 1},
     {id: 'yellowCenter', label: 'Yellow centre line', hue: 1, pat: 0},
+    {id: 'mixedCenter', label: 'Yellow and white centre lines', hue: 1, pat: 1},
     {id: 'yellowEdge', label: 'Dashed yellow edges', hue: 2, pat: 0},
     {id: 'yellowSolid', label: 'Solid yellow edges', hue: 2, pat: 1}],
    cls: (c) => {
      const r = c.rO; if (!r.center && !r.edge) return null;
-     if (r.edge === 'yellow-solid') return 'yellowSolid'; if ((r.edge || '').indexOf('yellow') === 0) return 'yellowEdge'; if ((r.center || '').indexOf('yellow') === 0) return 'yellowCenter';
+     if (r.edge === 'yellow-solid') return 'yellowSolid'; if ((r.edge || '').indexOf('yellow') === 0) return 'yellowEdge'; if (r.center === 'triple' || r.center === 'yellow-white') return 'mixedCenter'; if ((r.center || '').indexOf('yellow') === 0) return 'yellowCenter';
      return /dashed/.test(r.edge || '') ? 'dashedEdge' : 'white';
    },
    view: (c) => draw('road', c.ro), cap: (c) => roadDesc(c)},
@@ -234,9 +239,10 @@ function showTipFor(el, html) { // under (or over) an element
 
 /* ---------- GLOBE ---------- */
 // fixed spots for the small European states (so their dots sit where people expect); every other small country gets its dot from its own shape
-const MICRO = {'Andorra': [1.58, 42.55], 'Monaco': [7.42, 43.74], 'San Marino': [12.46, 43.94], 'Liechtenstein': [9.55, 47.14], 'Malta': [14.4, 35.9], 'Luxembourg': [6.13, 49.81], 'Gibraltar': [-5.35, 36.14], 'Jersey': [-2.13, 49.21], 'Isle of Man': [-4.55, 54.24], 'Åland Islands': [20.0, 60.2], 'Faroe Islands': [-6.9, 62.0]};
+const MICRO = {'Andorra': [1.58, 42.55], 'Monaco': [7.42, 43.74], 'San Marino': [12.46, 43.94], 'Liechtenstein': [9.55, 47.14], 'Malta': [14.4, 35.9], 'Luxembourg': [6.13, 49.81], 'Gibraltar': [-5.35, 36.14], 'Jersey': [-2.13, 49.21], 'Isle of Man': [-4.55, 54.24], 'Åland Islands': [19.94, 60.1], 'Faroe Islands': [-6.78, 62.02]}; // dots sit on land (Mariehamn, Tórshavn) so a click at the dot finds the islands
 const LABEL_AT = {'Russia': [45, 60], 'Croatia': [16.3, 45.3], 'Norway': [9.2, 61.6], 'Türkiye (Turkey)': [34.5, 39.0], 'Greece': [22.2, 39.4], 'Italy': [12.4, 42.7], 'France': [2.4, 46.7], 'United Kingdom': [-2.3, 53.3], 'Sweden': [15.5, 61.5], 'Finland': [26.5, 63.5], 'Kosovo': [20.9, 42.6],
-  'United States': [-98.5, 39.5], 'Canada': [-101, 58], 'Chile': [-71.2, -35.5], 'Indonesia': [113.5, -1.2], 'Japan': [138.5, 36.5], 'Philippines': [122.5, 12.5], 'New Zealand': [172.5, -41.5], 'Malaysia': [102.2, 4.2], 'Denmark': [9.4, 56], 'Antarctica': [60, -78]};
+  'United States': [-98.5, 39.5], 'Canada': [-101, 58], 'Chile': [-71.2, -35.5], 'Indonesia': [113.5, -1.2], 'Japan': [138.5, 36.5], 'Philippines': [121.0, 15.6], 'New Zealand': [172.5, -41.5], 'Malaysia': [102.2, 4.2], 'Denmark': [9.4, 56], 'Antarctica': [60, -78],
+  'Vietnam': [108.0, 14.0], 'Israel': [34.85, 30.9], 'Hong Kong': [114.17, 22.40], 'Macau': [113.55, 22.17]}; // label points that must sit inside the country (Vietnam's biggest-piece centre fell in Laos, Israel's in the West Bank)
 const GLOBE_HOME = [-14, -49]; // the rotation that faces Europe
 const MICRO_AREA = 2e-4; // steradians, about 8,000 km²: smaller countries also get a dot so they can be found and clicked
 const REGION_PX = 40; // a country shows its region lines (and answers region hovers) once its shape is about this many pixels in radius
@@ -271,9 +277,16 @@ const GEO = (() => {
     });
     return (t.cache[L] = {type: 'Topology', transform: t.transform, arcs, objects: t.objects});
   };
+  const solid = (ring) => { // a ring that simplification has squashed flat (two distinct points, no area) makes d3 fill the whole globe from some viewpoints
+    if (!ring || ring.length < 4) return false;
+    const seen = new Set(); for (const p of ring) { seen.add(p[0] + ',' + p[1]); if (seen.size >= 3) break; }
+    if (seen.size < 3) return false;
+    const a = d3.geoArea({type: 'Polygon', coordinates: [ring]});
+    return a > 1e-13 && a < 4 * Math.PI - 1e-13;
+  };
   const wind = (g) => { // rounding can flip a tiny ring inside out; d3 wants exterior rings clockwise, so turn those back
-    if (!g) return g;
-    const polys = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).filter((pl) => pl[0] && pl[0].length >= 4).map((pl) => {
+    if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return g;
+    const polys = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).filter((pl) => solid(pl[0])).map((pl) => [pl[0], ...pl.slice(1).filter(solid).map((h) => (d3.geoArea({type: 'Polygon', coordinates: [h]}) < 2 * Math.PI ? h.slice().reverse() : h))]).map((pl) => {  // holes must run the other way round from the outer ring
       let a = 1e9, b = -1e9, c = 1e9, d = -1e9;
       for (const p of pl[0]) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < c) c = p[1]; if (p[1] > d) d = p[1]; }
       if (b - a > 8 || d - c > 8) return pl;
@@ -302,7 +315,7 @@ const GEO = (() => {
     byCountry.forEach((gl, name) => { const m = merged(gl, L); if (m) countryAt[L].set(name, m); });
     ready[L] = true;
   };
-  const regionCache = new Map(), regionListCache = new Map(), meshCache = new Map(), baseCache = new Map(), regionLevel = new Map(), shapeList = new Map(), outCache = new Map();
+  const regionCache = new Map(), regionListCache = new Map(), meshCache = new Map(), edgeCache = new Map(), innerCache = new Map(), baseCache = new Map(), regionLevel = new Map(), shapeList = new Map(), outCache = new Map();
   const finest = (L) => { while (L < TOP && !ready[L]) L++; return L; }; // the level to use: the wanted one, or the next finer one that is built
   const worldGeoms = WT.objects.w.geometries;
   return {
@@ -311,7 +324,7 @@ const GEO = (() => {
     regionCount: (name) => (byCountry.get(name) || []).filter((g) => g.properties.r >= 0).length,
     world: () => worldGeoms.map((g, i) => ({i, n: g.properties.n})),
     baseGeom: (i, L = TOP) => { // a country of the world layer, at one level
-      const key = i * 8 + L; if (!baseCache.has(key)) { const f = topojson.feature(topoAt(WT, L), worldGeoms[i]); baseCache.set(key, f.geometry); }
+      const key = i * 8 + L; if (!baseCache.has(key)) { let g = null; for (let l = L; l <= TOP && !g; l++) g = wind(topojson.feature(topoAt(WT, l), worldGeoms[i]).geometry); baseCache.set(key, g || topojson.feature(topoAt(WT, TOP), worldGeoms[i]).geometry); } // a speck that vanishes at this level takes the next finer one
       return baseCache.get(key);
     },
     regionGeom: (id) => { // outline of one region (REGIONS index), full detail
@@ -337,9 +350,19 @@ const GEO = (() => {
       if (!outCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a === b); outCache.set(key, m && m.coordinates.length ? m : null); }
       return outCache.get(key);
     },
+    edge: (name, r, L = TOP) => { // the part of one region's edge that is the country's edge (coast or national border), so a zoomed-in view can draw the border region by region
+      const key = name + '|' + r + '|' + L;
+      if (!edgeCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a === b && a.properties.r === r); edgeCache.set(key, m && m.coordinates.length ? m : null); }
+      return edgeCache.get(key);
+    },
+    inner: (name, r, L = TOP) => { // the lines between one region and its neighbours in the same country
+      const key = name + '|' + r + '|' + L;
+      if (!innerCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b && a.properties.r !== b.properties.r && (a.properties.r === r || b.properties.r === r)); innerCache.set(key, m && m.coordinates.length ? m : null); }
+      return innerCache.get(key);
+    },
     mesh: (name, L = TOP) => { // the lines between a country's regions, as one MultiLineString
       const key = name + '|' + L;
-      if (!meshCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b); meshCache.set(key, m && m.coordinates.length ? m : null); }
+      if (!meshCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b && a.properties.r !== b.properties.r); meshCache.set(key, m && m.coordinates.length ? m : null); }
       return meshCache.get(key);
     },
     regionAt: (name, ll) => { // which region of this country holds the point
@@ -385,6 +408,7 @@ function mountGlobe(host) {
   const gGrat = svg.append('path').attr('class', 'g-grat').datum(d3.geoGraticule10());
   const gBase = svg.append('g'), gSet = svg.append('g');
   const regP = svg.append('path').attr('class', 'g-reg');
+  const natP = svg.append('path').attr('class', 'g-nat'); // national borders, drawn over the region lines whenever those show
   const gShade = svg.append('path').attr('class', 'g-shade');
   const hovP = svg.append('path').attr('class', 'hl hov'), selP = svg.append('path').attr('class', 'hl sel'), hovR = svg.append('path').attr('class', 'hl hovr');
   const gPl = svg.append('g'), gMk = svg.append('g'), gLab = svg.append('g'), gPlab = svg.append('g');
@@ -400,7 +424,7 @@ function mountGlobe(host) {
     if (!g) { const ll = MICRO[c.n] || dotAt[c.n]; if (ll) mkD.push({n: c.n, c, ll, geom: false}); return; }
     const i = GEO.info(g), d = {n: c.n, g, own: !!own, c, area: i.area, tot: i.tot, cb: i.cb, cr: i.cr, ll: MICRO[c.n] || LABEL_AT[c.n] || i.ll, rad: Math.sqrt(i.area / Math.PI), nreg: GEO.regionCount(c.n)};
     setD.push(d);
-    if (MICRO[c.n] || i.tot < MICRO_AREA) mkD.push({n: c.n, c, ll: d.ll, geom: true});
+    if (MICRO[c.n] || i.tot < MICRO_AREA) mkD.push({n: c.n, c, ll: d.ll, geom: true, rad: d.rad});
   });
   const byN = new Map(setD.map((d) => [d.n, d]));
   const labD = setD.map((d) => ({c: d.c, ll: d.ll, r: Math.sqrt(d.area), micro: !!MICRO[d.n] || d.tot < MICRO_AREA}));
@@ -435,6 +459,32 @@ function mountGlobe(host) {
     plabP = gPlab.selectAll('text').data([...plD.regions, ...plD.towns], (d) => d.kind + d.id).join('text').attr('class', 'plab').attr('font-size', 11.5);
   }
 
+  // Drop the pieces of a shape that lie wholly on the far side of the globe before d3 clips them. A small island just behind the horizon
+  // can otherwise be read as inside out by the clipper, and its path then fills the whole visible globe (Lithuania seen from Brazil, Greenland, Fiji).
+  const pieceCache = new WeakMap();
+  const front = (g, ctr) => {
+    if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return g;
+    let pc = pieceCache.get(g);
+    if (!pc) {
+      const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+      pc = polys.map((pl) => { const ring = pl[0], cb = d3.geoCentroid({type: 'Polygon', coordinates: [ring]}); let cr = 0; const st = ring.length > 400 ? 2 : 1; for (let i = 0; i < ring.length; i += st) { const d = d3.geoDistance(cb, ring[i]); if (d > cr) cr = d; } return {pl, cb, cr: cr + 0.02, ga: d3.geoArea({type: 'Polygon', coordinates: pl}), ok: isFinite(cb[0]) && isFinite(cb[1])}; });
+      { const cb = d3.geoCentroid(g); pc.all = isFinite(cb[0]) && isFinite(cb[1]) ? {cb, cr: Math.max(...pc.map((q) => d3.geoDistance(cb, q.cb) + q.cr))} : null; }
+      pieceCache.set(g, pc);
+    }
+    if (pc.all && d3.geoDistance(pc.all.cb, ctr) + pc.all.cr < Math.PI / 2 - 0.02) return g; // wholly in front of the horizon
+    const s2 = proj.scale() * proj.scale();
+    const keep = pc.filter((q) => {
+      if (!q.ok) return true;
+      const dc = d3.geoDistance(q.cb, ctr);
+      if (dc - q.cr >= Math.PI / 2) return false; // wholly behind the globe
+      if (dc + q.cr < Math.PI / 2 - 0.02) return true; // wholly in front: clipping cannot go wrong
+      // crosses the horizon: on screen a piece can never be bigger than its true size, so a bigger one is a clipping flood
+      return path.area({type: 'Polygon', coordinates: q.pl}) <= q.ga * s2 * 1.02 + 6;
+    });
+    if (keep.length === pc.length) return g;
+    return keep.length ? {type: 'MultiPolygon', coordinates: keep.map((q) => q.pl)} : null;
+  };
+  const fpath = (g, ctr) => { const h = front(g, ctr); return h ? path(h) || '' : ''; };
   let vr = 1.6; // how far from the middle of the view anything can still be on screen (a quarter turn when zoomed out, much less zoomed in)
   const seen = (d, ctr) => d3.geoDistance(d.cb, ctr) < d.cr + vr; // could any part of it be on screen?
   function render() {
@@ -446,35 +496,37 @@ function mountGlobe(host) {
     gSea.attr('d', sphere); gShade.attr('d', sphere).attr('fill', 'url(#g-shade)');
     gGrat.attr('d', path);
     const L = Math.max(0, GEO.levelFor(R0 * K) - (dragging ? 1 : 0)); // the level of detail the zoom needs (one coarser while dragging)
-    baseP.attr('d', (d) => (seen(d, ctr) ? path(GEO.baseGeom(d.i, L)) || '' : ''));
-    let lines = '';
+    baseP.attr('d', (d) => (seen(d, ctr) ? fpath(GEO.baseGeom(d.i, L), ctr) : ''));
+    let lines = '', nat = '';
     setP.attr('d', (d) => {
-      d._reg = false;
+      d._reg = false; d._lined = false;
       if (!seen(d, ctr)) return '';
-      if (!d.own) return path(d.g) || '';
+      if (!d.own) return fpath(d.g, ctr);
       const rpx = d.rad * R0 * K;
       if (d.nreg > 1 && rpx > 120 && K >= 1.7) { // a big country seen close up: draw it region by region and skip the regions that are off screen
         d._reg = true; let str = '';
         for (const q of GEO.regionShapes(d.n)) {
           if (d3.geoDistance(q.cb, ctr) >= q.cr + vr) continue;
-          const p = path(GEO.regionAtLevel(q.r, L)) || ''; str += p; if (rpx > REGION_PX) lines += p;
+          const p = fpath(GEO.regionAtLevel(q.r, L), ctr); str += p; lines += p; // the fill's own outline doubles as the faint region line (no second projection)
+          const e = GEO.edge(d.n, q.r, L); if (e) nat += path(e) || '';
         }
         return str;
       }
-      return path(GEO.countryGeom(d.n, L) || d.g) || '';
+      return fpath(GEO.countryGeom(d.n, L) || d.g, ctr);
     });
-    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; } });
-    regP.attr('d', lines);
+    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; d._lined = true; } });
+    setP.classed('byreg', (d) => !!d._reg).classed('lined', (d) => !!d._lined); // a whole country showing region lines gets a thicker outline of its own
+    regP.attr('d', lines); natP.attr('d', nat);
     const outlineOf = (d) => (d.own ? GEO.outline(d.n, L) || d.g : d.g);
     const hd = byN.get(S.hover), sd = byN.get(S.sel);
     hovP.attr('d', hd && S.hover !== S.sel && seen(hd, ctr) ? path(outlineOf(hd)) || '' : ''); selP.attr('d', sd && seen(sd, ctr) ? path(outlineOf(sd)) || '' : '');
-    hovR.attr('d', hrg ? path(hrg.g) || '' : '');
+    hovR.attr('d', hrg ? fpath(hrg.g, ctr) : '');
     mkP.each(function (d) {
-      const vis = d3.geoDistance(d.ll, ctr) < 1.5 && (!d.geom || K < 3);
+      const vis = d3.geoDistance(d.ll, ctr) < 1.5 && (!d.geom || K < 3 || d.rad * R0 * K < 7); // keep the dot while the shape itself is too small to click
       const p = vis ? proj(d.ll) : null;
       d3.select(this).style('display', p ? null : 'none').attr('cx', p ? p[0] : 0).attr('cy', p ? p[1] : 0);
     });
-    rgP.attr('d', (d) => path(d.g) || '');
+    rgP.attr('d', (d) => fpath(d.g, ctr));
     twP.each(function (d) { const p = d3.geoDistance(d.ll, ctr) < 1.5 ? proj(d.ll) : null; d3.select(this).style('display', p ? null : 'none').attr('cx', p ? p[0] : 0).attr('cy', p ? p[1] : 0); });
     // names: biggest first, skip anything that would overlap an earlier one
     const boxes = [];
@@ -813,7 +865,7 @@ function routePane(c) {
   const R = (window.ROUTES || {})[c.code];
   const e = esc;
   const eroad = 'Across Europe, green E-road signs follow one grid: even numbers run east-west, odd numbers north-south.';
-  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia and Oceania are done; the Americas and Africa follow.</p>`;
+  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia, Oceania and the Americas are done; Africa follows.</p>`;
   const note = R.n == null ? eroad : R.n; // Europe: E-road grid; elsewhere the entry's own footnote ('' = none)
   if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p>${note ? `<p class="rt-n">${e(note)}</p>` : ''}`;
   const lg = R.g.map(([g, t]) => `<div><span class="rt-sw${g === 'zone' ? ' zone' : ''}"${g === 'zone' ? '' : ` style="background:${ROUTE_COL[g]}"`}></span>${e(t)}</div>`).join('');
