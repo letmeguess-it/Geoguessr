@@ -239,9 +239,10 @@ function showTipFor(el, html) { // under (or over) an element
 
 /* ---------- GLOBE ---------- */
 // fixed spots for the small European states (so their dots sit where people expect); every other small country gets its dot from its own shape
-const MICRO = {'Andorra': [1.58, 42.55], 'Monaco': [7.42, 43.74], 'San Marino': [12.46, 43.94], 'Liechtenstein': [9.55, 47.14], 'Malta': [14.4, 35.9], 'Luxembourg': [6.13, 49.81], 'Gibraltar': [-5.35, 36.14], 'Jersey': [-2.13, 49.21], 'Isle of Man': [-4.55, 54.24], 'Åland Islands': [20.0, 60.2], 'Faroe Islands': [-6.9, 62.0]};
+const MICRO = {'Andorra': [1.58, 42.55], 'Monaco': [7.42, 43.74], 'San Marino': [12.46, 43.94], 'Liechtenstein': [9.55, 47.14], 'Malta': [14.4, 35.9], 'Luxembourg': [6.13, 49.81], 'Gibraltar': [-5.35, 36.14], 'Jersey': [-2.13, 49.21], 'Isle of Man': [-4.55, 54.24], 'Åland Islands': [19.94, 60.1], 'Faroe Islands': [-6.78, 62.02]}; // dots sit on land (Mariehamn, Tórshavn) so a click at the dot finds the islands
 const LABEL_AT = {'Russia': [45, 60], 'Croatia': [16.3, 45.3], 'Norway': [9.2, 61.6], 'Türkiye (Turkey)': [34.5, 39.0], 'Greece': [22.2, 39.4], 'Italy': [12.4, 42.7], 'France': [2.4, 46.7], 'United Kingdom': [-2.3, 53.3], 'Sweden': [15.5, 61.5], 'Finland': [26.5, 63.5], 'Kosovo': [20.9, 42.6],
-  'United States': [-98.5, 39.5], 'Canada': [-101, 58], 'Chile': [-71.2, -35.5], 'Indonesia': [113.5, -1.2], 'Japan': [138.5, 36.5], 'Philippines': [122.5, 12.5], 'New Zealand': [172.5, -41.5], 'Malaysia': [102.2, 4.2], 'Denmark': [9.4, 56], 'Antarctica': [60, -78]};
+  'United States': [-98.5, 39.5], 'Canada': [-101, 58], 'Chile': [-71.2, -35.5], 'Indonesia': [113.5, -1.2], 'Japan': [138.5, 36.5], 'Philippines': [121.0, 15.6], 'New Zealand': [172.5, -41.5], 'Malaysia': [102.2, 4.2], 'Denmark': [9.4, 56], 'Antarctica': [60, -78],
+  'Vietnam': [108.0, 14.0], 'Israel': [34.85, 30.9], 'Hong Kong': [114.17, 22.40], 'Macau': [113.55, 22.17]}; // label points that must sit inside the country (Vietnam's biggest-piece centre fell in Laos, Israel's in the West Bank)
 const GLOBE_HOME = [-14, -49]; // the rotation that faces Europe
 const MICRO_AREA = 2e-4; // steradians, about 8,000 km²: smaller countries also get a dot so they can be found and clicked
 const REGION_PX = 40; // a country shows its region lines (and answers region hovers) once its shape is about this many pixels in radius
@@ -276,9 +277,16 @@ const GEO = (() => {
     });
     return (t.cache[L] = {type: 'Topology', transform: t.transform, arcs, objects: t.objects});
   };
+  const solid = (ring) => { // a ring that simplification has squashed flat (two distinct points, no area) makes d3 fill the whole globe from some viewpoints
+    if (!ring || ring.length < 4) return false;
+    const seen = new Set(); for (const p of ring) { seen.add(p[0] + ',' + p[1]); if (seen.size >= 3) break; }
+    if (seen.size < 3) return false;
+    const a = d3.geoArea({type: 'Polygon', coordinates: [ring]});
+    return a > 1e-13 && a < 4 * Math.PI - 1e-13;
+  };
   const wind = (g) => { // rounding can flip a tiny ring inside out; d3 wants exterior rings clockwise, so turn those back
-    if (!g) return g;
-    const polys = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).filter((pl) => pl[0] && pl[0].length >= 4).map((pl) => {
+    if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return g;
+    const polys = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).filter((pl) => solid(pl[0])).map((pl) => [pl[0], ...pl.slice(1).filter(solid).map((h) => (d3.geoArea({type: 'Polygon', coordinates: [h]}) < 2 * Math.PI ? h.slice().reverse() : h))]).map((pl) => {  // holes must run the other way round from the outer ring
       let a = 1e9, b = -1e9, c = 1e9, d = -1e9;
       for (const p of pl[0]) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < c) c = p[1]; if (p[1] > d) d = p[1]; }
       if (b - a > 8 || d - c > 8) return pl;
@@ -316,7 +324,7 @@ const GEO = (() => {
     regionCount: (name) => (byCountry.get(name) || []).filter((g) => g.properties.r >= 0).length,
     world: () => worldGeoms.map((g, i) => ({i, n: g.properties.n})),
     baseGeom: (i, L = TOP) => { // a country of the world layer, at one level
-      const key = i * 8 + L; if (!baseCache.has(key)) { const f = topojson.feature(topoAt(WT, L), worldGeoms[i]); baseCache.set(key, f.geometry); }
+      const key = i * 8 + L; if (!baseCache.has(key)) { let g = null; for (let l = L; l <= TOP && !g; l++) g = wind(topojson.feature(topoAt(WT, l), worldGeoms[i]).geometry); baseCache.set(key, g || topojson.feature(topoAt(WT, TOP), worldGeoms[i]).geometry); } // a speck that vanishes at this level takes the next finer one
       return baseCache.get(key);
     },
     regionGeom: (id) => { // outline of one region (REGIONS index), full detail
@@ -416,7 +424,7 @@ function mountGlobe(host) {
     if (!g) { const ll = MICRO[c.n] || dotAt[c.n]; if (ll) mkD.push({n: c.n, c, ll, geom: false}); return; }
     const i = GEO.info(g), d = {n: c.n, g, own: !!own, c, area: i.area, tot: i.tot, cb: i.cb, cr: i.cr, ll: MICRO[c.n] || LABEL_AT[c.n] || i.ll, rad: Math.sqrt(i.area / Math.PI), nreg: GEO.regionCount(c.n)};
     setD.push(d);
-    if (MICRO[c.n] || i.tot < MICRO_AREA) mkD.push({n: c.n, c, ll: d.ll, geom: true});
+    if (MICRO[c.n] || i.tot < MICRO_AREA) mkD.push({n: c.n, c, ll: d.ll, geom: true, rad: d.rad});
   });
   const byN = new Map(setD.map((d) => [d.n, d]));
   const labD = setD.map((d) => ({c: d.c, ll: d.ll, r: Math.sqrt(d.area), micro: !!MICRO[d.n] || d.tot < MICRO_AREA}));
@@ -451,6 +459,32 @@ function mountGlobe(host) {
     plabP = gPlab.selectAll('text').data([...plD.regions, ...plD.towns], (d) => d.kind + d.id).join('text').attr('class', 'plab').attr('font-size', 11.5);
   }
 
+  // Drop the pieces of a shape that lie wholly on the far side of the globe before d3 clips them. A small island just behind the horizon
+  // can otherwise be read as inside out by the clipper, and its path then fills the whole visible globe (Lithuania seen from Brazil, Greenland, Fiji).
+  const pieceCache = new WeakMap();
+  const front = (g, ctr) => {
+    if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return g;
+    let pc = pieceCache.get(g);
+    if (!pc) {
+      const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+      pc = polys.map((pl) => { const ring = pl[0], cb = d3.geoCentroid({type: 'Polygon', coordinates: [ring]}); let cr = 0; const st = ring.length > 400 ? 2 : 1; for (let i = 0; i < ring.length; i += st) { const d = d3.geoDistance(cb, ring[i]); if (d > cr) cr = d; } return {pl, cb, cr: cr + 0.02, ga: d3.geoArea({type: 'Polygon', coordinates: pl}), ok: isFinite(cb[0]) && isFinite(cb[1])}; });
+      { const cb = d3.geoCentroid(g); pc.all = isFinite(cb[0]) && isFinite(cb[1]) ? {cb, cr: Math.max(...pc.map((q) => d3.geoDistance(cb, q.cb) + q.cr))} : null; }
+      pieceCache.set(g, pc);
+    }
+    if (pc.all && d3.geoDistance(pc.all.cb, ctr) + pc.all.cr < Math.PI / 2 - 0.02) return g; // wholly in front of the horizon
+    const s2 = proj.scale() * proj.scale();
+    const keep = pc.filter((q) => {
+      if (!q.ok) return true;
+      const dc = d3.geoDistance(q.cb, ctr);
+      if (dc - q.cr >= Math.PI / 2) return false; // wholly behind the globe
+      if (dc + q.cr < Math.PI / 2 - 0.02) return true; // wholly in front: clipping cannot go wrong
+      // crosses the horizon: on screen a piece can never be bigger than its true size, so a bigger one is a clipping flood
+      return path.area({type: 'Polygon', coordinates: q.pl}) <= q.ga * s2 * 1.02 + 6;
+    });
+    if (keep.length === pc.length) return g;
+    return keep.length ? {type: 'MultiPolygon', coordinates: keep.map((q) => q.pl)} : null;
+  };
+  const fpath = (g, ctr) => { const h = front(g, ctr); return h ? path(h) || '' : ''; };
   let vr = 1.6; // how far from the middle of the view anything can still be on screen (a quarter turn when zoomed out, much less zoomed in)
   const seen = (d, ctr) => d3.geoDistance(d.cb, ctr) < d.cr + vr; // could any part of it be on screen?
   function render() {
@@ -462,38 +496,37 @@ function mountGlobe(host) {
     gSea.attr('d', sphere); gShade.attr('d', sphere).attr('fill', 'url(#g-shade)');
     gGrat.attr('d', path);
     const L = Math.max(0, GEO.levelFor(R0 * K) - (dragging ? 1 : 0)); // the level of detail the zoom needs (one coarser while dragging)
-    baseP.attr('d', (d) => (seen(d, ctr) ? path(GEO.baseGeom(d.i, L)) || '' : ''));
+    baseP.attr('d', (d) => (seen(d, ctr) ? fpath(GEO.baseGeom(d.i, L), ctr) : ''));
     let lines = '', nat = '';
     setP.attr('d', (d) => {
-      d._reg = false;
+      d._reg = false; d._lined = false;
       if (!seen(d, ctr)) return '';
-      if (!d.own) return path(d.g) || '';
+      if (!d.own) return fpath(d.g, ctr);
       const rpx = d.rad * R0 * K;
       if (d.nreg > 1 && rpx > 120 && K >= 1.7) { // a big country seen close up: draw it region by region and skip the regions that are off screen
         d._reg = true; let str = '';
         for (const q of GEO.regionShapes(d.n)) {
           if (d3.geoDistance(q.cb, ctr) >= q.cr + vr) continue;
-          str += path(GEO.regionAtLevel(q.r, L)) || '';
+          const p = fpath(GEO.regionAtLevel(q.r, L), ctr); str += p; lines += p; // the fill's own outline doubles as the faint region line (no second projection)
           const e = GEO.edge(d.n, q.r, L); if (e) nat += path(e) || '';
-          const m = GEO.inner(d.n, q.r, L); if (m) lines += path(m) || '';
         }
         return str;
       }
-      return path(GEO.countryGeom(d.n, L) || d.g) || '';
+      return fpath(GEO.countryGeom(d.n, L) || d.g, ctr);
     });
-    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; const o = GEO.outline(d.n, L); if (o) nat += path(o) || ''; } });
-    setP.classed('byreg', (d) => !!d._reg);
+    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; d._lined = true; } });
+    setP.classed('byreg', (d) => !!d._reg).classed('lined', (d) => !!d._lined); // a whole country showing region lines gets a thicker outline of its own
     regP.attr('d', lines); natP.attr('d', nat);
     const outlineOf = (d) => (d.own ? GEO.outline(d.n, L) || d.g : d.g);
     const hd = byN.get(S.hover), sd = byN.get(S.sel);
     hovP.attr('d', hd && S.hover !== S.sel && seen(hd, ctr) ? path(outlineOf(hd)) || '' : ''); selP.attr('d', sd && seen(sd, ctr) ? path(outlineOf(sd)) || '' : '');
-    hovR.attr('d', hrg ? path(hrg.g) || '' : '');
+    hovR.attr('d', hrg ? fpath(hrg.g, ctr) : '');
     mkP.each(function (d) {
-      const vis = d3.geoDistance(d.ll, ctr) < 1.5 && (!d.geom || K < 3);
+      const vis = d3.geoDistance(d.ll, ctr) < 1.5 && (!d.geom || K < 3 || d.rad * R0 * K < 7); // keep the dot while the shape itself is too small to click
       const p = vis ? proj(d.ll) : null;
       d3.select(this).style('display', p ? null : 'none').attr('cx', p ? p[0] : 0).attr('cy', p ? p[1] : 0);
     });
-    rgP.attr('d', (d) => path(d.g) || '');
+    rgP.attr('d', (d) => fpath(d.g, ctr));
     twP.each(function (d) { const p = d3.geoDistance(d.ll, ctr) < 1.5 ? proj(d.ll) : null; d3.select(this).style('display', p ? null : 'none').attr('cx', p ? p[0] : 0).attr('cy', p ? p[1] : 0); });
     // names: biggest first, skip anything that would overlap an earlier one
     const boxes = [];
