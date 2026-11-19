@@ -6,7 +6,7 @@ Builds `site/routes.js`, the data behind the **Routes** tab of the Key Card. For
 |---|---|
 | `route_spec.py` | Europe. Hand-written data: town coordinates, the routes per country (number, colour group, towns in order), legend lines, zones and the summary text |
 | `route_spec_asia.py` | Asia and Oceania, same format. Each entry also has `n`, the footnote under the drawing (the Asian Highway note, or none); text notes are `(text, footnote)` pairs. European entries have no `n`, so the page shows the E-road note |
-| `route_spec_americas.py` | North and South America, same format (16 drawn, 12 text notes). Footnotes: the Pan-American Highway, or the Central American CA numbers. Town positions are GeoNames coordinates; a name used in two countries carries the country code ('Cartago CR'), which the drawing drops from hub labels |
+| `route_spec_americas.py` | North and South America, same format (15 drawn, 12 text notes). Footnotes: the Pan-American Highway, or the Central American CA numbers. Town positions are GeoNames coordinates; a name used in two countries carries the country code ('Cartago CR'), which the drawing drops from hub labels |
 | `build_routes.py` | Clips and simplifies the outline, projects everything to a 340 px wide drawing, places the route labels so they do not overlap, and writes `site/routes.js` |
 | `routes_view.js` | The SVG drawing function. The same code is in `site/app.js` (`routeSvg`); keep the two in step |
 | `preview.js` | Writes every drawing to `preview/<CODE>.svg` so you can check them by eye |
