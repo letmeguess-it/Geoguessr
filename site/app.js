@@ -251,129 +251,93 @@ const flagUri = (c) => 'data:image/svg+xml;utf8,' + encodeURIComponent(c.flag);
 
 /* Geometry. geo.js holds the 2,100 region shapes of the covered countries in ONE topology, so every border is stored once:
    countries are merged from their regions, the lines between regions are the arcs two regions share. world.js is the whole world (50 m) underneath.
-   Every point also says how coarse a view may still skip it (levels 0 to 4), so a zoomed-out globe draws a few thousand points, not a few hundred thousand. */
+   Every point also says how coarse a view may still skip it (levels 0 to 4), so a zoomed-out globe draws a few thousand points, not a few hundred thousand.
+   The drawing itself is in globe.js (canvas): points are unit vectors made once, a frame only multiplies them by the rotation. */
 const GEO = (() => {
-  const decode = (s) => { // compact string (zig-zag integers, 5 bits per character) back to [dx, dy] pairs
-    const out = []; let cur = 0, sh = 0, pend = null;
-    for (let i = 0; i < s.length; i++) {
-      const b = s.charCodeAt(i) - 63; cur |= (b & 31) << sh;
-      if (b >= 32) { sh += 5; continue; }
-      const n = cur & 1 ? -((cur + 1) >> 1) : cur >> 1; cur = 0; sh = 0;
-      if (pend === null) pend = n; else { out.push([pend, n]); pend = null; }
-    }
-    return out;
-  };
-  const unpack = (t) => { t.arcs = t.arcs.map(([s, lv]) => ({d: decode(s), l: lv})); t.cache = []; return t; };
-  const UT = unpack(window.UNIT_TOPO), WT = unpack(window.WORLD_TOPO);
-  const LEVEL_W = UT.levels, TOP = LEVEL_W.length - 1;
-  const levelFor = (rpx) => { const w = 1.5 / (rpx * rpx); for (let L = 0; L < TOP; L++) if (LEVEL_W[L] <= w) return L; return TOP; }; // a point matters once it spans a pixel or so
-  const topoAt = (t, L) => { // the same topology with only the points that level L draws (deltas recomputed)
-    if (t.cache[L]) return t.cache[L];
-    const arcs = t.arcs.map(({d, l}) => {
-      if (L >= TOP) return d;
-      const out = []; let ax = 0, ay = 0, kx = 0, ky = 0;
-      for (let i = 0; i < d.length; i++) { ax += d[i][0]; ay += d[i][1]; if (l.charCodeAt(i) - 48 <= L) { out.push([ax - kx, ay - ky]); kx = ax; ky = ay; } }
-      return out;
-    });
-    return (t.cache[L] = {type: 'Topology', transform: t.transform, arcs, objects: t.objects});
-  };
-  const solid = (ring) => { // a ring that simplification has squashed flat (two distinct points, no area) makes d3 fill the whole globe from some viewpoints
-    if (!ring || ring.length < 4) return false;
-    const seen = new Set(); for (const p of ring) { seen.add(p[0] + ',' + p[1]); if (seen.size >= 3) break; }
-    if (seen.size < 3) return false;
-    const a = d3.geoArea({type: 'Polygon', coordinates: [ring]});
-    return a > 1e-13 && a < 4 * Math.PI - 1e-13;
-  };
-  const wind = (g) => { // rounding can flip a tiny ring inside out; d3 wants exterior rings clockwise, so turn those back
-    if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return g;
-    const polys = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).filter((pl) => solid(pl[0])).map((pl) => [pl[0], ...pl.slice(1).filter(solid).map((h) => (d3.geoArea({type: 'Polygon', coordinates: [h]}) < 2 * Math.PI ? h.slice().reverse() : h))]).map((pl) => {  // holes must run the other way round from the outer ring
-      let a = 1e9, b = -1e9, c = 1e9, d = -1e9;
-      for (const p of pl[0]) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < c) c = p[1]; if (p[1] > d) d = p[1]; }
-      if (b - a > 8 || d - c > 8) return pl;
-      return d3.geoArea({type: 'Polygon', coordinates: pl}) > 2 * Math.PI ? pl.map((r) => r.slice().reverse()) : pl;
-    });
-    return !polys.length ? null : polys.length === 1 ? {type: 'Polygon', coordinates: polys[0]} : {type: 'MultiPolygon', coordinates: polys};
-  };
-  const merged = (gl, L) => { const m = topojson.merge(topoAt(UT, L), gl); return m && m.coordinates && m.coordinates.length ? wind(m) : null; };
+  const FG = window.FastGlobe;
+  const UT = new FG.Topo(window.UNIT_TOPO), WT = new FG.Topo(window.WORLD_TOPO), TOP = UT.TOP;
   const byCountry = new Map(), byRegion = new Map();
   UT.objects.u.geometries.forEach((g) => {
     const {c, r} = g.properties;
     if (!byCountry.has(c)) byCountry.set(c, []); byCountry.get(c).push(g);
     if (r >= 0) { if (!byRegion.has(r)) byRegion.set(r, []); byRegion.get(r).push(g); }
   });
-  const info = (g) => { // size and position of a shape: its biggest piece, and a circle that holds all of it (so the page can skip what is on the far side)
-    const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
-    let best = null, ba = -1, tot = 0;
-    polys.forEach((p) => { const a = d3.geoArea({type: 'Polygon', coordinates: p}); tot += a; if (a > ba) { ba = a; best = p; } });
-    const cb = d3.geoCentroid(g); let cr = 0;
-    polys.forEach((p) => { const ring = p[0], st = ring.length > 300 ? 3 : 1; for (let i = 0; i < ring.length; i += st) { const d = d3.geoDistance(cb, ring[i]); if (d > cr) cr = d; } });
-    return {area: ba, tot, cb, cr: cr + 0.04, ll: d3.geoCentroid({type: 'Polygon', coordinates: best})};
-  };
-  const countryAt = Array.from({length: LEVEL_W.length}, () => new Map()), ready = new Array(LEVEL_W.length).fill(false);
-  const ensure = (L) => { // merge every country at one level (done once, for the level the page opens at, and quietly for the others)
-    if (ready[L]) return;
-    byCountry.forEach((gl, name) => { const m = merged(gl, L); if (m) countryAt[L].set(name, m); });
-    ready[L] = true;
-  };
-  const regionCache = new Map(), regionListCache = new Map(), meshCache = new Map(), edgeCache = new Map(), innerCache = new Map(), baseCache = new Map(), regionLevel = new Map(), shapeList = new Map(), outCache = new Map();
-  const finest = (L) => { while (L < TOP && !ready[L]) L++; return L; }; // the level to use: the wanted one, or the next finer one that is built
   const worldGeoms = WT.objects.w.geometries;
+  const cShape = new Map(), rShape = new Map(), wShape = new Map(), rGeo = new Map(), regionLists = new Map();
+  const memo = (m, k, f) => { if (!m.has(k)) m.set(k, f()); return m.get(k); };
+  const countryShape = (n) => memo(cShape, n, () => (byCountry.has(n) ? UT.shape(byCountry.get(n)) : null));
+  const regionShape = (r) => memo(rShape, r, () => (byRegion.has(r) ? UT.shape(byRegion.get(r)) : null));
+  const baseShape = (i) => memo(wShape, i, () => WT.shape([worldGeoms[i]]));
+  const smallest = (c) => { let a = 1e9, b = -1e9, e = 1e9, f = -1e9; for (const p of c) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < e) e = p[1]; if (p[1] > f) f = p[1]; } return b - a <= 2 && f - e <= 2; };
+  const small = (c) => { let a = 1e9, b = -1e9, e = 1e9, f = -1e9; for (const p of c) { if (p[0] < a) a = p[0]; if (p[0] > b) b = p[0]; if (p[1] < e) e = p[1]; if (p[1] > f) f = p[1]; } return b - a <= 8 && f - e <= 8; };
+  // lon/lat rings, each turned so its inside is the small side (d3's convention); hole: true for a hole of a bigger shape
+  const rings = (T, sh, L) => sh.rings.map((r) => {
+    let c = T.ringCoords(r, L); if (c.length < 4 && L < T.TOP) c = T.ringCoords(r, T.TOP); if (c.length < 4) return null;
+    const a = d3.geoArea({type: 'Polygon', coordinates: [c]});
+    if (a <= 2 * Math.PI) return {c, a, hole: false};
+    return {c: c.slice().reverse(), a: 4 * Math.PI - a, hole: !small(c)};
+  }).filter(Boolean);
+  const D2R = Math.PI / 180, toLL = (cp) => [Math.atan2(cp[1], cp[0]) / D2R, Math.asin(Math.max(-1, Math.min(1, cp[2]))) / D2R];
+  const info = (T, geoms, sh) => { // size and position of a shape: its biggest piece (polygons joined by a shared border), its total area, a circle that holds it
+    const L = Math.min(1, T.TOP), polys = [];
+    geoms.forEach((g) => (g.type === 'Polygon' ? [g.arcs] : g.type === 'MultiPolygon' ? g.arcs : []).forEach((p) => polys.push(p)));
+    const par = polys.map((_, i) => i), find = (i) => (par[i] === i ? i : (par[i] = find(par[i]))), owner = new Map();
+    polys.forEach((p, i) => p.forEach((ring) => ring.forEach((a) => { const k = a < 0 ? ~a : a; if (owner.has(k)) par[find(i)] = find(owner.get(k)); else owner.set(k, i); })));
+    const pieces = new Map(); let tot = 0;
+    polys.forEach((p, i) => {
+      let pl = p.map((r) => { const c = T.ringCoords(r, L); return c.length >= 4 ? c : T.ringCoords(r, T.TOP); }).filter((c) => c.length >= 4);
+      if (!pl.length) return;
+      if (L < T.TOP && small(pl[0]) && smallest(pl[0])) pl = p.map((r) => T.ringCoords(r, T.TOP)).filter((c) => c.length >= 4); // islands and micro-states: every point
+      let a = d3.geoArea({type: 'Polygon', coordinates: pl});
+      if (a > 2 * Math.PI && small(pl[0])) { pl = pl.map((c) => c.slice().reverse()); a = d3.geoArea({type: 'Polygon', coordinates: pl}); } // rounding turned a tiny ring inside out
+      tot += a; const k = find(i); if (!pieces.has(k)) pieces.set(k, {a: 0, polys: []}); const q = pieces.get(k); q.a += a; q.polys.push(pl);
+    });
+    let best = null; pieces.forEach((q) => { if (!best || q.a > best.a) best = q; });
+    return {area: best ? best.a : 0, tot, cb: toLL(sh.cap), cr: sh.cap[3] + 0.04, ll: best ? d3.geoCentroid({type: 'MultiPolygon', coordinates: best.polys}) : toLL(sh.cap)};
+  };
+  const regionGeom = (id) => memo(rGeo, id, () => { // outline of one region at full detail: one polygon per ring, each turned outward
+    const sh = regionShape(id); if (!sh) return null;
+    const rs = rings(UT, sh, TOP); if (!rs.length) return null;
+    return {type: 'MultiPolygon', coordinates: rs.map((r) => [r.c])};
+  });
+  // the page starts from geo_lite.js (every level but the finest); geo.js, with every point, is fetched once the page is up
+  // (or as soon as the view is zoomed in far enough to need it) and decoded in small slices, then swapped in
+  let lite = !!window.UNIT_TOPO.lite, fullState = 0; const onFull = [];
+  const loadFull = () => {
+    if (!lite || fullState) return; fullState = 1;
+    const build = window.UNIT_TOPO.build, el = document.createElement('script');
+    el.src = 'geo.js?v=' + build;
+    el.onload = () => {
+      const t = window.UNIT_TOPO;
+      if (!t || t.lite || t.build !== build) { fullState = 3; return; }
+      UT.upgrade(t).then(() => {
+        lite = false; fullState = 2; t.arcs = null; // the decoded copy is all the page needs
+        const recap = (sh) => { if (!sh) return; sh.ringCap.forEach((c, i) => c.splice(0, 6, ...UT.capOf(sh.rings[i]))); sh.cap.splice(0, 6, ...UT.capOf(Array.from(sh.border.length ? sh.border : sh.inner))); };
+        cShape.forEach(recap); rShape.forEach(recap); rGeo.clear(); regionLists.clear();
+        onFull.forEach((f) => f());
+      }).catch(() => { fullState = 3; });
+    };
+    el.onerror = () => { fullState = 3; };
+    document.head.appendChild(el);
+  };
   return {
-    levelFor, ensure, isReady: (L) => ready[L], TOP, UT, info, wind,
-    countryGeom: (name, L = TOP) => { const l = finest(L); if (l === TOP && !ready[TOP]) ensure(TOP); return countryAt[l].get(name) || null; },
+    UT, WT, TOP, info, countryShape, countryGeoms: (n) => byCountry.get(n) || [], baseGeoms: (i) => [worldGeoms[i]], regionShape, baseShape, regionGeom, loadFull, onFull, isLite: () => lite,
+    levelFor: (rpx) => UT.levelFor(rpx),
     regionCount: (name) => (byCountry.get(name) || []).filter((g) => g.properties.r >= 0).length,
     world: () => worldGeoms.map((g, i) => ({i, n: g.properties.n})),
-    baseGeom: (i, L = TOP) => { // a country of the world layer, at one level
-      const key = i * 8 + L; if (!baseCache.has(key)) { let g = null; for (let l = L; l <= TOP && !g; l++) g = wind(topojson.feature(topoAt(WT, l), worldGeoms[i]).geometry); baseCache.set(key, g || topojson.feature(topoAt(WT, TOP), worldGeoms[i]).geometry); } // a speck that vanishes at this level takes the next finer one
-      return baseCache.get(key);
+    warm: (done) => { // build the coarser copies of the points while the page is idle, one per tick
+      const todo = []; for (let L = 0; L <= TOP; L++) todo.push(() => UT.lev(L), () => WT.lev(L));
+      const step = () => { const f = todo.shift(); if (!f || done()) return; f(); setTimeout(step, 30); };
+      setTimeout(step, 600);
     },
-    regionGeom: (id) => { // outline of one region (REGIONS index), full detail
-      if (!regionCache.has(id)) regionCache.set(id, byRegion.has(id) ? merged(byRegion.get(id), TOP) : null);
-      return regionCache.get(id);
-    },
-    regionShapes: (name) => { // the regions of a country with a circle around each, so a zoomed-in view only draws the ones on screen
-      if (!shapeList.has(name)) {
-        const ids = [...new Set((byCountry.get(name) || []).map((g) => g.properties.r).filter((r) => r >= 0))];
-        shapeList.set(name, ids.map((r) => { const g = GEO.regionGeom(r); if (!g) return null; const i = info(g); return {r, cb: i.cb, cr: i.cr}; }).filter(Boolean));
-      }
-      return shapeList.get(name);
-    },
-    regionAtLevel: (r, L) => { // one region at one level (the next finer one when it has shrunk to nothing)
-      for (let l = L; l <= TOP; l++) {
-        const key = r * 8 + l; if (!regionLevel.has(key)) regionLevel.set(key, byRegion.has(r) ? merged(byRegion.get(r), l) : null);
-        if (regionLevel.get(key)) return regionLevel.get(key);
-      }
-      return null;
-    },
-    outline: (name, L = TOP) => { // just the outer edge of a country (for the hover and selection outlines)
-      const key = name + '|' + L;
-      if (!outCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a === b); outCache.set(key, m && m.coordinates.length ? m : null); }
-      return outCache.get(key);
-    },
-    edge: (name, r, L = TOP) => { // the part of one region's edge that is the country's edge (coast or national border), so a zoomed-in view can draw the border region by region
-      const key = name + '|' + r + '|' + L;
-      if (!edgeCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a === b && a.properties.r === r); edgeCache.set(key, m && m.coordinates.length ? m : null); }
-      return edgeCache.get(key);
-    },
-    inner: (name, r, L = TOP) => { // the lines between one region and its neighbours in the same country
-      const key = name + '|' + r + '|' + L;
-      if (!innerCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b && a.properties.r !== b.properties.r && (a.properties.r === r || b.properties.r === r)); innerCache.set(key, m && m.coordinates.length ? m : null); }
-      return innerCache.get(key);
-    },
-    mesh: (name, L = TOP) => { // the lines between a country's regions, as one MultiLineString
-      const key = name + '|' + L;
-      if (!meshCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b && a.properties.r !== b.properties.r); meshCache.set(key, m && m.coordinates.length ? m : null); }
-      return meshCache.get(key);
-    },
-    regionAt: (name, ll) => { // which region of this country holds the point
-      if (!regionListCache.has(name)) {
-        const ids = [...new Set((byCountry.get(name) || []).map((g) => g.properties.r).filter((r) => r >= 0))];
-        regionListCache.set(name, ids.map((r) => { const g = GEO.regionGeom(r); return g ? {r, g, bb: d3.geoBounds(g)} : null; }).filter(Boolean));
-      }
-      for (const q of regionListCache.get(name)) {
+    regionAt: (name, ll) => { // which region of this country holds the point (each ring counted, so holes work)
+      const list = memo(regionLists, name, () => [...new Set((byCountry.get(name) || []).map((g) => g.properties.r).filter((r) => r >= 0))]
+        .map((r) => { const g = regionGeom(r); return g ? {r, g, bb: d3.geoBounds(g)} : null; }).filter(Boolean));
+      for (const q of list) {
         const [[w, so], [e, n]] = q.bb;
         if (ll[1] < so || ll[1] > n || (w <= e ? ll[0] < w || ll[0] > e : ll[0] < w && ll[0] > e)) continue;
-        if (d3.geoContains(q.g, ll)) return q;
+        let k = 0; for (const pl of q.g.coordinates) if (d3.geoContains({type: 'Polygon', coordinates: pl}, ll)) k++;
+        if (k % 2) return q;
       }
       return null;
     }
@@ -381,48 +345,55 @@ const GEO = (() => {
 })();
 
 function mountGlobe(host) {
-  host.innerHTML = `<div class="globewrap" id="gwrap"><svg class="globe" id="globesvg" role="img" aria-label="Globe. Drag to rotate and click a country to open its Key Card. The Find box in the header gives keyboard access."></svg>
+  host.innerHTML = `<div class="globewrap" id="gwrap"><canvas class="globe" id="globecv" role="img" aria-label="Globe. Drag to rotate and click a country to open its Key Card. The Find box in the header gives keyboard access."></canvas>
     <div class="gctl"><button class="ib" id="g-in" aria-label="Zoom in" title="Zoom in">+</button><button class="ib" id="g-out" aria-label="Zoom out" title="Zoom out">−</button><button class="ib" id="g-eu" aria-label="Reset the view to Europe" title="Reset the view">⟲</button></div>
     <div class="gmsg hide" id="gmsg" role="status" aria-live="polite"></div></div>`;
-  const wrap = $('#gwrap'), svgEl = $('#globesvg'), svg = d3.select(svgEl), msgEl = $('#gmsg');
-  let GW = 800, GH = 700, R0 = 330, shift = {x: 0, y: 0}, shiftTarget = {x: 0, y: 0}, rot = GLOBE_HOME.slice(), K = 1;
-  let dragging = false, raf = 0, lastSel = null, dead = false, msgT = 0, lastW = 0, lastH = 0, hrg = null;
+  const FG = window.FastGlobe;
+  const wrap = $('#gwrap'), cv = $('#globecv'), sel3 = d3.select(cv), msgEl = $('#gmsg'), ctx = cv.getContext('2d');
+  let GW = 800, GH = 700, R0 = 330, DPR = 1, shift = {x: 0, y: 0}, shiftTarget = {x: 0, y: 0}, rot = GLOBE_HOME.slice(), K = 1;
+  let dragging = false, raf = 0, lastSel = null, dead = false, msgT = 0, lastW = 0, lastH = 0, hrg = null, lastWheel = 0, settleT = 0, lastAnim = -1e9;
   const msg = (t, ms = 5000) => { msgEl.textContent = t; msgEl.classList.remove('hide'); clearTimeout(msgT); msgT = setTimeout(() => msgEl.classList.add('hide'), ms); };
 
-  const defs = svg.append('defs');
-  const shade = defs.append('radialGradient').attr('id', 'g-shade').attr('cx', '38%').attr('cy', '32%').attr('r', '78%');
-  shade.append('stop').attr('offset', '0%').attr('stop-color', '#fff').attr('stop-opacity', 0.14);
-  shade.append('stop').attr('offset', '68%').attr('stop-color', '#000').attr('stop-opacity', 0);
-  shade.append('stop').attr('offset', '100%').attr('stop-color', '#000').attr('stop-opacity', 0.2);
+  // colours come from the page's CSS variables (light or dark), read once and again when the system theme changes
+  let COL = {}, FONT = 'sans-serif';
+  const readColors = () => {
+    const cs = getComputedStyle(document.documentElement), v = (n) => cs.getPropertyValue(n).trim();
+    COL = {sea: v('--sea'), line: v('--line'), line2: v('--line-2'), ctx: v('--ctx'), surface: v('--surface'), s1: v('--s1'), s2: v('--s2'), focus: v('--focus'), text: v('--text')};
+    FONT = getComputedStyle(document.body).fontFamily || 'sans-serif';
+  };
+  readColors();
+  const mq = window.matchMedia('(prefers-color-scheme: dark)'), onScheme = () => { readColors(); schedule(); };
+  if (mq.addEventListener) mq.addEventListener('change', onScheme);
 
-  const proj = d3.geoOrthographic().clipAngle(90).precision(0.6);
-  const path = d3.geoPath(proj);
+  const proj = d3.geoOrthographic().clipAngle(90).precision(0); // for single points (dots, labels) and for turning the pointer into lon/lat
+  const d3path = d3.geoPath(proj); // only for rings bigger than a quarter of the globe (none in today's data)
   function layout() {
     GW = Math.max(300, wrap.clientWidth); GH = Math.max(300, wrap.clientHeight); lastW = wrap.clientWidth; lastH = wrap.clientHeight;
     R0 = Math.min(GW, GH) / 2 - 8;
-    svgEl.setAttribute('viewBox', `0 0 ${GW} ${GH}`);
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(GW * DPR); cv.height = Math.round(GH * DPR); cv.style.width = GW + 'px'; cv.style.height = GH + 'px';
   }
   layout();
+  const GRAT = FG.lineSet(d3.geoGraticule10().coordinates, 2);
+  let SHADE = null; // the light and shadow over the globe, drawn once into a small image and stretched over the disc each frame (cheaper than a gradient)
+  const shadeImg = () => {
+    if (SHADE) return SHADE;
+    const n = 1024, c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d');
+    const gr = g.createRadialGradient(0.38 * n, 0.32 * n, 0, 0.38 * n, 0.32 * n, 0.78 * n);
+    gr.addColorStop(0, 'rgba(255,255,255,.14)'); gr.addColorStop(0.68, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,.2)');
+    g.beginPath(); g.arc(n / 2, n / 2, n / 2, 0, 2 * Math.PI); g.fillStyle = gr; g.fill();
+    return (SHADE = c);
+  };
 
-  const gSea = svg.append('path').attr('class', 'g-sea');
-  const gGrat = svg.append('path').attr('class', 'g-grat').datum(d3.geoGraticule10());
-  const gBase = svg.append('g'), gSet = svg.append('g');
-  const regP = svg.append('path').attr('class', 'g-reg');
-  const natP = svg.append('path').attr('class', 'g-nat'); // national borders, drawn over the region lines whenever those show
-  const gShade = svg.append('path').attr('class', 'g-shade');
-  const hovP = svg.append('path').attr('class', 'hl hov'), selP = svg.append('path').attr('class', 'hl sel'), hovR = svg.append('path').attr('class', 'hl hovr');
-  const gPl = svg.append('g'), gMk = svg.append('g'), gLab = svg.append('g'), gPlab = svg.append('g');
-
-  // geometry: the rest of the world underneath (names for hover), the covered countries on top, one dot for each small one
-  GEO.ensure(GEO.TOP); GEO.ensure(GEO.levelFor(R0));
-  const baseF = GEO.world().filter((f) => !BY.has(f.n)).map((f) => { const i = GEO.info(GEO.baseGeom(f.i)); return {i: f.i, n: f.n, c: null, cb: i.cb, cr: i.cr}; });
+  // what is on the globe: the rest of the world underneath (names for hover), the covered countries on top, one dot for each small one
+  const baseF = GEO.world().filter((f) => !BY.has(f.n)).map((f) => ({i: f.i, n: f.n, sh: GEO.baseShape(f.i)}));
   const baseOf = new Map(GEO.world().map((f) => [f.n, f.i]));
   const dotAt = (window.WORLD_EXTRA && window.WORLD_EXTRA.dots) || {};
   const setD = [], mkD = [];
   C.forEach((c) => {
-    const own = GEO.countryGeom(c.n), g = own || (baseOf.has(c.n) ? GEO.baseGeom(baseOf.get(c.n)) : null);
-    if (!g) { const ll = MICRO[c.n] || dotAt[c.n]; if (ll) mkD.push({n: c.n, c, ll, geom: false}); return; }
-    const i = GEO.info(g), d = {n: c.n, g, own: !!own, c, area: i.area, tot: i.tot, cb: i.cb, cr: i.cr, ll: MICRO[c.n] || LABEL_AT[c.n] || i.ll, rad: Math.sqrt(i.area / Math.PI), nreg: GEO.regionCount(c.n)};
+    const own = GEO.countryShape(c.n), T = own ? GEO.UT : GEO.WT, sh = own || (baseOf.has(c.n) ? GEO.baseShape(baseOf.get(c.n)) : null);
+    if (!sh || !sh.rings.length) { const ll = MICRO[c.n] || dotAt[c.n]; if (ll) mkD.push({n: c.n, c, ll, geom: false}); return; }
+    const i = GEO.info(T, own ? GEO.countryGeoms(c.n) : GEO.baseGeoms(baseOf.get(c.n)), sh), d = {n: c.n, sh, T, own: !!own, c, area: i.area, tot: i.tot, cb: i.cb, cr: i.cr, ll: MICRO[c.n] || LABEL_AT[c.n] || i.ll, rad: Math.sqrt(i.area / Math.PI), nreg: GEO.regionCount(c.n)};
     setD.push(d);
     if (MICRO[c.n] || i.tot < MICRO_AREA) mkD.push({n: c.n, c, ll: d.ll, geom: true, rad: d.rad});
   });
@@ -430,143 +401,145 @@ function mountGlobe(host) {
   const labD = setD.map((d) => ({c: d.c, ll: d.ll, r: Math.sqrt(d.area), micro: !!MICRO[d.n] || d.tot < MICRO_AREA}));
   mkD.filter((d) => !d.geom).forEach((d) => labD.push({c: d.c, ll: d.ll, r: 0, micro: true}));
   labD.sort((a, b) => b.r - a.r);
-
-  const side = (d) => (sideOf(d.c) === 'L' ? 'dl' : 'dr');
-  const baseP = gBase.selectAll('path').data(baseF).join('path').attr('class', 'g-base');
-  const setP = gSet.selectAll('path').data(setD).join('path').attr('class', (d) => 'cn ' + side(d)).attr('data-n', (d) => d.n);
-  const mkP = gMk.selectAll('circle').data(mkD).join('circle').attr('class', (d) => 'mk ' + side(d)).attr('r', 4.6).attr('data-n', (d) => d.n);
-  const labP = gLab.selectAll('text').data(labD).join('text').attr('class', 'lab').attr('font-size', 11).style('stroke-width', '3px');
+  const unit = (ll) => { const l = ll[0] * Math.PI / 180, p = ll[1] * Math.PI / 180; return [Math.cos(p) * Math.cos(l), Math.cos(p) * Math.sin(l), Math.sin(p)]; };
+  [...setD, ...baseF].forEach((d) => { d.u = d.sh.cap; });
 
   // searched regions (outline) and towns (dots), drawn above the countries
   const KMAX = 28;
-  let rgP = gPl.selectAll('path'), twP = gPl.selectAll('circle'), plabP = gPlab.selectAll('text'), plD = {regions: [], towns: []}, plFor = null;
+  let plD = {regions: [], towns: []}, plFor = null;
   const popTxt = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1000 ? Math.round(n / 1000) + 'k' : '');
   const tipPlace = (d) => { const i = CLUES.pinfo(d.kind, d.id), c = BYC.get(d.code); return `<div class="h">${c ? `<span class="fl">${c.flag}</span>` : ''}${esc(d.name)}</div><div class="tp">${d.kind === 'region' ? 'Region' : 'Town'} · ${esc(i ? i.sub : '')}${d.pop >= 1000 ? ' · ' + popTxt(d.pop) : ''}${i && i.area ? ' · ☎ ' + esc(i.area) : ''}</div>`; };
   function buildPlaces() {
     plFor = S.hp; const R = window.REGIONS, T = window.TOWNS;
     plD = {regions: [], towns: []};
     if (S.hp && R && T) {
-      plD.regions = S.hp.regions.map((id) => { const r = R[id]; return {kind: 'region', id, name: r.n, code: r.c, ll: [r.x, r.y], g: GEO.regionGeom(id) || {type: 'Point', coordinates: [r.x, r.y]}}; });
+      plD.regions = S.hp.regions.map((id) => { const r = R[id]; return {kind: 'region', id, name: r.n, code: r.c, ll: [r.x, r.y], sh: GEO.regionShape(id)}; });
       plD.towns = S.hp.towns.map((id) => ({kind: 'town', id, name: T.n[id], code: T.cc[T.c[id]], ll: [T.x[id], T.y[id]], pop: T.p[id]}));
     }
-    rgP = gPl.selectAll('path').data(plD.regions, (d) => d.id).join('path').attr('class', 'preg');
-    twP = gPl.selectAll('circle').data(plD.towns, (d) => d.id).join('circle').attr('class', 'ptown').attr('r', (d) => (d.pop >= 100000 ? 5 : 4));
-    const bindPl = (sel) => sel
-      .on('pointermove', (e, d) => { if (e.pointerType === 'mouse' && !dragging) showTip(tipPlace(d), e); })
-      .on('pointerleave', hideTip)
-      .on('click', (e, d) => { const c = BYC.get(d.code); if (c) pick(c.n); });
-    bindPl(rgP); bindPl(twP);
-    plabP = gPlab.selectAll('text').data([...plD.regions, ...plD.towns], (d) => d.kind + d.id).join('text').attr('class', 'plab').attr('font-size', 11.5);
   }
 
-  // Drop the pieces of a shape that lie wholly on the far side of the globe before d3 clips them. A small island just behind the horizon
-  // can otherwise be read as inside out by the clipper, and its path then fills the whole visible globe (Lithuania seen from Brazil, Greenland, Fiji).
-  const pieceCache = new WeakMap();
-  const front = (g, ctr) => {
-    if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return g;
-    let pc = pieceCache.get(g);
-    if (!pc) {
-      const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
-      pc = polys.map((pl) => { const ring = pl[0], cb = d3.geoCentroid({type: 'Polygon', coordinates: [ring]}); let cr = 0; const st = ring.length > 400 ? 2 : 1; for (let i = 0; i < ring.length; i += st) { const d = d3.geoDistance(cb, ring[i]); if (d > cr) cr = d; } return {pl, cb, cr: cr + 0.02, ga: d3.geoArea({type: 'Polygon', coordinates: pl}), ok: isFinite(cb[0]) && isFinite(cb[1])}; });
-      { const cb = d3.geoCentroid(g); pc.all = isFinite(cb[0]) && isFinite(cb[1]) ? {cb, cr: Math.max(...pc.map((q) => d3.geoDistance(cb, q.cb) + q.cr))} : null; }
-      pieceCache.set(g, pc);
-    }
-    if (pc.all && d3.geoDistance(pc.all.cb, ctr) + pc.all.cr < Math.PI / 2 - 0.02) return g; // wholly in front of the horizon
-    const s2 = proj.scale() * proj.scale();
-    const keep = pc.filter((q) => {
-      if (!q.ok) return true;
-      const dc = d3.geoDistance(q.cb, ctr);
-      if (dc - q.cr >= Math.PI / 2) return false; // wholly behind the globe
-      if (dc + q.cr < Math.PI / 2 - 0.02) return true; // wholly in front: clipping cannot go wrong
-      // crosses the horizon: on screen a piece can never be bigger than its true size, so a bigger one is a clipping flood
-      return path.area({type: 'Polygon', coordinates: q.pl}) <= q.ga * s2 * 1.02 + 6;
-    });
-    if (keep.length === pc.length) return g;
-    return keep.length ? {type: 'MultiPolygon', coordinates: keep.map((q) => q.pl)} : null;
-  };
-  const fpath = (g, ctr) => { const h = front(g, ctr); return h ? path(h) || '' : ''; };
-  let vr = 1.6; // how far from the middle of the view anything can still be on screen (a quarter turn when zoomed out, much less zoomed in)
-  const seen = (d, ctr) => d3.geoDistance(d.cb, ctr) < d.cr + vr; // could any part of it be on screen?
+  /* ---------- drawing ---------- */
+  const F = new FG.Frame();
+  const STAT = {ms: [], last: 0};
+  let mkVis = [], hitBase = [], hitSet = [];
+  const strokeWith = (style, w, alpha, draw) => { ctx.beginPath(); draw(); ctx.strokeStyle = style; ctx.lineWidth = w; ctx.globalAlpha = alpha; ctx.stroke(); ctx.globalAlpha = 1; };
   function render() {
     if (dead) return;
-    proj.translate([GW / 2 - shift.x, GH / 2 - shift.y]).rotate(rot).scale(R0 * K);
+    const t0 = performance.now();
+    const s = R0 * K, tx = GW / 2 - shift.x, ty = GH / 2 - shift.y;
+    proj.translate([tx, ty]).rotate(rot).scale(s);
+    F.set(rot, s, tx, ty, GW, GH, 6);
     const ctr = [-rot[0], -rot[1]];
-    { const rp = R0 * K, dmax = Math.hypot(GW / 2 + Math.abs(shift.x), GH / 2 + Math.abs(shift.y)); vr = dmax >= rp ? 1.6 : Math.min(1.6, Math.asin(dmax / rp) + 0.06); }
-    const sphere = path({type: 'Sphere'});
-    gSea.attr('d', sphere); gShade.attr('d', sphere).attr('fill', 'url(#g-shade)');
-    gGrat.attr('d', path);
-    const L = Math.max(0, GEO.levelFor(R0 * K) - (dragging ? 1 : 0)); // the level of detail the zoom needs (one coarser while dragging)
-    baseP.attr('d', (d) => (seen(d, ctr) ? fpath(GEO.baseGeom(d.i, L), ctr) : ''));
-    let lines = '', nat = '';
-    setP.attr('d', (d) => {
-      d._reg = false; d._lined = false;
-      if (!seen(d, ctr)) return '';
-      if (!d.own) return fpath(d.g, ctr);
-      const rpx = d.rad * R0 * K;
-      if (d.nreg > 1 && rpx > 120 && K >= 1.7) { // a big country seen close up: draw it region by region and skip the regions that are off screen
-        d._reg = true; let str = '';
-        for (const q of GEO.regionShapes(d.n)) {
-          if (d3.geoDistance(q.cb, ctr) >= q.cr + vr) continue;
-          const p = fpath(GEO.regionAtLevel(q.r, L), ctr); str += p; lines += p; // the fill's own outline doubles as the faint region line (no second projection)
-          const e = GEO.edge(d.n, q.r, L); if (e) nat += path(e) || '';
-        }
-        return str;
-      }
-      return fpath(GEO.countryGeom(d.n, L) || d.g, ctr);
-    });
-    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; d._lined = true; } });
-    setP.classed('byreg', (d) => !!d._reg).classed('lined', (d) => !!d._lined); // a whole country showing region lines gets a thicker outline of its own
-    regP.attr('d', lines); natP.attr('d', nat);
-    const outlineOf = (d) => (d.own ? GEO.outline(d.n, L) || d.g : d.g);
+    const moving = dragging || pinch || t0 - lastWheel < 180;
+    const fast = moving || t0 - lastAnim < 60; // the globe is moving: one sharp frame follows once it stops
+    const L = Math.max(0, GEO.levelFor(s) - (moving ? 1 : 0)); // the level of detail the zoom needs (one coarser while moving)
+    if (GEO.levelFor(s) >= GEO.TOP && GEO.isLite()) GEO.loadFull(); // zoomed in far: fetch the finest borders now
+    const UT = GEO.UT, WT = GEO.WT, VU = UT.lev(L), VW = WT.lev(L);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, GW, GH);
+    ctx.lineJoin = 'bevel'; ctx.lineCap = 'butt';
+    // sea and graticule
+    ctx.beginPath(); ctx.arc(tx, ty, s, 0, 2 * Math.PI); ctx.fillStyle = COL.sea; ctx.fill(); ctx.strokeStyle = COL.line2; ctx.lineWidth = 1; ctx.stroke();
+    strokeWith(COL.line, 0.5, 0.6, () => FG.drawLineSet(GRAT, F, ctx));
+    // the rest of the world, grey
+    ctx.fillStyle = COL.ctx; hitBase = []; hitSet = [];
+    const baseOn = baseF.filter((d) => FG.capVis(F, d.sh.cap));
+    for (const d of baseOn) { const p = new Path2D(); if (FG.shapePath(WT, VW, F, d.sh, p, d3path)) { ctx.fill(p, 'evenodd'); hitBase.push([d, p]); } }
+    const pb = FG.newPass();
+    strokeWith(COL.surface, 0.5, 1, () => { for (const d of baseOn) FG.arcLines(WT, VW, F, d.sh.border, ctx, pb); });
+    // the covered countries, coloured by driving side; dimmed ones fainter
+    const groups = new Map();
+    for (const d of setD) {
+      if (!FG.capVis(F, d.sh.cap)) continue;
+      const a = d.off ? 0.2 : d.wk ? 0.5 : 1, key = (sideOf(d.c) === 'L' ? 'L' : 'R') + a;
+      if (!groups.has(key)) groups.set(key, {col: sideOf(d.c) === 'L' ? COL.s2 : COL.s1, a, list: []});
+      groups.get(key).list.push([d, null, d.own ? VU : VW]);
+    }
+    for (const g of groups.values()) {
+      ctx.fillStyle = g.col; ctx.globalAlpha = g.a;
+      for (const it of g.list) { const p = new Path2D(); if (FG.shapePath(it[0].T, it[2], F, it[0].sh, p, d3path)) { ctx.fill(p, 'evenodd'); hitSet.push([it[0], p]); } }
+    }
+    ctx.globalAlpha = 1;
+    // region lines once a country is big enough on screen (faint), then country borders: thicker (1.5) for a country showing its region lines
+    const lined = (d) => d.own && d.nreg > 1 && d.rad * s > REGION_PX;
+    const pr = FG.newPass();
+    strokeWith(COL.surface, 0.55, 0.6, () => { for (const g of groups.values()) for (const [d] of g.list) if (lined(d)) FG.arcLines(UT, VU, F, d.sh.inner, ctx, pr); });
+    for (const a of [1, 0.5, 0.2]) for (const w of [0.8, 1.5]) {
+      const pu = FG.newPass(), pw = FG.newPass();
+      strokeWith(COL.surface, w, a, () => { for (const g of groups.values()) if (g.a === a) for (const [d, , V] of g.list) if ((lined(d) ? 1.5 : 0.8) === w) FG.arcLines(d.T, V, F, d.sh.border, ctx, d.own ? pu : pw); });
+    }
+    // shading
+    ctx.drawImage(shadeImg(), tx - s, ty - s, 2 * s, 2 * s);
+    // hover and selection outlines, hovered region
+    ctx.lineJoin = 'round';
+    const outline = (d, w) => { if (d && FG.capVis(F, d.sh.cap)) strokeWith(COL.focus, w, 1, () => FG.arcLines(d.T, d.own ? VU : VW, F, d.sh.border, ctx, 0)); };
     const hd = byN.get(S.hover), sd = byN.get(S.sel);
-    hovP.attr('d', hd && S.hover !== S.sel && seen(hd, ctr) ? path(outlineOf(hd)) || '' : ''); selP.attr('d', sd && seen(sd, ctr) ? path(outlineOf(sd)) || '' : '');
-    hovR.attr('d', hrg ? fpath(hrg.g, ctr) : '');
-    mkP.each(function (d) {
-      const vis = d3.geoDistance(d.ll, ctr) < 1.5 && (!d.geom || K < 3 || d.rad * R0 * K < 7); // keep the dot while the shape itself is too small to click
-      const p = vis ? proj(d.ll) : null;
-      d3.select(this).style('display', p ? null : 'none').attr('cx', p ? p[0] : 0).attr('cy', p ? p[1] : 0);
-    });
-    rgP.attr('d', (d) => fpath(d.g, ctr));
-    twP.each(function (d) { const p = d3.geoDistance(d.ll, ctr) < 1.5 ? proj(d.ll) : null; d3.select(this).style('display', p ? null : 'none').attr('cx', p ? p[0] : 0).attr('cy', p ? p[1] : 0); });
-    // names: biggest first, skip anything that would overlap an earlier one
+    if (hd && S.hover !== S.sel) outline(hd, 1.8);
+    outline(sd, 3);
+    if (hrg) { const sh = GEO.regionShape(hrg.r); if (sh) { const p = new Path2D(); if (FG.shapePath(UT, VU, F, sh, p, d3path)) { ctx.fillStyle = 'rgba(255,255,255,.28)'; ctx.fill(p, 'evenodd'); strokeWith(COL.focus, 1.6, 1, () => FG.arcLines(UT, VU, F, sh.border, ctx, 0)); } } }
+    // searched regions and towns
+    for (const d of plD.regions) {
+      d.p = null;
+      if (d.sh) { const p = new Path2D(); if (FG.shapePath(UT, VU, F, d.sh, p, d3path)) { d.p = p; ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fill(p, 'evenodd'); strokeWith(COL.text, 1.7, 1, () => FG.arcLines(UT, VU, F, d.sh.border, ctx, 0)); } }
+      else if (d3.geoDistance(d.ll, ctr) < 1.5) { const q = proj(d.ll); if (q) { const p = new Path2D(); p.arc(q[0], q[1], 4.5, 0, 2 * Math.PI); d.p = p; ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fill(p); ctx.strokeStyle = COL.text; ctx.lineWidth = 1.7; ctx.stroke(p); } }
+    }
+    for (const d of plD.towns) {
+      d.x = null; const q = d3.geoDistance(d.ll, ctr) < 1.5 ? proj(d.ll) : null; if (!q) continue;
+      d.x = q[0]; d.y = q[1]; d.r = d.pop >= 100000 ? 5 : 4;
+      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 2 * Math.PI); ctx.fillStyle = '#fff'; ctx.fill(); ctx.strokeStyle = COL.text; ctx.lineWidth = 2; ctx.stroke();
+    }
+    // dots for the small countries
+    mkVis = [];
+    for (const d of mkD) {
+      const q = d3.geoDistance(d.ll, ctr) < 1.5 && (!d.geom || K < 3 || d.rad * s < 7) ? proj(d.ll) : null; if (!q) continue; // keep the dot while the shape itself is too small to click
+      d.x = q[0]; d.y = q[1]; mkVis.push(d);
+      ctx.globalAlpha = d.off ? 0.2 : d.wk ? 0.5 : 1;
+      ctx.beginPath(); ctx.arc(d.x, d.y, 4.6, 0, 2 * Math.PI); ctx.fillStyle = sideOf(d.c) === 'L' ? COL.s2 : COL.s1; ctx.fill(); ctx.strokeStyle = COL.surface; ctx.lineWidth = 1.4; ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    // names: searched places first, then countries biggest first; skip anything that would overlap an earlier one
     const boxes = [];
     const fits = (x, y, w) => !boxes.some((b) => Math.abs(b.x - x) < (b.w + w) / 2 + 5 && Math.abs(b.y - y) < 13);
     const named = new Set(); let nl = 0;
-    plD.regions.concat(plD.towns).forEach((d) => { // searched places first, so their names win over country names
-      d.txt = '';
+    const text = (t, x, y, font, sw, a) => { ctx.font = font; ctx.globalAlpha = a; ctx.lineWidth = sw; ctx.strokeText(t, x, y); ctx.fillText(t, x, y); };
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.strokeStyle = COL.surface; ctx.fillStyle = COL.text;
+    plD.regions.concat(plD.towns).forEach((d) => {
       if (nl >= 16 || (d.kind === 'town' && named.has(d.name)) || d3.geoDistance(d.ll, ctr) > 1.2) return; // a town named like its region is labelled once
       const p = proj(d.ll); if (!p) return;
       const w = d.name.length * 6.8, y = d.kind === 'town' ? p[1] - 12 : p[1];
-      if (fits(p[0], y, w)) { d.txt = d.name; d.x = p[0]; d.y = y; boxes.push({x: p[0], y, w}); if (d.kind === 'region') named.add(d.name); nl++; }
+      if (fits(p[0], y, w)) { text(d.name, p[0], y, `700 11.5px ${FONT}`, 3.5, 1); boxes.push({x: p[0], y, w}); if (d.kind === 'region') named.add(d.name); nl++; }
     });
-    plabP.text((d) => d.txt).style('display', (d) => (d.txt ? null : 'none')).attr('x', (d) => d.x).attr('y', (d) => d.y);
     labD.forEach((d) => {
-      d.txt = '';
       if (d3.geoDistance(d.ll, ctr) > 1.15) return;
       const p = proj(d.ll); if (!p) return;
-      const nm = labelName(d.c.n), w = nm.length * 6.1, px = d.r * R0 * K * 1.1;
+      const nm = labelName(d.c.n), w = nm.length * 6.1, px = d.r * s * 1.1;
       if (d.micro ? K < 2.4 : px * 1.45 < w) return;
       const x = d.micro ? p[0] + 9 + w / 2 : p[0];
-      if (fits(x, p[1], w)) { d.txt = nm; d.x = x; d.y = p[1]; boxes.push({x, y: p[1], w}); }
+      if (fits(x, p[1], w)) { text(nm, x, p[1], `600 11px ${FONT}`, 3, d.off ? 0.3 : d.wk ? 0.6 : 0.92); boxes.push({x, y: p[1], w}); }
     });
-    labP.text((d) => d.txt).style('display', (d) => (d.txt ? null : 'none')).attr('x', (d) => d.x).attr('y', (d) => d.y).classed('off', (d) => !!d.off).classed('wk', (d) => !!d.wk);
+    ctx.globalAlpha = 1;
+    STAT.last = performance.now() - t0; STAT.ms.push(STAT.last); if (STAT.ms.length > 400) STAT.ms.shift();
+    if (fast) { clearTimeout(settleT); settleT = setTimeout(schedule, 200); } // one sharp frame once the movement stops (and paths for the pointer)
+    window.__globeReady = true;
   }
-  const schedule = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
+  const schedule = () => { if (!raf && !dead) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
+  let pend = false; // animations (d3 timers already run inside the frame): draw once at the end of this frame's callbacks
+  const now = () => { lastAnim = performance.now(); if (!pend) { pend = true; queueMicrotask(() => { pend = false; if (raf) { cancelAnimationFrame(raf); raf = 0; } render(); }); } };
 
   // movement: drag to rotate, zoom buttons, Ctrl/⌘ + wheel
   function fly(lon, lat, k2, ms) {
-    svg.interrupt();
+    sel3.interrupt();
     const r0 = rot.slice(), tgt = [-lon, -lat, 0];
     const dl = ((((tgt[0] - r0[0] + 540) % 360) + 360) % 360) - 180;
     const ir = d3.interpolate(r0, [r0[0] + dl, tgt[1], 0]), ik = d3.interpolateNumber(K, k2);
-    if (ms <= 0 || reduceMotion()) { rot = ir(1); K = ik(1); render(); return; }
-    svg.transition().duration(ms).ease(d3.easeCubicInOut).tween('globe', () => (t) => { rot = ir(t); K = ik(t); render(); });
+    if (ms <= 0 || reduceMotion()) { rot = ir(1); K = ik(1); schedule(); return; }
+    sel3.transition().duration(ms).ease(d3.easeCubicInOut).tween('globe', () => (t) => { rot = ir(t); K = ik(t); now(); });
   }
   function slide(t, ms) { // makes room for the Key Card (beside it on desktop, above it on phones)
-    svg.interrupt('shift');
-    if (ms <= 0 || reduceMotion()) { shift = {x: t.x, y: t.y}; render(); return; }
+    sel3.interrupt('shift');
+    if (ms <= 0 || reduceMotion()) { shift = {x: t.x, y: t.y}; schedule(); return; }
     const ix = d3.interpolateNumber(shift.x, t.x), iy = d3.interpolateNumber(shift.y, t.y);
-    svg.transition('shift').duration(ms).ease(d3.easeCubicInOut).tween('shift', () => (u) => { shift = {x: ix(u), y: iy(u)}; render(); });
+    sel3.transition('shift').duration(ms).ease(d3.easeCubicInOut).tween('shift', () => (u) => { shift = {x: ix(u), y: iy(u)}; now(); });
   }
   const wantShift = () => {
     if (!S.sel) return {x: 0, y: 0};
@@ -582,70 +555,92 @@ function mountGlobe(host) {
   let d0 = null;
   let pinch = null; // two fingers on the globe: {d: finger distance at the start, k: zoom at the start}
   const fingerGap = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
-  svgEl.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 2) { svg.interrupt(); pinch = {d: fingerGap(e.touches) || 1, k: K}; dragging = true; hideTip(); setRegion(null); }
+  cv.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) { sel3.interrupt(); pinch = {d: fingerGap(e.touches) || 1, k: K}; dragging = true; hideTip(); setRegion(null); }
   }, {passive: true});
-  svgEl.addEventListener('touchmove', (e) => {
+  cv.addEventListener('touchmove', (e) => {
     if (!pinch || e.touches.length !== 2) return;
     e.preventDefault();
     K = clamp(pinch.k * fingerGap(e.touches) / pinch.d, 0.85, KMAX); schedule();
   }, {passive: false});
   const endPinch = (e) => { if (pinch && e.touches.length < 2) { pinch = null; dragging = false; schedule(); } };
-  svgEl.addEventListener('touchend', endPinch); svgEl.addEventListener('touchcancel', endPinch);
-  svg.call(d3.drag().clickDistance(5)
+  cv.addEventListener('touchend', endPinch); cv.addEventListener('touchcancel', endPinch);
+  sel3.call(d3.drag().clickDistance(5)
     .filter((e) => !e.button && !(e.touches && e.touches.length > 1)) // a second finger is a pinch, not a drag
-    .on('start', (e) => { svg.interrupt(); d0 = {x: e.x, y: e.y, rot: rot.slice()}; })
+    .on('start', (e) => { sel3.interrupt(); d0 = {x: e.x, y: e.y, rot: rot.slice()}; })
     .on('drag', (e) => {
       if (pinch) { d0 = {x: e.x, y: e.y, rot: rot.slice()}; return; } // the globe holds still while zooming
-      if (!dragging) { dragging = true; hideTip(); setRegion(null); svgEl.classList.add('grabbing'); }
+      if (!dragging) { dragging = true; hideTip(); setHover(null); setRegion(null); cv.classList.add('grabbing'); }
       const k = 57.3 / (R0 * K);
       rot = [d0.rot[0] + (e.x - d0.x) * k, clamp(d0.rot[1] - (e.y - d0.y) * k, -85, 85), 0];
       schedule();
     })
-    .on('end', () => { if (!pinch) dragging = false; svgEl.classList.remove('grabbing'); schedule(); }));
-  svgEl.addEventListener('wheel', (e) => {
+    .on('end', () => { if (!pinch) dragging = false; cv.classList.remove('grabbing'); schedule(); }));
+  cv.addEventListener('wheel', (e) => {
     if (!(e.ctrlKey || e.metaKey)) return;
-    e.preventDefault(); K = clamp(K * Math.exp(-e.deltaY * 0.01), 0.85, KMAX); schedule();
+    e.preventDefault(); lastWheel = performance.now(); K = clamp(K * Math.exp(-e.deltaY * 0.01), 0.85, KMAX); schedule();
   }, {passive: false});
   const zoomBy = (f) => fly(-rot[0], -rot[1], clamp(K * f, 0.85, KMAX), 220);
   $('#g-in').onclick = () => zoomBy(1.5);
   $('#g-out').onclick = () => zoomBy(1 / 1.5);
   $('#g-eu').onclick = home;
 
-  // hover and click
+  // hover and click: the canvas is one element, so the pointer is matched against what the last frame drew (topmost first)
   function setRegion(q) { if ((q && q.r) !== (hrg && hrg.r)) { hrg = q; schedule(); } else if (q) hrg = q; }
+  function setHover(n) { if (S.hover !== n) { S.hover = n; schedule(); } }
   const regionLine = (q) => { // what the sheet says about the region under the pointer
     const R = window.REGIONS && window.REGIONS[q.r]; if (!R || (q.c && R.c !== q.c)) return ''; // never label a region of another country
     return `<div class="tp">${esc(R.n)}${R.e && R.e !== R.n ? ' (' + esc(R.e) + ')' : ''}${R.i ? ' · ' + esc(R.i) : ''}${R.k ? ' · ☎ ' + esc(R.k) : ''}</div>`;
   };
   const tipOf = (c, q) => `<div class="h"><span class="fl">${c.flag}</span>${esc(c.short)}</div>${q ? regionLine(q) : ''}${S.why && S.why.get(c.n) ? `<div class="tp">${esc(S.why.get(c.n))}</div>` : ''}`;
-  const regionUnder = (e, d) => { // the region under the mouse, once the country is big enough on screen for regions to be readable
+  const regionUnder = (ll, d) => { // the region under the pointer, once the country is big enough on screen for regions to be readable
     if (!window.REGIONS || !(d.nreg > 1) || d.rad * R0 * K <= REGION_PX) return null;
-    const [x, y] = d3.pointer(e, svgEl), ll = proj.invert([x, y]);
-    const q = ll && isFinite(ll[0]) ? GEO.regionAt(d.n, ll) : null;
+    const q = GEO.regionAt(d.n, ll);
     return q ? Object.assign({c: d.c.code}, q) : null;
   };
-  mkP
-    .on('pointerenter', (e, d) => { S.hover = d.c.n; schedule(); })
-    .on('pointermove', (e, d) => { if (e.pointerType === 'mouse' && !dragging) showTip(tipOf(d.c), e); })
-    .on('pointerleave', () => { S.hover = null; schedule(); hideTip(); })
-    .on('click', (e, d) => pick(d.c.n));
-  setP
-    .on('pointerenter', (e, d) => { S.hover = d.c.n; schedule(); })
-    .on('pointermove', (e, d) => { if (e.pointerType === 'mouse' && !dragging) { const q = regionUnder(e, d); setRegion(q); showTip(tipOf(d.c, q), e); } })
-    .on('pointerleave', () => { S.hover = null; setRegion(null); schedule(); hideTip(); })
-    .on('click', (e, d) => pick(d.c.n));
-  baseP
-    .on('pointermove', (e, d) => { if (e.pointerType !== 'mouse' || dragging) return; showTip(`<div class="h">${esc(d.n)}</div><div class="tp">Not on the list of ${C.length} destinations</div>`, e); })
-    .on('pointerleave', hideTip)
-    .on('click', (e, d) => { hideTip(); msg(`${d.n} isn't one of the ${C.length} countries on the sheet.`); });
+  const inPath = (p, x, y) => ctx.isPointInPath(p, x * DPR, y * DPR, 'evenodd');
+  function hitAt(x, y) {
+    if (Math.hypot(x - F.tx, y - F.ty) > F.s) return null;
+    for (let i = mkVis.length - 1; i >= 0; i--) { const d = mkVis[i]; if ((x - d.x) ** 2 + (y - d.y) ** 2 <= 31) return {k: 'mk', d}; }
+    for (const d of plD.towns) if (d.x != null && (x - d.x) ** 2 + (y - d.y) ** 2 <= (d.r + 2) ** 2) return {k: 'pl', d};
+    for (const d of plD.regions) if (d.p && inPath(d.p, x, y)) return {k: 'pl', d};
+    const ll = proj.invert([x, y]); if (!ll || !isFinite(ll[0])) return null;
+    const u = unit(ll), near = (d) => u[0] * d.u[0] + u[1] * d.u[1] + u[2] * d.u[2] >= d.u[5] - 1e-6;
+    for (const [d, p] of hitSet) if (near(d) && inPath(p, x, y)) return {k: 'set', d, ll};
+    for (const [d, p] of hitBase) if (near(d) && inPath(p, x, y)) return {k: 'base', d};
+    return null;
+  }
+  const local = (e) => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  let lastHit = null;
+  cv.addEventListener('pointermove', (e) => {
+    if (dragging || pinch || e.pointerType === 'touch') return;
+    const [x, y] = local(e), h = hitAt(x, y); lastHit = h;
+    cv.classList.toggle('pt', !!h && h.k !== 'base');
+    if (!h) { setHover(null); setRegion(null); hideTip(); return; }
+    if (h.k === 'mk' || h.k === 'set') {
+      setHover(h.d.c.n);
+      const q = h.k === 'set' ? regionUnder(h.ll, h.d) : null; setRegion(q);
+      if (e.pointerType === 'mouse') showTip(tipOf(h.d.c, q), e);
+    } else {
+      setHover(null); setRegion(null);
+      if (e.pointerType === 'mouse') showTip(h.k === 'pl' ? tipPlace(h.d) : `<div class="h">${esc(h.d.n)}</div><div class="tp">Not on the list of ${C.length} destinations</div>`, e);
+    }
+  });
+  cv.addEventListener('pointerleave', () => { lastHit = null; setHover(null); setRegion(null); hideTip(); });
+  cv.addEventListener('click', (e) => {
+    const [x, y] = local(e), h = hitAt(x, y);
+    if (!h) return;
+    if (h.k === 'mk' || h.k === 'set') pick(h.d.c.n);
+    else if (h.k === 'pl') { const c = BYC.get(h.d.code); if (c) pick(c.n); }
+    else { hideTip(); msg(`${h.d.n} isn't one of the ${C.length} countries on the sheet.`); }
+  });
 
   function paint() {
     if (S.hp !== plFor) buildPlaces();
-    setP.each(function (d) { const l = level(d.c); d.off = l === 0; d.wk = l === 1; d3.select(this).classed('off', d.off).classed('wk', d.wk); });
-    mkP.classed('off', (d) => level(d.c) === 0).classed('wk', (d) => level(d.c) === 1);
+    setD.forEach((d) => { const l = level(d.c); d.off = l === 0; d.wk = l === 1; });
+    mkD.forEach((d) => { const l = level(d.c); d.off = l === 0; d.wk = l === 1; });
     labD.forEach((d) => { const l = level(d.c); d.off = l === 0; d.wk = l === 1; });
-    render();
+    schedule();
   }
   const selHasPlaces = () => !!S.sel && plD.regions.concat(plD.towns).some((d) => { const c = BYC.get(d.code); return c && c.n === S.sel; }); // keep the zoomed place in view when its country opens
   function update() {
@@ -654,14 +649,15 @@ function mountGlobe(host) {
     if (S.sel !== lastSel) { lastSel = S.sel; if (S.sel && !selHasPlaces()) flyToCountry(S.sel); }
   }
 
-  [2, 3, 0].forEach((L, i) => setTimeout(() => { if (!dead) GEO.ensure(L); }, 1200 + i * 400)); // the other levels are merged quietly once the page is up
+  GEO.warm(() => dead); // the finer and coarser copies of the map are made quietly once the page is up
+  const onFull = () => { if (!dead) schedule(); }; GEO.onFull.push(onFull);
   // arrival: spin in from the Americas on the first visit
   shiftTarget = wantShift(); shift = {x: shiftTarget.x, y: shiftTarget.y};
   if (!GLOBE_SEEN && !S.sel && !reduceMotion()) { rot = [95, -12, 0]; K = 0.9; render(); fly(-GLOBE_HOME[0], -GLOBE_HOME[1], 1, 1900); }
   if (!GLOBE_SEEN) msg(window.matchMedia('(pointer: coarse)').matches ? 'Drag to turn · pinch to zoom · tap a country' : 'Drag to rotate · click a country · Ctrl/⌘ + scroll to zoom', 6500);
   GLOBE_SEEN = true;
   let ro = null;
-  if (window.ResizeObserver) { ro = new ResizeObserver(() => { if (wrap.clientWidth !== lastW || wrap.clientHeight !== lastH) { layout(); shiftTarget = wantShift(); shift = {x: shiftTarget.x, y: shiftTarget.y}; schedule(); } }); ro.observe(wrap); }
+  if (window.ResizeObserver) { ro = new ResizeObserver(() => { if (wrap.clientWidth !== lastW || wrap.clientHeight !== lastH) { layout(); shiftTarget = wantShift(); shift = {x: shiftTarget.x, y: shiftTarget.y}; render(); } }); ro.observe(wrap); }
   let focused = false; // true while the globe is zoomed to fit search results
   function focusOn(names, pl) { // turn and zoom so every match is in view: regions and towns when there are some, else countries
     const pts = [];
@@ -680,7 +676,7 @@ function mountGlobe(host) {
     const k = clamp((pts.length ? 1.15 : 0.76) / Math.sin(Math.min(th + pad, 1.45)), 1, pts.length ? (pl.regions.length ? 16 : 9) * Math.min(2, 380 / R0) : 4.4); // small screens can zoom further for the same picture
     fly(ctr[0], ctr[1], k, 800);
   }
-  return {update, focusOn, destroy() { dead = true; if (ro) ro.disconnect(); svg.interrupt(); svg.interrupt('shift'); clearTimeout(msgT); if (raf) cancelAnimationFrame(raf); hideTip(); }};
+  return {update, focusOn, stat: STAT, destroy() { dead = true; GEO.onFull.splice(GEO.onFull.indexOf(onFull), 1); if (ro) ro.disconnect(); if (mq.removeEventListener) mq.removeEventListener('change', onScheme); sel3.interrupt(); sel3.interrupt('shift'); clearTimeout(msgT); clearTimeout(settleT); if (raf) cancelAnimationFrame(raf); hideTip(); }};
 }
 
 /* ---------- TABLE ---------- */
@@ -832,15 +828,22 @@ function mountSearch() {
 // Every map file carries the same build stamp. Region numbers in geo.js point into regions.js and places.js, so files from
 // two different builds (an old one still in the browser cache, say) would put one country's regions on another. If the
 // stamps differ, fetch again past the cache once; if they still differ, leave regions and towns off rather than show wrong ones.
+// They are downloaded at once but only run after the opening spin (or as soon as the search box is used), so the spin stays smooth.
+let placesStarted = false;
+function preloadPlaces() {
+  const want = window.UNIT_TOPO && window.UNIT_TOPO.build;
+  ['regions.js', 'places.js'].forEach((f) => { const l = document.createElement('link'); l.rel = 'preload'; l.as = 'script'; l.href = f + '?v=' + want; document.head.appendChild(l); });
+}
 function loadPlaces() {
+  if (placesStarted) return; placesStarted = true;
   const want = window.UNIT_TOPO && window.UNIT_TOPO.build;
   const add = (src) => new Promise((ok, no) => { const el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = no; document.head.appendChild(el); });
   const fresh = () => window.REGIONS_BUILD === want && window.TOWNS_BUILD === want && (!window.WORLD_EXTRA || window.WORLD_EXTRA.build === want);
   const load = (v) => Promise.all([add('regions.js?v=' + v), add('places.js?v=' + v)]);
   load(want).then(() => fresh() ? null : load(want + '-' + Date.now())).then(() => {
     if (!fresh()) { console.warn('Map files are from different builds; regions and towns are switched off.'); window.REGIONS = undefined; window.TOWNS = undefined; return; }
-    CLUES.attach(window.REGIONS, window.TOWNS); if (searchReapply) searchReapply();
-  }).catch(() => {});
+    return CLUES.attachAsync(window.REGIONS, window.TOWNS).then(() => { if (searchReapply) searchReapply(); });
+  }).catch(() => {}).then(() => GEO.loadFull());
 }
 
 
@@ -865,6 +868,7 @@ function routePane(c) {
   const R = (window.ROUTES || {})[c.code];
   const e = esc;
   const eroad = 'Across Europe, green E-road signs follow one grid: even numbers run east-west, odd numbers north-south.';
+  if (!window.ROUTES) return `<div class="rt-k">Route numbers</div><p class="rt-s">Loading…</p>`; // routes.js arrives just after the first picture
   if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia, Oceania and the Americas are done; Africa follows.</p>`;
   const note = R.n == null ? eroad : R.n; // Europe: E-road grid; elsewhere the entry's own footnote ('' = none)
   if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p>${note ? `<p class="rt-n">${e(note)}</p>` : ''}`;
@@ -980,7 +984,12 @@ function renderCard() {
 /* ---------- wiring ---------- */
 buildChrome();
 mountSearch();
-setTimeout(loadPlaces, 400);
+setTimeout(preloadPlaces, 300);
+setTimeout(() => { // the route schematics (Key Card, Routes tab) are not needed for the first picture
+  const el = document.createElement('script'); el.src = 'routes.js?v=2026-11-19a'; el.onload = () => { if (S.sel) renderCard(); }; document.head.appendChild(el);
+}, 150);
+setTimeout(loadPlaces, 2300);
+$('#sq').addEventListener('focus', loadPlaces);
 const about = $('#about');
 document.addEventListener('click', (e) => {
   const t = e.target.closest('button');
@@ -1002,5 +1011,5 @@ document.addEventListener('keydown', (e) => {
 const initial = location.hash.slice(1);
 if (VIEWS.some((v) => v[0] === initial)) S.view = initial;
 mountView();
-window.__app = {S, C, select, setView, GEO}; // handy for debugging
+window.__app = {S, C, select, setView, GEO, get view() { return VIEW; }}; // handy for debugging (view.stat: recent globe frame times)
 })();

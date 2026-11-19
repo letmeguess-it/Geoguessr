@@ -20,7 +20,7 @@ https://letmeguess-it.github.io/Geoguessr/
 | `data/csv/` | The source tables (countries, clues, languages, regions, route numbering) |
 | `scripts/routes/` | Builds `site/routes.js`, the route numbering maps |
 | `scripts/meta/` | Builds `site/data.js` from the sheet tables (`build_data.py`); `americas_2026_11.py` holds the Americas clue text written into the tables |
-| `scripts/borders/` | Builds the country and region outlines (`site/geo.js`, `world.js`, `regions.js`) |
+| `scripts/borders/` | Builds the country and region outlines (`site/geo.js`, `world.js`, `regions.js`); after any change to `geo.js`, run `node scripts/borders/make_geo_lite.cjs site` to rebuild `site/geo_lite.js` |
 | `docs/cheatsheets/` | Beginner, Amateur and Pro cheatsheets (PDF) |
 | `.github/workflows/` | Publishes `site/` to GitHub Pages |
 
@@ -30,7 +30,7 @@ cd site
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
-It first loads about 4 MB, then fetches towns and regions in the background.
+It first loads about 2.5 MB (borders without their finest detail, `geo_lite.js`), then fetches the full borders, towns and regions in the background.
 
 ## Known gaps
 - Osh (city), and Tuzi and Zeta in Montenegro, have no outline yet (no open border data). A few new provinces are approximated from older districts, see `scripts/borders/README.md`.
