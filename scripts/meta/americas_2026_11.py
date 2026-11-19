@@ -170,7 +170,7 @@ M = {
     'Peru': dict(
         lang='Spanish, Quechua, Aymara',
         script='Jirón (Jr.) · Calle · Pasaje · PARE',
-        note="'Jirón (Jr.)' as a street word is only Peruvian. Mototaxis (three-wheelers) and election slogans painted on walls ('Alcalde') are strong Peru clues against Bolivia and Ecuador.",
+        note="The street word 'Jirón (Jr.)' is only Peruvian. Mototaxis (three-wheelers) and election slogans painted on walls ('Alcalde') are strong Peru clues against Bolivia and Ecuador.",
         ps='size=na; topbar=red; top=PERÚ; txt=ABC-123',
         po='mat=concrete; form=round; base=black; top=crossarm',
         pot='Peru: concrete pole with the bottom painted, most often black.',
