@@ -104,7 +104,33 @@ function attach(R, T) {
     put2(tI, pn(T.n[i]), i);
     const a = T.a[i]; if (a) a.split('|').forEach((n) => { const k = pn(n); if (k) put2(tI, k, i); });
   }
-  PL = {R, T, rI, tI, tKeys: [...tI.keys()].sort(), rKeys: [...rI.keys()].sort()};
+  PL = placeIndex(R, T, rI, tI);
+}
+function placeIndex(R, T, rI, tI) { // the sorted key lists are only needed for typing suggestions, so they are made on first use
+  let tk = null, rk = null;
+  return {R, T, rI, tI, get tKeys() { return tk || (tk = [...tI.keys()].sort()); }, get rKeys() { return rk || (rk = [...rI.keys()].sort()); }};
+}
+// the same index built in slices of a few milliseconds while the page is idle, so dragging the globe never waits for it
+function attachAsync(R, T) {
+  return new Promise((done) => {
+    const rI = new Map(), tI = new Map();
+    const put2 = (m, k, i) => { let a = m.get(k); if (!a) m.set(k, (a = [])); if (a[a.length - 1] !== i) a.push(i); };
+    let ri = 0, ti = 0;
+    const later = (f) => (window.requestIdleCallback ? requestIdleCallback(f, {timeout: 400}) : setTimeout(f, 16));
+    const step = () => {
+      const end = performance.now() + 6;
+      while (ri < R.length && performance.now() < end) for (let k = 0; k < 100 && ri < R.length; k++, ri++) {
+        const r = R[ri]; [r.n, r.e, ...(r.a ? r.a.split('|') : [])].forEach((n) => { if (!n) return; const q = pn(n); if (q.length >= 2) put2(rI, q, ri); });
+      }
+      while (ri >= R.length && ti < T.n.length && performance.now() < end) for (let k = 0; k < 400 && ti < T.n.length; k++, ti++) {
+        put2(tI, pn(T.n[ti]), ti);
+        const a = T.a[ti]; if (a) a.split('|').forEach((n) => { const q = pn(n); if (q) put2(tI, q, ti); });
+      }
+      if (ri < R.length || ti < T.n.length) { later(step); return; }
+      PL = placeIndex(R, T, rI, tI); done();
+    };
+    later(step);
+  });
 }
 const cname = (c) => (NAMES[c] && NAMES[c][0]) || c;
 const regionName = (i) => (i >= 0 && PL ? PL.R[i].n : '');
@@ -327,5 +353,5 @@ const tkCount = (s) => toks(s).length;
 
 const forCountry = (code) => per(code);
 const others = (e, code) => e.cs.filter((c) => c !== code);
-return {init, decode, suggest, complete, forCountry, others, attach, attachAreas, pinfo, TYPE_LABEL, CH, ALPHA, fold, norm};
+return {init, decode, suggest, complete, forCountry, others, attach, attachAsync, attachAreas, pinfo, TYPE_LABEL, CH, ALPHA, fold, norm};
 })();

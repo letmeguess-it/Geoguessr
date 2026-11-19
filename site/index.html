@@ -39,8 +39,8 @@ button,input{font:inherit;color:inherit}
 button:focus-visible,input:focus-visible,.t:focus-visible,.chip:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .app{height:100vh;height:100dvh;display:flex;flex-direction:column}
 
-/* header: one slim row */
-.bar{display:flex;align-items:center;gap:10px;padding:6px 10px;border-bottom:1px solid var(--line);flex:none;min-height:44px;background:var(--surface);position:relative;z-index:30}
+/* header: one slim row (title, driving side, search, views, about) */
+.bar{display:flex;align-items:center;gap:10px;padding:6px 10px;border-bottom:1px solid var(--line);flex:none;min-height:48px;background:var(--surface);position:relative;z-index:30}
 h1{font-family:var(--serif);font-weight:400;font-size:1.1rem;margin:0;letter-spacing:-.01em;white-space:nowrap}
 .sp{flex:1}
 .dchips{display:flex;gap:6px}
@@ -68,8 +68,9 @@ h1{font-family:var(--serif);font-weight:400;font-size:1.1rem;margin:0;letter-spa
 
 /* globe */
 .globewrap{position:absolute;inset:0}
-svg.globe{display:block;width:100%;height:100%;touch-action:none;cursor:grab;user-select:none}
-svg.globe.grabbing{cursor:grabbing}
+.globe{display:block;width:100%;height:100%;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.globe.pt{cursor:pointer}
+.globe.grabbing{cursor:grabbing}
 .g-sea{fill:var(--sea);stroke:var(--line-2);stroke-width:1}
 .g-grat{fill:none;stroke:var(--line);stroke-width:.5;opacity:.6;pointer-events:none}
 .g-shade{pointer-events:none}
@@ -92,6 +93,7 @@ svg.globe.grabbing{cursor:grabbing}
 .lab{fill:var(--text);font-weight:600;pointer-events:none;text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;opacity:.92}
 .lab.off{opacity:.3}
 .gctl{position:absolute;left:10px;bottom:10px;display:flex;gap:6px}
+.glegend{position:absolute;left:10px;top:10px;max-width:calc(100% - 20px);padding:5px 11px;border-radius:9px;background:var(--pop);border:1px solid var(--line-2);box-shadow:var(--shadow);font-size:.8rem;color:var(--text-2);pointer-events:none;z-index:5}
 .gmsg{position:absolute;left:50%;bottom:56px;transform:translateX(-50%);padding:4px 12px;border-radius:999px;background:var(--pop);border:1px solid var(--line-2);font-size:.78rem;color:var(--text-2);box-shadow:var(--shadow);transition:opacity .5s;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
 .gmsg.hide{opacity:0}
 
@@ -178,13 +180,13 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
 .wd.pf{font-weight:600;font-variant-numeric:tabular-nums}
 .wd.rg{cursor:default;color:var(--text-2)}
 .wd.more{color:var(--muted);border-style:dashed}
-.sbar{display:flex;align-items:center;gap:6px 12px;padding:6px 10px;border-bottom:1px solid var(--line);flex:none;background:var(--surface);position:relative;z-index:31}
-.sbox{position:relative;flex:1 1 360px;min-width:0}
+.sbar{display:flex;align-items:center;gap:6px 10px;flex:1 1 auto;min-width:0;margin:0 6px}
+.sbox{position:relative;flex:1 1 300px;min-width:170px;max-width:640px}
 .sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);pointer-events:none}
-.sin{width:100%;height:34px;border:1px solid var(--line-2);border-radius:9px;background:var(--surface);color:var(--text);padding:0 34px 0 32px;font:inherit}
+.sin{width:100%;height:32px;border:1px solid var(--line-2);border-radius:9px;background:var(--surface);color:var(--text);padding:0 34px 0 32px;font:inherit}
 .sx{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:26px;height:26px;border:0;background:transparent}
 .sx[hidden]{display:none}
-.sres{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--text-2);min-width:0;flex:0 1 auto}
+.sres{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--text-2);min-width:0;flex:0 1 auto;max-width:42%}
 .sres[hidden]{display:none}
 .sres .fls{display:flex;gap:4px;align-items:center}
 .sres .fls button{border:0;background:transparent;padding:0;cursor:pointer;line-height:0;border-radius:3px}
@@ -230,18 +232,23 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
 .rt-n{font-size:.68rem;line-height:1.38;color:var(--muted);margin:0;border-top:1px solid var(--line);padding-top:6px}
 .rt-k{font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
 
+@media (max-width: 1080px){ h1{display:none} }
+/* phones: search and About on the first row, driving side and views on the second; the search result line under the search box */
 @media (max-width: 760px){
-  .bar{flex-wrap:wrap;gap:6px 8px;padding:6px 8px}
-  h1{display:none}
-  .sbar{flex-wrap:wrap;padding:6px 8px}
-  .sres{flex:1 1 100%}
-  #info{order:4}
-  .tabs{order:5;width:100%}
-  .tab{flex:1;text-align:center}
+  .bar{flex-wrap:wrap;gap:6px;padding:6px 8px}
+  .sbar{order:1;flex:1 1 calc(100% - 40px);flex-wrap:wrap;margin:0}
+  .sbox{flex:1 1 100%;max-width:none;min-width:0}
+  .sres{flex:1 1 100%;max-width:none}
+  #info{order:2;width:32px;height:32px;align-self:flex-start}
+  .dchips{order:3;gap:4px}
+  .dchip{padding:3px 8px 3px 7px;gap:5px}
+  .tabs{order:4;flex:1 1 0;min-width:0}
+  .tab{flex:1 1 auto;text-align:center;padding:3px 6px}
   .card{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:auto;max-height:82vh;border-radius:16px 16px 0 0;transform:translateY(105%);z-index:40}
   .card.open{transform:none}
   .stage.shrink #view{right:0}
 }
+@media (max-width: 370px){ .dchip .n{display:none} }
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 </head>
@@ -250,18 +257,17 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
   <header class="bar">
     <h1>World Meta Explorer</h1>
     <div class="dchips" id="drive" role="group" aria-label="Driving side"></div>
-    <span class="sp"></span>
-    <nav class="tabs" role="tablist" aria-label="Views" id="tabs"></nav>
-    <button class="ib" id="info" aria-label="About" aria-expanded="false" title="About">i</button>
-    <div class="about" id="about" hidden></div>
-  </header>
-  <div class="sbar" id="sbar" role="search">
-    <div class="sbox"><svg class="sico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 10l4.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <div class="sbar" id="sbar" role="search">
+    <div class="sbox" id="sbox"><svg class="sico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 10l4.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       <input class="sin" id="sq" type="text" role="combobox" aria-expanded="false" aria-controls="ssug" aria-autocomplete="list" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Decode a sign: street, route, region, town, letters, .domain, or a country" aria-label="Decode text from a sign: a street, route, region, town, letters, script, domain or country name. Matching countries, regions and towns light up on the globe.">
       <button class="ib sx" id="sx" aria-label="Clear" title="Clear (Esc)" hidden>✕</button>
       <ul class="sug" id="ssug" role="listbox" hidden></ul></div>
     <div class="sres" id="sres" aria-live="polite" hidden></div>
-  </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Views" id="tabs"></nav>
+    <button class="ib" id="info" aria-label="About" aria-expanded="false" title="About">i</button>
+    <div class="about" id="about" hidden></div>
+  </header>
   <main class="stage" id="stage">
     <div id="view"></div>
     <aside class="card" id="card" aria-label="Country Key Card" aria-hidden="true"></aside>
@@ -269,16 +275,15 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
 </div>
 <div class="tip" id="tip" hidden></div>
 <script src="d3.min.js?v=2026-11-19a"></script>
-<script src="topojson-client.min.js?v=2026-11-19a"></script>
 <script src="render.js?v=2026-11-19a"></script>
 <script src="flags.js?v=2026-11-19a"></script>
 <script src="data.js?v=2026-11-19a"></script>
-<script src="geo.js?v=2026-11-19a"></script>
+<script src="geo_lite.js?v=2026-11-19c"></script>
 <script src="world.js?v=2026-11-19a"></script>
 <script src="clues.js?v=2026-11-19a"></script>
 <script src="clues_world.js?v=2026-11-19a"></script>
-<script src="search.js?v=2026-11-19a"></script>
-<script src="routes.js?v=2026-11-19a"></script>
-<script src="app.js?v=2026-11-19a"></script>
+<script src="search.js?v=2026-11-19b"></script>
+<script src="globe.js?v=2026-11-19c"></script>
+<script src="app.js?v=2026-11-19d"></script>
 </body>
 </html>
