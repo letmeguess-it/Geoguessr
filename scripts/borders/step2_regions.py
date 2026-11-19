@@ -61,7 +61,10 @@ def soft(s):
 
 
 def match_row(rows, name, iso=None, alias=None):
-    if alias and name in alias: name = alias[name]
+    if alias and name in alias:  # an alias is a deliberate link and wins over the source's ISO code
+        name = alias[name]
+        for r in rows:
+            if r['name'] == name: return r
     k = fold(name)
     for r in rows:
         if iso and r['iso'] and iso == r['iso']: return r

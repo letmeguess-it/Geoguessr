@@ -136,7 +136,8 @@
     } else if (s.holes === 'square-holes') {
       for (let y = 50; y < 165; y += 10) out += r(hx - 2.5, y, 5, 5, hole);
     }
-    if (s.base === 'white') out += `<polygon points="${px - 0.5},150 ${px + pw + 0.5},150 ${px + pw + 1},${G} ${px - 1},${G}" fill="${C.white}" stroke="${C.outline}" stroke-width="0.6"/>`;
+    const baseCol = {white: C.white, red: C.red, black: C.black, yellow: C.yellow, green: C.green}[s.base]; // a painted base (white Russia/Curaçao, red Guatemala, black Peru, yellow Santo Domingo)
+    if (baseCol) out += `<polygon points="${px - 0.5},150 ${px + pw + 0.5},150 ${px + pw + 1},${G} ${px - 1},${G}" fill="${baseCol}" stroke="${C.outline}" stroke-width="0.6"/>`;
     const stripe = (y1, y2, x, w) => {
       let g = `<clipPath id="CLIP"><rect x="${x}" y="${y1}" width="${w}" height="${y2 - y1}"/></clipPath><g clip-path="url(#CLIP)">` + r(x, y1, w, y2 - y1, C.yellow);
       for (let y = y1 - w; y < y2 + w; y += 10) g += `<polygon points="${x},${y} ${x + w},${y - w * 0.7} ${x + w},${y - w * 0.7 + 5} ${x},${y + 5}" fill="${C.black}"/>`;
@@ -198,6 +199,8 @@
     if (refl === 'blue-vert') out += r(cx - 2.5, cy - 11, 5, 22, C.blue) + r(cx - 2.5, cy - 4, 5, 6, C.white);
     if (refl === 'red-band') out += r(x - 1, t + 58, w + 2, 12, C.red);
     if (refl === 'red-ring') out += r(x - 1, t + 26, w + 2, 12, C.red);
+    if (refl === 'red-2ring') out += r(x - 1, t + 18, w + 2, 9, C.red) + r(x - 1, t + 34, w + 2, 9, C.red); // two rings (Ecuador)
+    if (s.foot === 'black') out += r(x - 1, 140, w + 2, G - 140, C.black); // black lower section (Mexico)
     if (refl === 'red-wide') out += r(x + 4, t + 20, w - 8, 26, C.red, 'rx="2"');
     if (refl === 'red-wrap') out += r(x - 1, t + 14, w + 2, 22, C.red);
     if (refl === 'yellow-band') out += r(x - 1, t + capH + 6, w + 2, 8, C.orange);
@@ -223,6 +226,10 @@
       if (s.edge) out += edgeLine(90, 16, s.edge) + edgeLine(110, 184, s.edge);
       if (s.center === 'yellow-double') {
         out += `<line x1="99" y1="${HZ}" x2="96.5" y2="${H}" stroke="${C.yellow}" stroke-width="2.2"/><line x1="101" y1="${HZ}" x2="103.5" y2="${H}" stroke="${C.yellow}" stroke-width="2.2"/>`;
+      } else if (s.center === 'yellow-white') { // solid yellow beside white dashes (Argentina): overtaking from one side only
+        out += `<line x1="98.8" y1="${HZ}" x2="96" y2="${H}" stroke="${C.yellow}" stroke-width="2.2"/><line x1="101.2" y1="${HZ}" x2="104" y2="${H}" stroke="${C.line}" stroke-width="2.2" stroke-dasharray="9 8"/>`;
+      } else if (s.center === 'triple') { // two yellow lines with white dashes between (Uruguay)
+        out += `<line x1="98.4" y1="${HZ}" x2="94" y2="${H}" stroke="${C.yellow}" stroke-width="2"/><line x1="100" y1="${HZ}" x2="100" y2="${H}" stroke="${C.line}" stroke-width="2" stroke-dasharray="9 8"/><line x1="101.6" y1="${HZ}" x2="106" y2="${H}" stroke="${C.yellow}" stroke-width="2"/>`;
       } else if (s.center) {
         out += `<line x1="100" y1="${HZ}" x2="100" y2="${H}" stroke="${col(s.center)}" stroke-width="2.6" stroke-dasharray="9 8"/>`;
       }

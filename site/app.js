@@ -39,7 +39,8 @@ const scriptCat = (c) => {
 function roadDesc(c) {
   const r = c.rO; const parts = [];
   const col = (v) => (String(v).indexOf('yellow') === 0 ? 'yellow' : 'white');
-  if (r.center) parts.push(r.center === 'yellow-double' ? 'double yellow centre line' : `${col(r.center)} ${/dashed/.test(r.center) ? 'dashed ' : ''}centre line`);
+  const CEN = {'yellow-double': 'double yellow centre line', 'yellow-white': 'solid yellow centre line beside white dashes', triple: 'triple centre line (yellow, white dashes, yellow)'};
+  if (r.center) parts.push(CEN[r.center] || `${col(r.center)} ${/dashed/.test(r.center) ? 'dashed ' : ''}centre line`);
   if (r.edge) parts.push(`${/dashed/.test(r.edge) ? 'dashed' : 'solid'} ${col(r.edge)} outer edges`);
   if (r.warn) parts.push({'tri-white': 'white warning triangles with a red border', 'tri-yellow': 'warning triangles on a yellow background', 'diamond-yellow': 'yellow diamond warning signs'}[r.warn] || '');
   if (r.word) parts.push(`street names use '${r.word}'`);
@@ -85,10 +86,11 @@ const LENSES = [
     {id: 'color', label: 'Coloured side strip', hue: 2, pat: 2},
     {id: 'na', label: 'US-size plate', hue: 0, pat: 1},
     {id: 'dark', label: 'Black or coloured plate', hue: 1, pat: 1},
-    {id: 'short', label: 'Short two-line plate', hue: 1, pat: 2}],
+    {id: 'short', label: 'Short two-line plate', hue: 1, pat: 2},
+    {id: 'top', label: 'Coloured band across the top', hue: 2, pat: 0}],
    cls: (c) => {
      const s = c.pS; if (!c.ps) return null;
-     if (s.rear === 'yellow') return 'rear'; if (s.bg === 'yellow') return 'yellow';
+     if (s.rear === 'yellow') return 'rear'; if (s.bg === 'yellow') return 'yellow'; if (s.topbar) return 'top';
      if (s.band === 'eu-double') return 'double'; if (s.band === 'eu') return 'eu';
      if (s.band === 'blue') return 'blue'; if (s.band === 'flag') return 'flag';
      if (s.band && s.band !== 'none') return 'color';
@@ -103,35 +105,37 @@ const LENSES = [
     {id: 'angRed', label: 'Angled top, red reflector', hue: 0, pat: 0},
     {id: 'angWhite', label: 'Angled top, white strip', hue: 0, pat: 1},
     {id: 'angWarm', label: 'Angled top, orange or yellow', hue: 0, pat: 2},
-    {id: 'flatRed', label: 'Flat top, black cap, red', hue: 1, pat: 0},
-    {id: 'thin', label: 'Flat or thin, yellow band or blue', hue: 1, pat: 1},
+    {id: 'flatRed', label: 'Flat top, red reflector', hue: 1, pat: 0},
+    {id: 'thin', label: 'Flat or thin, yellow or blue reflector', hue: 1, pat: 1},
     {id: 'diag', label: 'Black diagonal stripe', hue: 2, pat: 0},
     {id: 'round', label: 'Round post, red band', hue: 2, pat: 1},
+    {id: 'roundOther', label: 'Round post, black or white marks', hue: 2, pat: 0},
     {id: 'black', label: 'Black post', hue: 2, pat: 2}],
    cls: (c) => {
      const b = c.bO; if (!c.bo) return null;
-     if (b.body === 'black') return 'black'; if (b.band === 'black-diag') return 'diag'; if (b.top === 'round') return 'round';
+     if (b.body === 'black') return 'black'; if (b.band === 'black-diag') return 'diag'; if (b.top === 'round') return /^red/.test(b.refl || '') ? 'round' : 'roundOther';
      if (b.top === 'angled') return b.refl === 'white-vert' ? 'angWhite' : (b.refl === 'orange-2' || b.refl === 'yellow-rect') ? 'angWarm' : 'angRed';
-     return (b.refl === 'yellow-band' || b.refl === 'blue-vert') ? 'thin' : 'flatRed';
+     return (b.refl === 'yellow-band' || b.refl === 'blue-vert' || b.refl === 'yellow-rect') ? 'thin' : 'flatRed';
    },
    view: (c) => draw('bollard', c.bo), cap: (c) => c.bot || c.bos || ''},
   {id: 'pole', label: 'Utility poles', cats: [
     {id: 'holey', label: 'Holey concrete', hue: 0, pat: 0},
     {id: 'slots', label: 'Slotted concrete', hue: 0, pat: 1},
     {id: 'ladder', label: 'Ladder or waffle concrete', hue: 0, pat: 2},
-    {id: 'octo', label: 'Octagonal with strut', hue: 1, pat: 0},
+    {id: 'octo', label: 'Octagonal concrete', hue: 1, pat: 0},
     {id: 'wood', label: 'Plain wood', hue: 2, pat: 0},
     {id: 'woodStay', label: 'Wood, H-pole or stay wire', hue: 2, pat: 1},
     {id: 'sqholes', label: 'Square concrete with small holes', hue: 0, pat: 0},
     {id: 'striped', label: 'Concrete with hazard stripes', hue: 1, pat: 1},
     {id: 'steel', label: 'Steel or Stobie pole', hue: 1, pat: 2},
-    {id: 'concrete', label: 'Plain concrete', hue: 2, pat: 2}],
+    {id: 'concrete', label: 'Plain concrete', hue: 2, pat: 2},
+    {id: 'painted', label: 'Painted base (red, black, yellow or white)', hue: 1, pat: 0}],
    cls: (c) => {
      const p = c.pO; if (!c.po) return null;
      if (p.holes === 'full' || p.holes === 'above-base') return 'holey'; if (p.holes === 'slots') return 'slots';
      if (p.holes === 'steps' || p.holes === 'ladder' || p.holes === 'waffle') return 'ladder';
      if (p.holes === 'square-holes') return 'sqholes'; if (p.stripes) return 'striped';
-     if (p.form === 'octagonal') return 'octo';
+     if (p.form === 'octagonal') return 'octo'; if (p.base) return 'painted';
      if (p.mat === 'steel' || p.form === 'segments' || p.form === 'stobie') return 'steel';
      if (p.mat === 'concrete' || p.mat === 'black') return 'concrete';
      return (p.form === 'H' || p.stay === 'yes') ? 'woodStay' : 'wood';
@@ -141,11 +145,12 @@ const LENSES = [
     {id: 'white', label: 'White centre, solid white edges', hue: 0, pat: 0},
     {id: 'dashedEdge', label: 'White centre, dashed edges', hue: 0, pat: 1},
     {id: 'yellowCenter', label: 'Yellow centre line', hue: 1, pat: 0},
+    {id: 'mixedCenter', label: 'Yellow and white centre lines', hue: 1, pat: 1},
     {id: 'yellowEdge', label: 'Dashed yellow edges', hue: 2, pat: 0},
     {id: 'yellowSolid', label: 'Solid yellow edges', hue: 2, pat: 1}],
    cls: (c) => {
      const r = c.rO; if (!r.center && !r.edge) return null;
-     if (r.edge === 'yellow-solid') return 'yellowSolid'; if ((r.edge || '').indexOf('yellow') === 0) return 'yellowEdge'; if ((r.center || '').indexOf('yellow') === 0) return 'yellowCenter';
+     if (r.edge === 'yellow-solid') return 'yellowSolid'; if ((r.edge || '').indexOf('yellow') === 0) return 'yellowEdge'; if (r.center === 'triple' || r.center === 'yellow-white') return 'mixedCenter'; if ((r.center || '').indexOf('yellow') === 0) return 'yellowCenter';
      return /dashed/.test(r.edge || '') ? 'dashedEdge' : 'white';
    },
    view: (c) => draw('road', c.ro), cap: (c) => roadDesc(c)},
@@ -302,7 +307,7 @@ const GEO = (() => {
     byCountry.forEach((gl, name) => { const m = merged(gl, L); if (m) countryAt[L].set(name, m); });
     ready[L] = true;
   };
-  const regionCache = new Map(), regionListCache = new Map(), meshCache = new Map(), baseCache = new Map(), regionLevel = new Map(), shapeList = new Map(), outCache = new Map();
+  const regionCache = new Map(), regionListCache = new Map(), meshCache = new Map(), edgeCache = new Map(), innerCache = new Map(), baseCache = new Map(), regionLevel = new Map(), shapeList = new Map(), outCache = new Map();
   const finest = (L) => { while (L < TOP && !ready[L]) L++; return L; }; // the level to use: the wanted one, or the next finer one that is built
   const worldGeoms = WT.objects.w.geometries;
   return {
@@ -337,9 +342,19 @@ const GEO = (() => {
       if (!outCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a === b); outCache.set(key, m && m.coordinates.length ? m : null); }
       return outCache.get(key);
     },
+    edge: (name, r, L = TOP) => { // the part of one region's edge that is the country's edge (coast or national border), so a zoomed-in view can draw the border region by region
+      const key = name + '|' + r + '|' + L;
+      if (!edgeCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a === b && a.properties.r === r); edgeCache.set(key, m && m.coordinates.length ? m : null); }
+      return edgeCache.get(key);
+    },
+    inner: (name, r, L = TOP) => { // the lines between one region and its neighbours in the same country
+      const key = name + '|' + r + '|' + L;
+      if (!innerCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b && a.properties.r !== b.properties.r && (a.properties.r === r || b.properties.r === r)); innerCache.set(key, m && m.coordinates.length ? m : null); }
+      return innerCache.get(key);
+    },
     mesh: (name, L = TOP) => { // the lines between a country's regions, as one MultiLineString
       const key = name + '|' + L;
-      if (!meshCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b); meshCache.set(key, m && m.coordinates.length ? m : null); }
+      if (!meshCache.has(key)) { const m = topojson.mesh(topoAt(UT, L), {type: 'GeometryCollection', geometries: byCountry.get(name) || []}, (a, b) => a !== b && a.properties.r !== b.properties.r); meshCache.set(key, m && m.coordinates.length ? m : null); }
       return meshCache.get(key);
     },
     regionAt: (name, ll) => { // which region of this country holds the point
@@ -385,6 +400,7 @@ function mountGlobe(host) {
   const gGrat = svg.append('path').attr('class', 'g-grat').datum(d3.geoGraticule10());
   const gBase = svg.append('g'), gSet = svg.append('g');
   const regP = svg.append('path').attr('class', 'g-reg');
+  const natP = svg.append('path').attr('class', 'g-nat'); // national borders, drawn over the region lines whenever those show
   const gShade = svg.append('path').attr('class', 'g-shade');
   const hovP = svg.append('path').attr('class', 'hl hov'), selP = svg.append('path').attr('class', 'hl sel'), hovR = svg.append('path').attr('class', 'hl hovr');
   const gPl = svg.append('g'), gMk = svg.append('g'), gLab = svg.append('g'), gPlab = svg.append('g');
@@ -447,7 +463,7 @@ function mountGlobe(host) {
     gGrat.attr('d', path);
     const L = Math.max(0, GEO.levelFor(R0 * K) - (dragging ? 1 : 0)); // the level of detail the zoom needs (one coarser while dragging)
     baseP.attr('d', (d) => (seen(d, ctr) ? path(GEO.baseGeom(d.i, L)) || '' : ''));
-    let lines = '';
+    let lines = '', nat = '';
     setP.attr('d', (d) => {
       d._reg = false;
       if (!seen(d, ctr)) return '';
@@ -457,14 +473,17 @@ function mountGlobe(host) {
         d._reg = true; let str = '';
         for (const q of GEO.regionShapes(d.n)) {
           if (d3.geoDistance(q.cb, ctr) >= q.cr + vr) continue;
-          const p = path(GEO.regionAtLevel(q.r, L)) || ''; str += p; if (rpx > REGION_PX) lines += p;
+          str += path(GEO.regionAtLevel(q.r, L)) || '';
+          const e = GEO.edge(d.n, q.r, L); if (e) nat += path(e) || '';
+          const m = GEO.inner(d.n, q.r, L); if (m) lines += path(m) || '';
         }
         return str;
       }
       return path(GEO.countryGeom(d.n, L) || d.g) || '';
     });
-    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; } });
-    regP.attr('d', lines);
+    setD.forEach((d) => { if (!d._reg && d.own && d.nreg > 1 && d.rad * R0 * K > REGION_PX && seen(d, ctr)) { const m = GEO.mesh(d.n, L); if (m) lines += path(m) || ''; const o = GEO.outline(d.n, L); if (o) nat += path(o) || ''; } });
+    setP.classed('byreg', (d) => !!d._reg);
+    regP.attr('d', lines); natP.attr('d', nat);
     const outlineOf = (d) => (d.own ? GEO.outline(d.n, L) || d.g : d.g);
     const hd = byN.get(S.hover), sd = byN.get(S.sel);
     hovP.attr('d', hd && S.hover !== S.sel && seen(hd, ctr) ? path(outlineOf(hd)) || '' : ''); selP.attr('d', sd && seen(sd, ctr) ? path(outlineOf(sd)) || '' : '');
@@ -813,7 +832,7 @@ function routePane(c) {
   const R = (window.ROUTES || {})[c.code];
   const e = esc;
   const eroad = 'Across Europe, green E-road signs follow one grid: even numbers run east-west, odd numbers north-south.';
-  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia and Oceania are done; the Americas and Africa follow.</p>`;
+  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia, Oceania and the Americas are done; Africa follows.</p>`;
   const note = R.n == null ? eroad : R.n; // Europe: E-road grid; elsewhere the entry's own footnote ('' = none)
   if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p>${note ? `<p class="rt-n">${e(note)}</p>` : ''}`;
   const lg = R.g.map(([g, t]) => `<div><span class="rt-sw${g === 'zone' ? ' zone' : ''}"${g === 'zone' ? '' : ` style="background:${ROUTE_COL[g]}"`}></span>${e(t)}</div>`).join('');

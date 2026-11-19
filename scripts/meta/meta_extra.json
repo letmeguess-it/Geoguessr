@@ -1,0 +1,298 @@
+{
+ "override": {
+  "France": {
+   "note": "'Rue' also appears in Belgium, Luxembourg, Switzerland and Monaco; check the plates (blue bands on both sides) to confirm France."
+  },
+  "Italy": {
+   "note": "'Via' is also used in San Marino and Ticino (Switzerland). Italian words end in vowels and only use accents like à è."
+  },
+  "Midway Atoll": {
+   "code": "UM"
+  }
+ },
+ "cam": {
+  "Albania": "Sky rift: a jagged purple / dark-blue stitching tear across the sky (Gen 3 camera quirk). Also seen in Montenegro.",
+  "Montenegro": "Sky rift: a jagged purple / dark-blue stitching tear across the sky (Gen 3 camera quirk). Also seen in Albania.",
+  "Switzerland": "Low camera: noticeably low, almost bumper-height viewpoint."
+ },
+ "twins": [
+  [
+   "Sweden",
+   "Norway",
+   "road",
+   "Sweden: ä ö, DASHED white outer lines, yellow-background warning triangles. Norway: æ ø, SOLID white outer lines, yellow centre line."
+  ],
+  [
+   "Denmark",
+   "Norway",
+   "script",
+   "Both use æ ø å. Danish \"vej / gade\" vs Norwegian \"vei / gate\". Danish roads have dashed edges and a white centre; Norwegian a yellow centre line."
+  ],
+  [
+   "Sweden",
+   "Denmark",
+   "script",
+   "Swedish ä ö vs Danish æ ø. Swedish \"gatan / vägen\" vs Danish \"vej / gade\"; Sweden has the thin blue-reflector bollard, Denmark the yellow one."
+  ],
+  [
+   "Sweden",
+   "Finland",
+   "pole",
+   "Both have plain wooden poles, but Swedish ones usually carry a small yellow number tag. Finnish words have double letters (aa, kk) and a yellow centre line."
+  ],
+  [
+   "Estonia",
+   "Finland",
+   "script",
+   "Both show ä ö, but õ and ü only exist in Estonian. Finland: double vowels, -katu / -tie."
+  ],
+  [
+   "Latvia",
+   "Lithuania",
+   "script",
+   "Latvian has macrons (ā ē ī ū) and comma consonants (ķ ļ ņ). Lithuanian has ogoneks and dots (ą ę ė į ų)."
+  ],
+  [
+   "Estonia",
+   "Latvia",
+   "plate",
+   "Baltic neighbours with the same EU-strip plate. Tell them apart by plate code (EST / LV) and letters: õ for Estonia, macrons for Latvia."
+  ],
+  [
+   "Faroe Islands",
+   "Iceland",
+   "script",
+   "Faroese has ð and ø; Icelandic has ð and þ but no ø."
+  ],
+  [
+   "Faroe Islands",
+   "Denmark",
+   "script",
+   "Danish has ø but no ð; the Faroes have both. Plate: Faroese blue band with FO."
+  ],
+  [
+   "Åland Islands",
+   "Finland",
+   "script",
+   "Åland is Swedish-only (-vägen, -gatan, å). Mainland Finland shows Finnish -tie / -katu and double vowels."
+  ],
+  [
+   "Germany",
+   "Austria",
+   "script",
+   "Both write ß. \"Gasse\" for small streets is far more common in Austria. Bollards: German white strip vs Austrian red reflector."
+  ],
+  [
+   "Germany",
+   "Luxembourg",
+   "boll",
+   "Identical bollards (angled black top, tall white strip). Luxembourg: yellow plates and French \"Rue\"."
+  ],
+  [
+   "Austria",
+   "Slovenia",
+   "boll",
+   "Same angled-top bollard, but Slovenia has a thinner red band. Slovenian č š ž and \"cesta\"; plate has a green border."
+  ],
+  [
+   "Germany",
+   "Switzerland",
+   "script",
+   "Germany and Austria write ß; Switzerland and Liechtenstein write \"Strasse\". Swiss front plates are very short."
+  ],
+  [
+   "Switzerland",
+   "Liechtenstein",
+   "script",
+   "Both write \"Strasse\" without ß. Liechtenstein plates are black with white text starting FL."
+  ],
+  [
+   "Belgium",
+   "Netherlands",
+   "plate",
+   "Flanders writes the same Dutch \"straat\". Netherlands: yellow plates and dashed edge lines; Belgium: white plates with dark-red characters."
+  ],
+  [
+   "Belgium",
+   "France",
+   "script",
+   "Wallonia writes French \"Rue\" like France. French plates have blue strips on both sides."
+  ],
+  [
+   "France",
+   "Monaco",
+   "script",
+   "Same French. Monaco has compact white plates with a shield and a dense coastal city."
+  ],
+  [
+   "France",
+   "Luxembourg",
+   "script",
+   "\"Rue\" also appears in Luxembourg; its plates are yellow and bollards are the German-style angled post."
+  ],
+  [
+   "France",
+   "Portugal",
+   "pole",
+   "Both have ladder-notched concrete poles; Portugal's notches are smaller and tighter, and France adds a small blue ID tag."
+  ],
+  [
+   "Italy",
+   "San Marino",
+   "plate",
+   "Same Italian \"Via\". San Marino plates are compact white with blue text and a crest."
+  ],
+  [
+   "Italy",
+   "Albania",
+   "boll",
+   "Same bollard (black top third, red rectangle) and both have double-strip plates. Albanian shows ë ç and \"Rruga\"."
+  ],
+  [
+   "Albania",
+   "Kosovo",
+   "script",
+   "Both write Albanian \"Rruga\". Kosovo often adds Serbian \"Ulica\" and has a single blue strip (RKS); Albania has strips on both sides."
+  ],
+  [
+   "Hungary",
+   "Romania",
+   "pole",
+   "Both holey concrete. Hungary: holes run to the ground. Romania: holes stop above a solid, often white base."
+  ],
+  [
+   "Czechia",
+   "Slovakia",
+   "boll",
+   "Identical bollards (angled top, two orange reflectors). Czech ř ě ů vs Slovak ä ľ ô; Slovak plates carry a crest."
+  ],
+  [
+   "Czechia",
+   "Poland",
+   "script",
+   "Czech ulice with ř ě ů vs Polish ulica with ł ż ś. Poland: red-band bollard with route numbers, slotted poles."
+  ],
+  [
+   "Poland",
+   "Slovakia",
+   "script",
+   "Polish ł ż ś vs Slovak ä ľ ô. Bollards: Poland red band vs Slovakia orange pair."
+  ],
+  [
+   "Croatia",
+   "Slovenia",
+   "script",
+   "Croatian ć đ (and č š ž) vs Slovenian only č š ž. Slovenian roads are \"cesta\"."
+  ],
+  [
+   "Croatia",
+   "Serbia",
+   "script",
+   "Croatia is Latin-only with đ ć. Serbia mixes Cyrillic (ђ ћ џ) and Latin."
+  ],
+  [
+   "Serbia",
+   "Montenegro",
+   "script",
+   "Both mix Latin and Cyrillic. Montenegrin spelling can add ś and ź; plates differ by code (SRB / MNE) and crest."
+  ],
+  [
+   "Serbia",
+   "Bosnia and Herzegovina",
+   "script",
+   "Latin and Cyrillic in both. Bosnia: Cyrillic mostly in Republika Srpska, plate code BIH, no regional codes."
+  ],
+  [
+   "Serbia",
+   "North Macedonia",
+   "script",
+   "Serbian Cyrillic uses ђ ћ џ; Macedonian uses ѓ ќ ѕ."
+  ],
+  [
+   "Bulgaria",
+   "Russia",
+   "script",
+   "Bulgarian has ъ щ (no ы э). Russian has ы э ё. Bollards: Russia has the diagonal black stripe, Bulgaria none documented."
+  ],
+  [
+   "Bulgaria",
+   "Greece",
+   "script",
+   "Greek letters (Λ Σ Ω) vs Bulgarian Cyrillic (Ж Ъ Щ). Both use EU-strip plates."
+  ],
+  [
+   "Russia",
+   "Ukraine",
+   "plate",
+   "Same poles and bollards. Russian plates have a separate region box and ы э ё; Ukrainian plates have a blue-yellow flag strip and і ї є ґ."
+  ],
+  [
+   "Russia",
+   "Belarus",
+   "plate",
+   "Same poles and bollards. Belarus: red-green flag strip, і ў. Russia: region box, ы э."
+  ],
+  [
+   "Belarus",
+   "Ukraine",
+   "script",
+   "Belarusian і ў vs Ukrainian і ї є ґ. Plates: red-green vs blue-yellow flag strip."
+  ],
+  [
+   "United Kingdom",
+   "Ireland",
+   "road",
+   "Both drive on the left. Ireland: dashed YELLOW outer lines, H-poles, bilingual Irish signs, EU-strip plates."
+  ],
+  [
+   "United Kingdom",
+   "Gibraltar",
+   "plate",
+   "Same UK-style plates and English signs, but Gibraltar drives on the right."
+  ],
+  [
+   "United Kingdom",
+   "Isle of Man",
+   "plate",
+   "Isle of Man has a GBM band and occasional Manx; otherwise very British."
+  ],
+  [
+   "United Kingdom",
+   "Jersey",
+   "script",
+   "Jersey keeps French \"Rue\" street names on UK-style signs."
+  ],
+  [
+   "Spain",
+   "Portugal",
+   "script",
+   "Spanish \"Calle\" and ñ vs Portuguese \"Rua\" with ã õ. Poles: waffle holes vs tighter ladder notches."
+  ],
+  [
+   "Spain",
+   "Andorra",
+   "script",
+   "Andorra is Catalan: \"Carrer\", \"Avinguda\", and the dotted l·l. Andorran plates are compact with a crest."
+  ],
+  [
+   "Malta",
+   "Cyprus",
+   "road",
+   "Both EU islands that drive on the left. Malta: Latin letters ċ ġ ħ ż and \"Triq\". Cyprus: Greek alphabet with Latin transliteration."
+  ],
+  [
+   "Monaco",
+   "San Marino",
+   "plate",
+   "Two microstates with compact white plates, blue text and a crest. Monaco is French (\"Rue\"), San Marino is Italian (\"Via\")."
+  ],
+  [
+   "Greece",
+   "Cyprus",
+   "script",
+   "Both Greek. Cyprus drives on the left and adds English on signs."
+  ]
+ ],
+ "snapshot": "2026-11-18",
+ "_about": "Kept outside the sheet tables: per-country overrides (a sheet export drops a leading apostrophe), camera notes, look-alike pairs."
+}

@@ -19,6 +19,9 @@ Builds the map files in `site/`:
 - **`assign`:** Natural Earth unit to sheet region, for regrouped or renamed regions (Vietnam's 2025 merger, Norway's 2024 counties, FATA into Khyber Pakhtunkhwa, Moscow / Kyiv swaps, etc.).
 - **Swaps fixed:** Natural Earth (or the previous links) had these pairs the wrong way round, so `assign` corrects them: Napo / Tungurahua (Ecuador), City of Zagreb / Zagreb County, Sofia city / province, Minsk city / region, Moscow city / oblast, Kyiv city / oblast, Almaty, Vientiane.
 - **geoBoundaries instead of Natural Earth** where Natural Earth's own shapes are off: Egypt, San Marino, Liechtenstein, plus the countries above.
+- **The Americas (2026-11-19):** the United States, Mexico, Guatemala, Colombia, Peru, Chile, Paraguay, Uruguay and Costa Rica now come from geoBoundaries too. A test against GeoNames (every town carries its state or province code) showed geoBoundaries puts far fewer towns in the wrong state: US 1 against 69 (Natural Earth drew St. Louis inside Illinois), Guatemala 3 against 16, Colombia 5 against 20, Mexico 211 against 323 (the rest are GeoNames' own errors around the State of Mexico). Natural Earth stays for Argentina and Brazil, where it scored better (geoBoundaries' Argentina file has no Entre Ríos), and for Canada, Bolivia, Ecuador and the Dominican Republic, where both tie. geoBoundaries gives Mexico City the State of Mexico's ISO code, so an `alias` links it by name; an alias now always wins over the source's ISO code.
+- **Pinned links:** Brod-Posavina (Croatia), Pomoravlje (Serbia, two Natural Earth units share the name Pomoravski), Abuja (its name folds to nothing) and Slovenia's 12 statistical regions are linked in `assign`, so a clean rebuild no longer depends on names left over in the previous `regions.js`.
+- `common.load_gb` repairs names stored as UTF-8 read as Latin-1 (geoBoundaries' Chile file: "RegiÃ³n" becomes "Región").
 - **Frame fixes in `step1_frames.py`:**
   - A Natural Earth unit always goes to its own country, even when a region with the same name exists next door. The French Jura department had been drawn as part of Switzerland's Jura.
   - The Auckland Islands are not part of the Auckland region.
@@ -43,7 +46,7 @@ python3 step3_export.py               # units.geojson, world.geojson, REGIONS.js
 python3 step3b_clean_names.py         # drops other-names that point to another region or another country's town
 node step4_topo.mjs work/units.geojson ../../site/geo.js UNIT_TOPO u 2e5 1e-8
 node step4_topo.mjs work/world.geojson ../../site/world.js WORLD_TOPO w 2e5 1e-8
-BUILD=2026-11-18b python3 step5_write_site.py   # regions.js, places.js links, clues_world.js, build stamps, ?v= in index.html
+BUILD=2026-11-19a python3 step5_write_site.py   # regions.js, places.js links, clues_world.js, build stamps, ?v= in index.html
 python3 check_towns.py                # optional: regions named after a town must contain that town (flags need a human look)
 ```
 

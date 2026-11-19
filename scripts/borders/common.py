@@ -48,5 +48,9 @@ def load_gb(path):
     for f in g['features']:
         if not f.get('geometry'):
             continue
-        out.append({'name': f['properties'].get('shapeName'), 'iso': f['properties'].get('shapeISO'), 'geom': make_valid(shape(f['geometry']))})
+        nm = f['properties'].get('shapeName') or ''
+        if 'Ã' in nm or 'Â' in nm:  # UTF-8 read as Latin-1 in some geoBoundaries files (Chile)
+            try: nm = nm.encode('latin-1').decode('utf-8')
+            except (UnicodeEncodeError, UnicodeDecodeError): pass
+        out.append({'name': nm, 'iso': f['properties'].get('shapeISO'), 'geom': make_valid(shape(f['geometry']))})
     return out

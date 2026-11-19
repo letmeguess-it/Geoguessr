@@ -46,19 +46,27 @@ R = {
     'IE': {'assign': {'Dún Laoghaire–Rathdown': 'Dublin', 'Fingal': 'Dublin', 'South Dublin': 'Dublin', 'South Tipperary': 'Tipperary', 'North Tipperary': 'Tipperary'}},
     'ES': {'assign': {'Navarra': 'Navarra', 'Valenciana': 'Valencian Community', 'Castellón': 'Valencian Community', 'Alicante': 'Valencian Community', 'Canary Is.': 'Canary Islands (Canarias)'}},
     'SI': {'assign_region': True, 'assign': {'Spodnjeposavska': 'Lower Sava (Posavska)', 'Jugovzhodna Slovenija': 'Southeast Slovenia (Jugovzhodna)',
-                      'Notranjsko-kraška': 'Littoral-Inner Carniola (Primorsko-notranjska)'}},
-    'MX': {'assign': {'Distrito Federal': 'Ciudad de México'}, 'enclave': True},
+                      'Notranjsko-kraška': 'Littoral-Inner Carniola (Primorsko-notranjska)', 'Osrednjeslovenska': 'Central Slovenia (Osrednjeslovenska)',
+                      'Podravska': 'Drava (Podravska)', 'Pomurska': 'Mura (Pomurska)', 'Koroška': 'Carinthia (Koroška)', 'Savinjska': 'Savinja (Savinjska)',
+                      'Zasavska': 'Central Sava (Zasavska)', 'Gorenjska': 'Upper Carniola (Gorenjska)', 'Goriška': 'Gorizia (Goriška)', 'Obalno-kraška': 'Coastal-Karst (Obalno-kraška)'}},
+    # Americas, 2026-11-19: geoBoundaries puts towns in the right state far more often than Natural Earth here
+    # (GeoNames admin-1 test: US 1 wrong vs 69, Guatemala 3 vs 16, Colombia 5 vs 20, Mexico 211 vs 323; see claude/Audit_Americas.md).
+    'MX': {'src': gb('MEX'), 'alias': {'Distrito Federal': 'Ciudad de México', 'Mexico': 'México (State)'}},  # geoBoundaries gives Mexico City the State of Mexico's ISO code
+    'US': {'src': gb('USA')}, 'GT': {'src': gb('GTM')}, 'CR': {'src': gb('CRI')}, 'UY': {'src': gb('URY')}, 'PY': {'src': gb('PRY')},
+    'CL': {'src': gb('CHL'), 'alias': {"Región Metropolitana de Santiago": 'Santiago Metropolitan', "Región del Libertador Bernardo O'Higgins": "O'Higgins",
+                                       'Región de Aysén del Gral.Ibañez del Campo': 'Aysén', 'Región de Magallanes y Antártica Chilena': 'Magallanes'}},
+    'PE': {'src': gb('PER'), 'alias': {'Lima': 'Lima Region', 'El Callao': 'Callao', 'Municipalidad Metropolitana de Lima': 'Lima Metropolitan'}},
+    'CO': {'src': gb('COL'), 'alias': {'Bogota Capital District': 'Bogotá D.C.', 'Archipiélago de San Andrés, Providencia y Santa Catalina': 'San Andrés y Providencia'}},
     'HU': {'enclave': True},
     'BG': {'assign': {'Sofia': 'Sofia Province', 'Grad Sofiya': 'Sofia (city)'}},
     'BY': {'assign': {'Minsk': 'Minsk Region', 'City of Minsk': 'Minsk (city)'}},
     'EC': {'assign': {'Napo': 'Tungurahua', 'Tungurahua': 'Napo'}},  # Natural Earth has these two labels swapped
     'NZ': {'leave': ['Auckland Islands']},
     'SM': {'src': gb('SMR')}, 'LI': {'src': gb('LIE')}, 'EG': {'src': gb('EGY')},
-    'HR': {'assign': {'Grad Zagreb': 'City of Zagreb', 'Zagrebacka': 'Zagreb County'}, 'assign_at': [('Brodsko-Posavska', 17.6, 45.35, 'Požega-Slavonia')]},
-    'RS': {'assign_at': [('Pomoravski', 21.2, 43.5, 'Rasina')]},
+    'HR': {'assign': {'Grad Zagreb': 'City of Zagreb', 'Zagrebacka': 'Zagreb County', 'Brodsko-Posavska': 'Brod-Posavina'}, 'assign_at': [('Brodsko-Posavska', 17.6, 45.35, 'Požega-Slavonia')]},
+    'RS': {'assign_at': [('Pomoravski', 21.2, 43.5, 'Rasina')], 'assign': {'Pomoravski': 'Pomoravlje'}},  # Natural Earth has two units named Pomoravski
+    'NG': {'assign': {'Federal Capital Territory': 'Abuja (FCT)'}},  # its name folds to nothing (all stop words), so it needs a direct link
     'TN': {'src': gb('TUN')},
-    'PE': {'assign': {'Lima': 'Lima Region', 'Lima Province': 'Lima Metropolitan', 'Callao': 'Callao', 'Puno': 'Puno'}},
-    'CO': {'assign': {'Bogota': 'Bogotá D.C.', 'Cundinamarca': 'Cundinamarca'}, 'enclave': True},
     'IS': {'assign': {'Reykjavík': 'Capital Region (Höfuðborgarsvæði)'}},
     'UK': {'by': 'geonunit'},
     'NA': {'assign': {'Kavango': 'Kavango East'}, 'layers': [{'adm2': gb('NAM', 'ADM2'), 'names': ['Kahenge', 'Kapako', 'Mpungu'], 'to': 'Kavango West'}]},
