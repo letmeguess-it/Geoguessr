@@ -44,6 +44,15 @@ It first loads about 2.3 MB: country outlines only, without their finest detail 
 1. **Complete the meta for every country.** Populate the visual clues, such as utility poles, bollards, road lines and signs, for all covered countries. Many countries still show "Not documented yet" for one or more of these.
 2. **Add route numbering with directions.** Version 1 done for every continent: the Key Card's Routes tab (`data/csv/Route Numbering.csv` has the European rules). Next: the rules table for the other continents, and exact route lines from OpenStreetMap.
 
+## Credits
+This project stands on the work of the GeoGuessr learning community. We are grateful to the following resources, whose guides informed the meta data in this explorer:
+
+- **[Plonk It](https://www.plonkit.net)** — step-by-step country guides, used as a reference for clue details and for cross-checking.
+- **[Geometas](https://www.geometas.com)** — country and category meta pages, used as a reference for clue content and for cross-checking.
+- **[GeoCoach](https://www.geocoach.me)** — the bollard and utility pole meta guides, the main reference for the front-and-back bollard drawings and pole drawings.
+
+All clue text in this repository is written in our own words, and the drawings are original illustrations; no text or images were copied from these sites. Please visit them for their full guides and photographs. They are independent projects and are not affiliated with this one.
+
 ## Licences
 - Code: MIT (`LICENSE`).
 - Clue content and tables: CC BY 4.0 (`LICENSE-DATA`). Credit "letmeguess-it".
