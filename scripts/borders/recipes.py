@@ -65,17 +65,23 @@ R = {
     'SM': {'src': gb('SMR')}, 'LI': {'src': gb('LIE')}, 'EG': {'src': gb('EGY')},
     'HR': {'assign': {'Grad Zagreb': 'City of Zagreb', 'Zagrebacka': 'Zagreb County', 'Brodsko-Posavska': 'Brod-Posavina'}, 'assign_at': [('Brodsko-Posavska', 17.6, 45.35, 'Požega-Slavonia')]},
     'RS': {'assign_at': [('Pomoravski', 21.2, 43.5, 'Rasina')], 'assign': {'Pomoravski': 'Pomoravlje'}},  # Natural Earth has two units named Pomoravski
-    'NG': {'assign': {'Federal Capital Territory': 'Abuja (FCT)'}},  # its name folds to nothing (all stop words), so it needs a direct link
+    # Africa, 2026-11-24: same GeoNames admin-1 test (see claude/Audit_Africa.md). geoBoundaries wins for Nigeria (13 towns off vs 18:
+    # Natural Earth drew Ondo and Ile-Oluji inside Osun, Opobo inside Akwa Ibom), Tanzania (6 vs 9: Biharamulo inside Geita) and
+    # Eswatini (0 vs 1: Lobamba inside Manzini). Ties stay on Natural Earth (South Africa, Namibia, Senegal, Mali, Rwanda, Uganda, Lesotho).
+    'NG': {'src': gb('NGA'), 'alias': {'Abuja Federal Capital Territory': 'Abuja (FCT)'}},  # the FCT name folds to nothing (all stop words), so it needs a direct link
+    'SZ': {'src': gb('SWZ')},
+    'UG': {'src': gb('UGA')},  # tie with Natural Earth (0 towns off); geoBoundaries has the 4 regions, so no district grouping by old names
+    'RW': {'assign': {'Kigali City': 'Kigali'}},  # pinned (was linked through the previous regions.js)
     'TN': {'src': gb('TUN')},
     'IS': {'assign': {'Reykjavík': 'Capital Region (Höfuðborgarsvæði)'}},
     'UK': {'by': 'geonunit'},
-    'NA': {'assign': {'Kavango': 'Kavango East'}, 'layers': [{'adm2': gb('NAM', 'ADM2'), 'names': ['Kahenge', 'Kapako', 'Mpungu'], 'to': 'Kavango West'}]},
+    'NA': {'assign': {'Kavango': 'Kavango East', 'Caprivi': 'Zambezi'}, 'layers': [{'adm2': gb('NAM', 'ADM2'), 'names': ['Kahenge', 'Kapako', 'Mpungu'], 'to': 'Kavango West'}]},
     'RU': {'enclave': True, 'assign': {'Moskovskaya': 'Moscow Oblast', 'Moskva': 'Moscow (city)'}},
     'UA': {'assign': {'Kiev': 'Kyiv Oblast', 'Kiev City': 'Kyiv (city)'}}, 'AE': {'enclave': True},
     'AU': {'assign': {'Lord Howe Island': 'New South Wales', 'Macquarie Island': 'Tasmania'}},
-    'ML': {'layers': [{'adm2': gb('MLI', 'ADM2'), 'names': ['Menaka'], 'to': 'Ménaka'},
+    'ML': {'assign': {'Timbuktu': 'Tombouctou'}, 'layers': [{'adm2': gb('MLI', 'ADM2'), 'names': ['Menaka'], 'to': 'Ménaka'},
                       {'adm2': gb('MLI', 'ADM3'), 'names': ['Salam'], 'to': 'Taoudénit'}]},
-    'TZ': {'layers': [{'adm2': gb('TZA', 'ADM2'), 'names': ['Ileje', 'Mbozi', 'Momba', 'Songwe', 'Tunduma'], 'to': 'Songwe'}]},
+    'TZ': {'src': gb('TZA'), 'layers': [{'adm2': gb('TZA', 'ADM2'), 'names': ['Ileje', 'Mbozi', 'Momba', 'Songwe', 'Tunduma'], 'to': 'Songwe'}]},
     'PS': {'layers': 'PS', 'ne_as_gap': True},
 }
 

@@ -887,7 +887,7 @@ function routePane(c) {
   const e = esc;
   const eroad = 'Across Europe, green E-road signs follow one grid: even numbers run east-west, odd numbers north-south.';
   if (!window.ROUTES) return `<div class="rt-k">Route numbers</div><p class="rt-s">Loading…</p>`; // routes.js arrives just after the first picture
-  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet. Europe, Asia, Oceania and the Americas are done; Africa follows.</p>`;
+  if (!R) return `<div class="rt-k">Route numbers</div><p class="rt-s">Route numbering for ${e(c.short)} is not drawn yet.</p>`;
   const note = R.n == null ? eroad : R.n; // Europe: E-road grid; elsewhere the entry's own footnote ('' = none)
   if (R.t) return `<div class="rt-k">Route numbers</div><p class="rt-s">${e(R.t)}</p>${note ? `<p class="rt-n">${e(note)}</p>` : ''}`;
   const lg = R.g.map(([g, t]) => `<div><span class="rt-sw${g === 'zone' ? ' zone' : ''}"${g === 'zone' ? '' : ` style="background:${ROUTE_COL[g]}"`}></span>${e(t)}</div>`).join('');
@@ -925,7 +925,8 @@ function renderCard() {
   const road = c.ro ? `<div class="t" tabindex="0" data-ti="${ti(tp(`Road lines & signs${rc ? ' · ' + rc.label : ''}`, [strip(c, c.ros), roadDesc(c)].filter(Boolean).join(' '), draw('road', c.ro)))}"><span class="tk">Road lines</span><div class="art">${draw('road', c.ro)}</div><div class="tl"><b>${esc(rc ? rc.label : 'Road signs')}</b>${wc ? `<span>${esc(wc.label)}</span>` : ''}</div></div>` : txtTile('Road lines', 'Road lines & signs', strip(c, c.ros));
 
   const cam = D.cam[c.n];
-  const camChip = cam ? `<span class="chip" tabindex="0" data-ti="${ti(tp(/sky/i.test(cam) ? 'Sky rift' : /low/i.test(cam) ? 'Low camera' : 'Camera quirk', cam.replace(/^[^:]+:\s*/, '')))}">${/sky/i.test(cam) ? 'Sky rift glitch' : /low/i.test(cam) ? 'Low camera' : 'Camera quirk'}</span>` : '';
+  const camLab = !cam ? '' : /^sky/i.test(cam) ? 'Sky rift' : /^low/i.test(cam) ? 'Low camera' : (cam.match(/^([^:]{3,20}):/) || [, 'Camera quirk'])[1]; // label = text before the colon (Google car, Follow car, No car, Coverage)
+  const camChip = cam ? `<span class="chip" tabindex="0" data-ti="${ti(tp(camLab, cam.replace(/^[^:]+:\s*/, '')))}">${camLab === 'Sky rift' ? 'Sky rift glitch' : esc(camLab)}</span>` : '';
   const arch = c.arch ? strip(c, c.arch) : '';
   const houses = arch ? `<div class="houses" tabindex="0" data-ti="${ti(tp('Houses', arch.charAt(0).toUpperCase() + arch.slice(1)))}"><b>Houses</b>${esc(arch)}</div>` : '';
   const tw = twinsOf(c);
@@ -1003,7 +1004,7 @@ function renderCard() {
 buildChrome();
 mountSearch();
 setTimeout(() => { // the route schematics (Key Card, Routes tab) are not needed for the first picture
-  const el = document.createElement('script'); el.src = 'routes.js?v=2026-11-19a'; el.onload = () => { if (S.sel) renderCard(); }; document.head.appendChild(el);
+  const el = document.createElement('script'); el.src = 'routes.js?v=2026-11-24a'; el.onload = () => { if (S.sel) renderCard(); }; document.head.appendChild(el);
 }, 150);
 $('#sq').addEventListener('focus', loadPlaces);
 $('#sbox').addEventListener('pointerenter', loadPlaces); // a pointer heading for the search line: start fetching its index
