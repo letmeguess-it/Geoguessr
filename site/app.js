@@ -111,9 +111,11 @@ const LENSES = [
     {id: 'round', label: 'Round post, red band', hue: 2, pat: 1},
     {id: 'roundOther', label: 'Round post, black or white marks', hue: 2, pat: 0},
     {id: 'black', label: 'Black post', hue: 2, pat: 2},
-    {id: 'striped', label: 'Striped, stone or coloured-top post', hue: 1, pat: 2}],
+    {id: 'striped', label: 'Striped, stone or coloured-top post', hue: 1, pat: 2},
+    {id: 'none', label: 'No standard bollard', hue: 0, pat: 1}],
    cls: (c) => {
      const b = c.bO; if (!c.bo) return null;
+     if (b.none === 'yes') return 'none';
      // front reflector colour: new f=kind:colour, else the legacy refl=colour-shape
      const fc = b.f ? (b.f.split(':')[1] || '') : (b.refl || '').split('-')[0];
      if (b.body === 'black') return 'black';
@@ -135,9 +137,11 @@ const LENSES = [
     {id: 'striped', label: 'Concrete with hazard stripes', hue: 1, pat: 1},
     {id: 'steel', label: 'Steel or Stobie pole', hue: 1, pat: 2},
     {id: 'concrete', label: 'Plain concrete', hue: 2, pat: 2},
-    {id: 'painted', label: 'Painted base (red, black, yellow or white)', hue: 1, pat: 0}],
+    {id: 'painted', label: 'Painted base (red, black, yellow or white)', hue: 1, pat: 0},
+    {id: 'none', label: 'No street poles (cables underground)', hue: 2, pat: 1}],
    cls: (c) => {
      const p = c.pO; if (!c.po) return null;
+     if (p.none === 'yes') return 'none';
      if (p.holes === 'full' || p.holes === 'above-base' || p.holes === 'slits') return 'holey'; if (p.holes === 'slots' || p.holes === 'slots-low') return 'slots';
      if (p.holes === 'steps' || p.holes === 'ladder' || p.holes === 'waffle' || p.holes === 'steps-high') return 'ladder';
      if (p.holes === 'square-holes' || p.holes === 'pin-upper') return 'sqholes'; if (p.stripes) return 'striped';

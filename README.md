@@ -36,6 +36,7 @@ It first loads about 2.3 MB: country outlines only, without their finest detail 
 - Osh (city), and Tuzi and Zeta in Montenegro, have no outline yet (no open border data). A few new provinces are approximated from older districts, see `scripts/borders/README.md`.
 - Language clues cover every continent. Look-alike pairs are Europe only.
 - Number plates are drawn samples, not photos.
+- Among the 50 most-played countries, Switzerland and Serbia still have no pole drawing, and Ghana and Botswana no bollard drawing: none of GeoCoach, Geometas or Plonk It documents them yet. Countries with no street poles or no standard bollard show a "none" tile, because the absence is itself a clue.
 - No street-level search: street names repeat, so the answer is a spread of places.
 - Route numbering maps cover every continent and show main routes as simplified straight lines.
 - The script that generates the town list (`site/places.js`) is not in this repository yet.
