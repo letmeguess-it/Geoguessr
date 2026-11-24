@@ -244,7 +244,8 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
   .dchip{padding:3px 8px 3px 7px;gap:5px}
   .tabs{order:4;flex:1 1 0;min-width:0}
   .tab{flex:1 1 auto;text-align:center;padding:3px 6px}
-  .card{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:auto;max-height:82vh;border-radius:16px 16px 0 0;transform:translateY(105%);z-index:40}
+  /* the Key Card never takes more than about half the screen, so the selected country stays in view above it; longer cards scroll inside */
+  .card{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:auto;max-height:55vh;max-height:55dvh;border-radius:16px 16px 0 0;transform:translateY(105%);z-index:40}
   .card.open{transform:none}
   .stage.shrink #view{right:0}
 }
@@ -284,6 +285,6 @@ table.tb{border-collapse:collapse;width:100%;font-size:.82rem}
 <script src="clues_world.js?v=2026-11-24a"></script>
 <script src="search.js?v=2026-11-24a"></script>
 <script src="globe.js?v=2026-11-24a"></script>
-<script src="app.js?v=2026-11-24a"></script>
+<script src="app.js?v=2026-11-24b"></script>
 </body>
 </html>

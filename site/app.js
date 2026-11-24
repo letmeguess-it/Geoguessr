@@ -557,7 +557,7 @@ function mountGlobe(host) {
   }
   const wantShift = () => {
     if (!S.sel) return {x: 0, y: 0};
-    if (isMobile()) return {x: 0, y: Math.round(Math.min($('#card').offsetHeight, innerHeight * 0.82) / 2)};
+    if (isMobile()) return {x: 0, y: Math.round(Math.min($('#card').offsetHeight, innerHeight * 0.55) / 2)};
     return {x: Math.min(CARD_W / 2, Math.max(0, GW / 2 - R0 * 0.7)), y: 0};
   };
   const kFor = (area) => (area < 0.0004 ? 4.8 : area < 0.002 ? 3.4 : area < 0.008 ? 2.3 : area < 0.03 ? 1.8 : area < 0.1 ? 1.4 : 1.1);
