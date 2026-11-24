@@ -18,7 +18,7 @@ Bermuda,,.bm,Left hand driving,+1 441,STANDARD NA: Short boxy plate reading 'BER
 Bhutan,,.bt,Left hand driving,+975,RED / YELLOW: Red plate (private) or yellow (commercial) with white/black text.
 Bolivia,,.bo,Right hand driving,+591,BLUE TOP: Short boxy white plate with blue top band (red for public transit).
 Bosnia and Herzegovina,,.ba,Right hand driving,+387,BLUE BAND: Long white plate with blue left strip (BIH) and no regional codes.
-Botswana,,.bw,Left hand driving,+267,"WHITE / YELLOW: Long plates; white front, yellow rear, black text."
+Botswana,,.bw,Left hand driving,+267,"WHITE / YELLOW: White front, yellow rear, black text: B, three digits, three letters (B 123 ABC)."
 Brazil,,.br,Right hand driving,+55,MERCOSUR / GREY: Long white plate with blue top band (Mercosur) or older grey plate.
 British Indian Ocean Territory,,.io,Right hand driving,+246,NONE: No regular civilian plates.
 Bulgaria,,.bg,Right hand driving,+359,BLUE BAND: Long white plate with blue EU strip (BG) and Cyrillic-shared letters.
@@ -39,14 +39,14 @@ Dominican Republic,,.do,Right hand driving,+1,STANDARD NA: Short boxy white plat
 Ecuador,,.ec,Right hand driving,+593,WHITE / ORANGE: Short boxy white plate (private) or orange top band (commercial).
 Egypt,,.eg,Right hand driving,+20,"LIGHT BLUE TOP: Long plate with light-blue top band reading EGYPT, Arabic letters and digits. Landmark-only coverage."
 Estonia,,.ee,Right hand driving,+372,BLUE BAND: Long white plate with blue EU strip (EST) and 3 digits + 3 letters.
-Eswatini,,.sz,Left hand driving,+268,WHITE: Long white plate with blue/black text and small emblem.
+Eswatini,,.sz,Left hand driving,+268,"WHITE: Black letters over a picture of hills, e.g. JSD 136 AM (SD for Eswatini, the last letter for the region)."
 Falkland Islands,,.fk,Left hand driving,+500,"WHITE / YELLOW: UK-style plates, white front and yellow rear."
 Faroe Islands,,.fo,Right hand driving,+298,"BLUE BAND: Long white plate, blue left band with FO and Faroese flag."
 Finland,,.fi,Right hand driving,+358,BLUE BAND: Long white plate with blue EU strip (FIN) and hyphenated text.
 France,,.fr,Right hand driving,+33,DOUBLE BLUE: Long white plate with blue strips on BOTH left (F) and right (region).
 Georgia,,.ge,Right hand driving,+995,FLAG BAND: Long white plate with the white-red Georgian flag and GE on the left.
 Germany,,.de,Right hand driving,+49,BLUE BAND: Long white plate with blue EU strip (D) and round state seal.
-Ghana,,.gh,Right hand driving,+233,"WHITE / YELLOW: White front, yellow rear; black text with flag on top-right."
+Ghana,,.gh,Right hand driving,+233,"WHITE / YELLOW: White (private) or yellow (commercial, very common), black text, e.g. GR 1234-20."
 Gibraltar,,.gi,Right hand driving,+350,"WHITE / YELLOW: UK-style white front, yellow rear, with GBZ band."
 Greece,,.gr,Right hand driving,+30,BLUE BAND: Long white plate with blue EU strip (GR) and 3 letters + 4 digits.
 Greenland,,.gl,Right hand driving,+299,WHITE: Long white plate with Greenland flag on the left.
@@ -66,18 +66,18 @@ Japan,,.jp,Left hand driving,+81,"WHITE / YELLOW: Short boxy plate; white (green
 Jersey,,.je,Left hand driving,+44,"WHITE / YELLOW: UK-style white front, yellow rear, J prefix."
 Jordan,,.jo,Right hand driving,+962,WHITE: Long white plate with black Arabic and Western numerals.
 Kazakhstan,,.kz,Right hand driving,+7,WHITE + FLAG: Long white plate with blue flag/KZ on left and boxed region on right.
-Kenya,,.ke,Left hand driving,+254,"WHITE / YELLOW: Long or square; white front, yellow rear, black text."
+Kenya,,.ke,Left hand driving,+254,"WHITE / YELLOW: Long white front plate, short yellow rear plate, black text: three letters, three digits, a letter (KDA 123A)."
 Kosovo,,.xk,Right hand driving,+383,BLUE BAND: Long white plate with blue left strip (RKS) and 2-digit region code.
 Kyrgyzstan,,.kg,Right hand driving,+996,RED BAND: Long white plate with red left strip and flag emblem.
 Laos,,.la,Right hand driving,+856,YELLOW: Short boxy yellow plate with black Lao script and numbers.
 Latvia,,.lv,Right hand driving,+371,BLUE BAND: Long white plate with blue EU strip (LV) and 2 letters + numbers.
 Lebanon,,.lb,Right hand driving,+961,BLUE BAND: Long white plate with blue left strip (cedar tree emblem).
-Lesotho,,.ls,Left hand driving,+266,WHITE: White plate with blue characters and small blue emblem.
+Lesotho,,.ls,Left hand driving,+266,"WHITE: White plate with blue characters (red for government): one or two letters, then four digits."
 Liechtenstein,,.li,Right hand driving,+423,BLACK: Black plates with white text starting with 'FL' (Swiss size).
 Lithuania,,.lt,Right hand driving,+370,BLUE BAND: Long white plate with blue EU strip (LT) and 3 letters + 3 digits.
 Luxembourg,,.lu,Right hand driving,+352,YELLOW + BLUE: Bright yellow plates front and rear with blue EU strip (L).
 Macau,,.mo,Left hand driving,+853,BLACK: Black plate with white text starting with M.
-Madagascar,,.mg,Right hand driving,+261,WHITE / DARK: Long white or black plates; French-style 4-digit + 3-letter format.
+Madagascar,,.mg,Right hand driving,+261,"WHITE: White plate, black text: four digits and three letters, the first letter for the region (1234 TBA, T = Antananarivo)."
 Malaysia,,.my,Left hand driving,+60,BLACK: Black plate with white characters (front and rear).
 Maldives,,.mv,Left hand driving,+960,WHITE: White plate with black text; landmark-only coverage.
 Mali,,.ml,Right hand driving,+223,WHITE: Long white plate with black text; limited coverage.
@@ -88,11 +88,11 @@ Midway Atoll,,.us,Right hand driving,+1 808,STANDARD NA: US-style plate.
 Monaco,,.mc,Right hand driving,+377,WHITE + BLUE: Compact white plate with blue characters and Monaco shield on left.
 Mongolia,,.mn,Right hand driving,+976,WHITE + RED: Long white plate with red Soyombo symbol on the left.
 Montenegro,,.me,Right hand driving,+382,BLUE BAND: Long white plate with blue left strip (MNE) and round gold/red crest.
-Namibia,,.na,Left hand driving,+264,YELLOW: Long yellow plates front and rear with black text ending in NA.
+Namibia,,.na,Left hand driving,+264,"YELLOW: Yellow plates front and rear, black text: N, a number, then the town letters (N 12345 W is Windhoek, S Swakopmund, WB Walvis Bay)."
 Nepal,,.np,Left hand driving,+977,RED / WHITE: Red plate with white text (private) or black/white; Nepali script.
 Netherlands,,.nl,Right hand driving,+31,YELLOW + BLUE: Bright yellow plates front and rear with blue EU strip (NL).
 New Zealand,,.nz,Left hand driving,+64,WHITE: Medium slim white plate with plain black characters and no border.
-Nigeria,,.ng,Right hand driving,+234,BLUE TOP: North American size; white background with blue/green top bar.
+Nigeria,,.ng,Right hand driving,+234,"WHITE: North American size; white plate with green and blue text, state name at the top and slogan at the bottom (ABC 123 DE)."
 North Macedonia,,.mk,Right hand driving,+389,BLUE BAND: Long white plate with blue left strip (NMK) and small red box.
 Northern Mariana Islands,,.mp,Right hand driving,+1 670,STANDARD NA: Short boxy US-size plate.
 Norway,,.no,Right hand driving,+47,BLUE BAND: Long white plate with blue strip (N + flag); green for commercial vans.
@@ -111,11 +111,11 @@ Qatar,,.qa,Right hand driving,+974,MAROON BAND: Long white plate with maroon lef
 Réunion,,.re,Right hand driving,+262,"DOUBLE BLUE: French plate, blue bands on both sides; right band shows 974."
 Romania,,.ro,Right hand driving,+40,BLUE BAND: Long white plate with blue EU strip (RO) and county code prefix.
 Russia,,.ru,Right hand driving,+7,WHITE + BOX: Long white plate with separated right-side box for region code.
-Rwanda,,.rw,Right hand driving,+250,"WHITE / YELLOW: White front, yellow rear; black text starting with R."
+Rwanda,,.rw,Right hand driving,+250,"WHITE / YELLOW: White front, yellow rear, black text starting with R (RAD 123 A)."
 Saint Pierre and Miquelon,,.pm,Right hand driving,+508,WHITE: French-style white plate.
 San Marino,,.sm,Right hand driving,+378,WHITE + BLUE: Compact white plate with blue characters and coat of arms on left.
 São Tomé and Príncipe,,.st,Right hand driving,+239,BLACK: Long black plate with white characters (older Portuguese style).
-Senegal,,.sn,Right hand driving,+221,BLUE BAND: Long white/silver plate with blue left strip (EU-style look).
+Senegal,,.sn,Right hand driving,+221,"BLUE: Older plates (still most common) are blue with white letters, region first (DK-1234-A, DK = Dakar); new plates since 2019 are white with a blue SN strip (AA-123-BC)."
 Serbia,,.rs,Right hand driving,+381,BLUE BAND: Long white plate with blue left strip (SRB) and red coat of arms.
 Singapore,,.sg,Left hand driving,+65,BLACK / YELLOW: Black front (white text) and yellow rear (black text) or both black.
 Slovakia,,.sk,Right hand driving,+421,BLUE BAND: Long white plate with blue EU strip (SK) and national coat of arms.
@@ -131,9 +131,9 @@ Switzerland,,.ch,Right hand driving,+41,"WHITE (SMALL FRONT): Very short front p
 Taiwan,,.tw,Right hand driving,+886,WHITE: Medium white plate with black text (3 letters + 4 digits).
 Tanzania,,.tz,Left hand driving,+255,"WHITE / YELLOW: White front, yellow rear, black text. Landmark-only coverage."
 Thailand,,.th,Left hand driving,+66,WHITE: Short boxy white plate with black Thai script and numbers.
-Tunisia,,.tn,Right hand driving,+216,BLACK: Long black plate with white numbers and central Arabic script.
+Tunisia,,.tn,Right hand driving,+216,BLACK: Long black plate with white numbers and تونس (Tunis) in Arabic in the middle (123 تونس 4567).
 Türkiye (Turkey),,.tr,Right hand driving,+90,BLUE BAND: Long white plate with blue left strip (TR) and 2-digit province code.
-Uganda,,.ug,Left hand driving,+256,"WHITE / YELLOW: Long plates; white front, yellow rear, black text."
+Uganda,,.ug,Left hand driving,+256,"WHITE / YELLOW: White front, yellow rear (square or long), black text: U, two letters, three digits, a letter (UBA 123A)."
 Ukraine,,.ua,Right hand driving,+380,BLUE BAND: Long white plate with blue left strip (UA + flag) or older blue/yellow.
 United Arab Emirates,,.ae,Right hand driving,+971,WHITE: Long or short white plate with Emirate name/emblem on left.
 United Kingdom,,.uk,Left hand driving,+44,"WHITE / YELLOW: White front, yellow rear; optional blue/green strip on left."

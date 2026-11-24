@@ -296,7 +296,7 @@
       }
       if (s.topbar) { const tb = COL[s.topbar] || s.topbar; o += `<path d="M4 ${y + 4} h${PW - 8} v${PH * 0.26} h-${PW - 8} z" fill="${tb}"/>`; yTop = y + 4 + PH * 0.26; }
       let xr = PW - 10;
-      if (band === 'eu-double') { o += `<path d="M${PW - 24} ${y + 4} h20 v${PH - 8} h-20 z" fill="#1e40a8"/><text x="${PW - 14}" y="${y + PH - 10}" text-anchor="middle" font-size="9" font-weight="700" font-family="Arial, sans-serif" fill="#fff">${s.code === 'F' ? '75' : ''}</text>`; xr = PW - 28; }
+      if (band === 'eu-double') { o += `<path d="M${PW - 24} ${y + 4} h20 v${PH - 8} h-20 z" fill="#1e40a8"/><text x="${PW - 14}" y="${y + PH - 10}" text-anchor="middle" font-size="${(s.dept || '').length > 2 ? 7 : 9}" font-weight="700" font-family="Arial, sans-serif" fill="#fff">${s.dept || (s.code === 'F' ? '75' : '')}</text>`; xr = PW - 28; }
       if (s.rbox === 'yes') {
         o += `<line x1="${PW - 46}" y1="${y + 5}" x2="${PW - 46}" y2="${y + PH - 5}" stroke="#2b2b2b" stroke-width="2"/>`;
         o += `<text x="${PW - 25}" y="${y + 30}" text-anchor="middle" font-size="20" font-weight="700" font-family="Arial, sans-serif" fill="${ink}">77</text>`;

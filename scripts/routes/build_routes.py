@@ -1,5 +1,6 @@
 # Builds routes.js for the World Meta Explorer Key Card "Routes" tab.
-# Input: route_spec.py (Europe), route_spec_asia.py (Asia and Oceania) and route_spec_americas.py (the Americas), hand-written schematic routes,
+# Input: route_spec.py (Europe), route_spec_asia.py (Asia and Oceania), route_spec_americas.py (the Americas) and route_spec_africa.py (Africa),
+#        hand-written schematic routes,
 #        + Natural Earth 10m country outlines (public domain).
 # Usage (from the repository root):
 #   python3 scripts/routes/build_routes.py path/to/ne_10m_admin_0_countries.geojson
@@ -15,8 +16,8 @@ from shapely.geometry import shape, box, MultiPolygon, Polygon
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 from shapely.ops import transform
-import route_spec, route_spec_asia, route_spec_americas
-SPECS = [route_spec, route_spec_asia, route_spec_americas]
+import route_spec, route_spec_asia, route_spec_americas, route_spec_africa
+SPECS = [route_spec, route_spec_asia, route_spec_americas, route_spec_africa]
 S, TEXT, C = {}, {}, {}
 for m in SPECS:
     assert not set(m.S) & set(S) and not set(m.TEXT) & set(TEXT), 'country drawn twice'

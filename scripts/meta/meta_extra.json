@@ -13,7 +13,25 @@
  "cam": {
   "Albania": "Sky rift: a jagged purple / dark-blue stitching tear across the sky (Gen 3 camera quirk). Also seen in Montenegro.",
   "Montenegro": "Sky rift: a jagged purple / dark-blue stitching tear across the sky (Gen 3 camera quirk). Also seen in Albania.",
-  "Switzerland": "Low camera: noticeably low, almost bumper-height viewpoint."
+  "Switzerland": "Low camera: noticeably low, almost bumper-height viewpoint.",
+  "South Africa": "Google car: Gen 2 halo and round blur under the car; Gen 3 shows the back of a white car; Gen 4 a sky-blue car with a short black antenna.",
+  "Namibia": "Google car: white pickup with a short antenna on the front that leans slightly to the left (Oman's leans right).",
+  "Botswana": "Google car: the back of a white car is sometimes visible (the same car as South Africa, Eswatini and Lesotho).",
+  "Eswatini": "Google car: white car, back sometimes visible (same as South Africa).",
+  "Lesotho": "Google car: white car, back sometimes visible (same as South Africa).",
+  "Kenya": "Google car: a pickup or SUV with a thick black snorkel on the front right (older coverage); since 2022 a different truck that may show a snorkel, an antenna, both or neither.",
+  "Uganda": "Google car: boxy white SUV with a black bull bar on the front (often visible); in national parks a man with a rifle may follow the car.",
+  "Rwanda": "Google car: low camera on a black (sometimes white or grey) truck with heavy blurring; the camera mount is almost always visible.",
+  "Tanzania": "No car: trekker and boat coverage only; the trekker's shadow is sometimes visible.",
+  "Nigeria": "Google car: white or red pickup, roof rack sometimes with a yellow-and-black pattern; a police car or SUV (white, black, silver, red or tan) follows closely.",
+  "Ghana": "Google car: four silver roof-rack bars with black tape on the front-right bar (a rare car in central Ghana has none).",
+  "Senegal": "Sky rift: a jagged purple / dark-blue stitching tear across the sky, common outside Dakar (Gen 3). Gen 4 shows a white or silver truck cab.",
+  "Mali": "No car: Gen 3 trekker coverage only.",
+  "Tunisia": "Follow car: a light green Toyota north of Hammamet, a dark green Mazda south of it (none on Djerba).",
+  "Egypt": "No car: Gen 3 trekker only; a police escort is often in view.",
+  "Madagascar": "Coverage: mostly trekker and boat (west coast, Sambirano river); an ox cart and a short car stretch on the RN8.",
+  "São Tomé and Príncipe": "Google car: mostly a blurred black or green truck; on Príncipe a blue truck with a black antenna.",
+  "Réunion": "Google car: tape on the rear passenger-side roof bar (Ghana's tape sits on the front right)."
  },
  "twins": [
   [

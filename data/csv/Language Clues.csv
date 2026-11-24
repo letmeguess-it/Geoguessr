@@ -18,7 +18,7 @@ Bermuda,English,Road · Lane · STOP,"Keeps left like the UK and feels British (
 Bhutan,"Dzongkha, English",ལམ · Lam · Dzong,"Dzongkha uses the Tibetan script: letters hang from a line and stack vertically, with dots (་) between syllables. Nepal's Devanagari has a straight top bar instead."
 Bolivia,"Spanish, Quechua, Aymara, Guaraní",Calle · Avenida · PARE,"Plates are pale with blue characters (1234 ABC). The high, treeless Altiplano and thick wooden sign posts are typical; Peru has mototaxis and Jirón, Bolivia has neither."
 Bosnia and Herzegovina,Bosnian / Serbian / Croatian,ulica · улица · č ć š ž đ,"Latin and Cyrillic both appear, Cyrillic mostly in Republika Srpska. Croatia is Latin-only; Serbia mixes both."
-Botswana,,,
+Botswana,"English, Setswana",Road · Street · A1 · Gabo- · Ma- · Se-,"Setswana names (Mo-, Ma-, Se-, Tl-, -ng: Mogoditshane, Tlokweng). Green signs with the route letter A (A1, A2, A3) are Botswana's; South Africa uses N and R. The land is flatter and emptier than South Africa."
 Brazil,Portuguese,Rua · Avenida · Rodovia · PARE · ção,"The only Portuguese-speaking country in the Americas: ão, ç, nh / lh and words ending in -ção. Spanish-speaking neighbours write Calle and ñ."
 British Indian Ocean Territory,English,Road · Diego Garcia,Diego Garcia is a military base: English signs and US-style infrastructure on a flat coral atoll.
 Bulgaria,Bulgarian,улица (ул.) · ъ щ,Bulgarian Cyrillic uses ъ as a vowel and щ a lot; it has no ы or э (Russian) and no ђ ћ (Serbian).
@@ -37,16 +37,16 @@ Czechia (Czech Republic),Czech,ulice · ř ě ů,"Czech 'ulice' vs Slovak, Polis
 Denmark,Danish,vej · gade · æ ø å,"Danish and Norwegian share æ ø; Swedish uses ä ö. Danish 'vej', Norwegian 'vei', Swedish 'väg'."
 Dominican Republic,Spanish,Calle · Colmado · Ens. · PARE,"Spanish with a roof-rack car: the Dominican rack has black rubber caps in the middle (Guatemala's is bare). Stop signs say PARE, not ALTO. Coverage is mostly Santo Domingo and Santiago."
 Ecuador,"Spanish, Kichwa",Calle · Avenida · Vía · PARE,"The first plate letter gives the province (P Pichincha, G Guayas, A Azuay); commercial plates have an orange top or are fully orange. Round bollards with red rings are common here and rare elsewhere in Latin America."
-Egypt,,,
+Egypt,Arabic (English at sights),شارع · ٠١٢٣٤٥ · Street,"Trekker only, at four spots: the Giza pyramids, Mari Gerges street in Coptic Cairo, the Muhammad Ali mosque and Qaitbay citadel in Alexandria. Plates and prices use Eastern Arabic digits (٠–٩)."
 Estonia,Estonian,tänav · õ ä ö ü,"õ gives Estonian away. Finnish looks similar (ä ö, double vowels) but has no õ or ü."
-Eswatini,,,
+Eswatini,"English, siSwati",Road · Street · MR3 · Mb- · Ng- · -eni,"siSwati names with Mb-, Ng-, Hl- and -eni (Ezulwini, Siteki, Lobamba). Route numbers start MR (MR3), and some old signs still say Swaziland. Greener and hillier than Botswana; Lesotho is higher and treeless."
 Falkland Islands,English,Road · Street · Stanley,"British plates (white front, yellow rear) and left-hand traffic in the South Atlantic. Trekker coverage across treeless grass, peat and rock; penguins are a strong hint."
 Faroe Islands,Faroese,gøta · vegur · ð ø,Faroese has both ð and ø; Icelandic has ð and þ but no ø; Danish has ø but no ð.
 Finland,Finnish / Swedish,katu · tie · ä ö · aa kk,"Double letters (aa, kk) with ä ö and no å in Finnish words. Bilingual towns add Swedish -gatan / -vägen; Estonian would add õ."
 France,French,Rue · Avenue · é è ç,"Rue' also appears in Belgium, Luxembourg, Switzerland and Monaco; check the plates (blue bands on both sides) to confirm France."
 Georgia,Georgian,ქუჩა · ა ბ გ · -ში,Georgian (Mkhedruli) has no capital letters and very round letters (ა ბ გ). Armenian has hooks and capitals.
 Germany,German,Straße · Weg · ä ö ü ß,Germany and Austria write ß ('Straße'); Switzerland and Liechtenstein write 'Strasse'. Dutch 'straat' looks close but has no umlauts.
-Ghana,,,
+Ghana,"English (official), Akan (Twi), Ewe, Ga",Road · Street · -krom · -man · ɛ ɔ,"English signs; Akan shop signs use ɛ and ɔ, and towns end in -krom, -man or -ase (Kumasi, Nkawkaw). The black tape on the Google car's front-right roof bar is unique to Ghana."
 Gibraltar,English,Road · Street,"English signs with a British look, but traffic drives on the right, unlike the UK."
 Greece,Greek,Οδός · Λεωφόρος,"Greek alphabet (Λ, Σ, Ω). Bulgarian Cyrillic shares some shapes (П, Г) but adds Ж, Ъ and Щ, which Greek never uses."
 Greenland,"Greenlandic (Kalaallisut), Danish",Aqqusinersuaq · qq · vej,"Greenlandic words are long, with qq, rs and ss and almost no æ ø (those are Danish). Road lines are all white, and yield signs stand where stop signs would be. Each town's Street View vehicle differs (ATV, boat, pickup)."
@@ -66,21 +66,21 @@ Japan,Japanese,通り · の · ア · 町,"Kana (の, さ, ア) exist only in J
 Jersey,English (French names),Road · Rue,"English signs, but many streets keep French 'Rue' names, an unusual mix."
 Jordan,"Arabic, English",شارع · Street · ع غ,Arabic with English transliteration on blue street signs. Lebanon adds French (Rue).
 Kazakhstan,"Kazakh, Russian",көшесі · ә ғ қ ң ө ұ ү һ і,"Kazakh Cyrillic adds ә ғ қ ң ө ұ ү һ і. Kyrgyz adds only ң ө ү, Mongolian ө ү. Russian-only signs (ул.) are also common."
-Kenya,,,
+Kenya,"Swahili, English",Road · Barabara · Mtaa · Karibu,"Swahili (Barabara, Mtaa, Karibu) is shared with Tanzania and Uganda. Kenya: square yellow rear plates (KDA 123A) and the Google car's snorkel. Uganda: Luganda names (Ka-, Na-, Bu-) and a black bull bar on the car. Rwanda drives on the right."
 Kosovo,Albanian / Serbian,Rruga · Ulica,Albanian 'Rruga' often paired with Serbian Latin 'Ulica'; Albania itself rarely adds Serbian.
 Kyrgyzstan,"Kyrgyz, Russian",көчөсү · ң ө ү · ул.,Kyrgyz Cyrillic adds only ң ө ү; Kazakh has more extra letters (ә ғ қ ұ і). 'көчөсү' = street.
 Laos,Lao,ຖະໜົນ · ກ ຂ ຄ · ບ້ານ,"Lao letters are rounder than Thai, with fewer loops and no tall tails; 'Ban' (ບ້ານ, village) appears on many signs. Thai has small loops at the start of letters."
 Latvia,Latvian,iela · ā ē ī ū · ķ ļ ņ,Macrons (ā ē ī ū) and comma-consonants (ķ ļ ņ) are Latvian; Lithuanian uses ą ę ė į ų instead.
 Lebanon,"Arabic, French, English",شارع · Rue · Route,Arabic with French (Rue) or English is typical of Lebanon; Jordan pairs Arabic with English only.
-Lesotho,,,
+Lesotho,"Sesotho, English",Road · Ha · Thaba- · Ma- · Mo-,"Sesotho villages named 'Ha …' (Ha Abia) and Thaba- (mountain). Treeless highlands with flat-topped hills and people in Basotho blankets; national roads A1 to A4, though the number is often missing from signs."
 Liechtenstein,German,Strasse · ä ö ü,Swiss-style German without ß ('Strasse'); Germany and Austria write 'Straße'.
 Lithuania,Lithuanian,gatvė (g.) · ą č ę ė į š ų ž,"ė, į and ų are Lithuanian; Latvian uses macrons (ā ē) instead. Polish shares ą ę but adds ł ż ś."
 Luxembourg,Luxembourgish / French / German,Rue · Strooss · ë,"Street signs are mostly French 'Rue', with Luxembourgish names (ë); German appears too."
 Macau,"Chinese (Traditional), Portuguese",Rua · Avenida · 街 · 大馬路,"Portuguese street names (Rua, Avenida, Travessa) next to Traditional Chinese are unique to Macau."
-Madagascar,,,
+Madagascar,"Malagasy, French",Lalana · Arabe · Antana- · Ambo- · Fianar-,"Malagasy words are long and vowel-heavy (Antananarivo, Ambohimanga) and never use c, q, u, w or x. Coverage is trekker, boat and a short stretch of car on the RN8 (Avenue of the Baobabs)."
 Malaysia,Malay,Jalan · Jln · Lebuhraya · Kg.,"Malay spells 'teksi', 'polis' and writes 'Jln' and 'Lebuhraya'; Indonesian prefers 'Jl.' and 'Tol'. Malaysian plates are always black."
 Maldives,"Dhivehi, English",މަގު · Magu · ހ ށ ނ,"Thaana is written right to left with small vowel marks above and below the letters; 'Magu' = street, 'Hingun' = avenue."
-Mali,,,
+Mali,"French (official), Bambara",Rue · Avenue · Grande Mosquée,"Trekker only: the mud-brick mosques of Djenné, Mopti, Niono and Timbuktu, the Askia tomb in Gao and the cliff villages near Mopti. French is the working language."
 Malta,Maltese / English,Triq · ħ ġ ż ċ,"ħ, ġ and ċ are unique to Maltese; 'Triq' (street) is a sure giveaway."
 Martinique,French (Antillean Creole),Rue · Route · Chemin,French plates (972 on the right band) and French signs in the Caribbean; Trekker-only coverage. Réunion is the French look-alike in the Indian Ocean (974); Saint-Pierre and Miquelon is cold and North Atlantic.
 Mexico,Spanish,Calle · Colonia (Col.) · ALTO · Tope,"ALTO on stop signs is shared with Guatemala and Costa Rica; most of South America writes PARE. Nahuatl place names (-tepec, -tlán, many x) and smooth octagonal concrete poles point to Mexico."
@@ -88,11 +88,11 @@ Midway Atoll,English,Road · Midway,US wildlife refuge on a remote atoll; Englis
 Monaco,French,Rue · Avenue · Boulevard,Same French as France; tell them apart by Monaco's compact white plates and dense coastal city.
 Mongolia,Mongolian,гудамж · ө ү · Улаанбаатар,"Mongolian Cyrillic adds only ө and ү and doubles vowels (аа, үү). Kazakh and Kyrgyz add more letters."
 Montenegro,Montenegrin,ulica · улица · ś ź,Latin and Cyrillic like Serbia; Montenegrin spelling can add ś and ź.
-Namibia,,,
+Namibia,"English (official), Afrikaans, German, Oshiwambo",Street · Straat · Straße · B1 · C34,"German street and town names (Swakopmund, Lüderitz, -straße) are unique in Africa. Roads are lettered A to D (B1, C34); South Africa uses N, R and M. Plates are yellow front and rear."
 Nepal,Nepali,मार्ग · सडक · ने पा ल,"Same Devanagari as Hindi, but Nepali signs rarely add other scripts; red plates with white Devanagari are typical of Nepal."
 Netherlands,Dutch,straat · weg · laan · ij,Look for 'ij' and double vowels (aa ee oo). Flanders in Belgium uses the same words; German would show ä ö ü.
 New Zealand,"English, Māori",Rd · SH · Wh · ā ō,"Māori place names (Wh-, Ng-, macrons ā ō) and 'SH' state highway shields; Australia has no Māori words."
-Nigeria,,,
+Nigeria,"English (official), Hausa, Yoruba, Igbo",Road · Close · Crescent · ọ ẹ ṣ,"English with British road words (Close, Crescent). Yoruba names with dotted ọ ẹ ṣ in the south-west, Hausa (ƙ ɗ) in the north. A police pickup or SUV following the Google car is Nigeria's giveaway."
 North Macedonia,Macedonian / Albanian,улица · ѓ ќ ѕ љ њ,Macedonian Cyrillic has ѓ ќ ѕ; Serbian Cyrillic uses ђ ћ instead; Bulgarian uses ъ and щ.
 Northern Mariana Islands,"English, Chamorro, Carolinian",Road · Beach Road · å,"US-style signs with Chamorro and Carolinian names, like Guam."
 Norway,Norwegian,vei · gate · æ ø å,"Same letters as Danish; Norwegian 'vei / veien', Danish 'vej'. Swedish uses ä ö."
@@ -108,19 +108,19 @@ Poland,Polish,ulica (ul.) · ł ż ś ź ć ń ą ę,"ł, ż and ś are Polish-o
 Portugal,Portuguese,Rua · Avenida · ã õ ç,"Portuguese 'Rua' with ã and õ; Spanish writes 'Calle' and ñ, Catalan 'Carrer', Galician 'Rúa'."
 Puerto Rico,"Spanish, English",Calle · Carr. · PARE · km,"US-style roads and signs, but in Spanish: stop signs say PARE, distances are in km while speed limits stay in mph. Plates are rear-only."
 Qatar,"Arabic, English",شارع · St · Zone,Blue Qatari street signs show a street number and a zone number; plates carry QATAR in a maroon band.
-Réunion,,,
+Réunion,"French, Réunion Creole",Rue · Chemin · Ravine · Îlet · Saint-,"French like the mainland, but tropical and volcanic. Plates show 974 in the right band; Creole place names (Ravine, Îlet, Bras-) and many Saint- towns. Martinique has 972 and Caribbean scenery."
 Romania,Romanian,Strada (Str.) · ă â î ș ț,"ă, ș and ț are Romanian; 'Strada' looks Italian, but Italian never uses those letters."
 Russia,Russian,улица (ул.) · ы э ё,"ы and э appear in Russian (and Belarusian) only; Ukrainian has і ї є, Bulgarian has ъ щ."
-Rwanda,,,
+Rwanda,"Kinyarwanda, English, French, Swahili",Umuhanda · KN 5 Rd · KG · Murakaza neza,"Kinyarwanda words with umu-, aba-, -rwa; Kigali street codes KN, KG and KK (KN 5 Rd) on almost every street. Rwanda drives on the RIGHT, unlike Uganda, Kenya and Tanzania next door."
 Saint Pierre and Miquelon,French,Rue · Route · STOP,"French in North America: European-style signs (STOP with a thick white border) and French poles, but Canadian-looking clapboard houses. Street View was taken from an ATV."
 San Marino,Italian,Via · Strada,Same Italian as Italy; confirm with San Marino's white plates with blue text and a crest.
-São Tomé and Príncipe,,,
-Senegal,,,
+São Tomé and Príncipe,Portuguese,Rua · Avenida · Estrada · ã ç,The only Portuguese-speaking coverage in Africa (Cabo Verde and Mozambique are not covered). Black plates with white letters and cobblestone streets; Brazil and Portugal look nothing like this.
+Senegal,"French (official), Wolof",Rue · Route Nationale · Keur · Ndiaye,"French with Wolof names (Keur-, Ndi-, Mb-: Keur Massar, Mbour). Taxis are black and yellow. Blue plates with white letters stand out in West Africa; a purple sky rift is common outside Dakar."
 Serbia,Serbian,улица · ulica · ђ ћ џ,Cyrillic ђ ћ џ are Serbian (also in Montenegro and Bosnia); Macedonian uses ѓ ќ instead.
 Singapore,"English (Chinese, Malay, Tamil)",Road · Jalan · Avenue · 路,Clean British-style English street signs; Malay 'Jalan' is common too. Malaysian plates never start with S.
 Slovakia,Slovak,ulica · ä ľ ĺ ô ŕ,Slovak ä ľ ô vs Czech ř ě ů. Both share š č ž and the 'ch' digraph.
 Slovenia,Slovenian,ulica · cesta · č š ž,"Only č š ž, with no ć or đ (Croatian). 'cesta' (road) is very common."
-South Africa,,,
+South Africa,"English, Afrikaans, Zulu, Xhosa (12 official languages)",Street · Straat · Weg · Rylaan · N1 · R61,"Afrikaans (Straat, Weg, -fontein, -dorp, -kraal) narrows it to South Africa or Namibia; Namibia adds German. Australia also drives on the left, but has white edge lines; South Africa's are solid yellow."
 South Georgia and the South Sandwich Islands,English,Grytviken · King Edward Point,"No roads at all: Trekker coverage (ski-pole shadow) around Grytviken and King Edward Point, a boardwalk on Prion Island, boat coverage at Hercules Bay. Whaling-station ruins, seals and king penguins."
 South Korea,Korean,로 · 길 · 한 · ㅇ,Hangul builds syllable blocks with circles (ㅇ) and boxes (ㅁ). Japanese mixes kana and kanji; Chinese is all Han characters.
 Spain,"Spanish (+ Catalan, Basque, Galician)",Calle · Avenida · ñ,"Spanish 'Calle' with ñ; Catalan areas write 'Carrer', Basque 'Kalea' (tx, tz), Galician 'Rúa'."
@@ -129,11 +129,11 @@ Svalbard,Norwegian,veien · æ ø å,"Norwegian, same as the mainland."
 Sweden,Swedish,gatan · vägen · å ä ö,"ä ö (Swedish, Finnish) vs æ ø (Danish, Norwegian). Swedish words often end in -en; Finnish has double vowels."
 Switzerland,German / French / Italian / Romansh,Strasse · Rue · Via,No ß in Swiss German ('Strasse'); French and Italian regions write 'Rue' and 'Via'.
 Taiwan,Chinese (Traditional),路 · 街 · 段 · 臺,"Traditional characters (臺, 號) and addresses with 段 (section), 巷 (lane) and 弄 (alley). Hong Kong adds English to everything."
-Tanzania,,,
+Tanzania,"Swahili, English",Mtaa · Barabara · Karibu · Hifadhi,"Trekker only: Mount Kilimanjaro, Gombe Stream by Lake Tanganyika (also boat coverage) and a few spots. Swahili like Kenya; look for the walker's shadow rather than a car."
 Thailand,Thai,ถนน · ซอย · ก ข ค,Thai letters start with small loops and words run together. Lao is rounder with fewer loops; Khmer has crowns and stacked letters. 'Soi' (ซอย) = lane.
-Tunisia,,,
+Tunisia,"Arabic, French",نهج · شارع · Rue · Avenue,"Bilingual Arabic-French signs, often with نهج (nahj) for street, which other Arabic countries rarely use. Black plates with تونس in the middle; a follow car behind the Google car."
 Türkiye (Turkey),Turkish,Sokak (Sk.) · Caddesi (Cd.) · ğ ı ş ç,Dotless ı and ğ are Turkish; Azerbaijani adds ə.
-Uganda,,,
+Uganda,"English, Swahili, Luganda",Road · Street · Ka- · Na- · Bu-,"Luganda names with Ka-, Na-, Bu-, Mu- (Kampala, Nakawa, Bugolobi). Kenya also drives on the left and writes English, but its Google car has a snorkel; Uganda's has a black bull bar and the soil is deep red."
 Ukraine,Ukrainian,вулиця · і ї є ґ,"ї, є and ґ are Ukrainian; Russian has ы and э, Belarusian has ў."
 United Arab Emirates,"Arabic, English",شارع · Street · Road,"Bilingual signs; plates name the emirate (DUBAI, ABU DHABI, SHARJAH) with a letter code."
 United Kingdom,English (Welsh in Wales),Road · Street · Ffordd,"English everywhere; Wales adds Welsh with ll, dd and w used as a vowel (Ffordd, Heol)."
