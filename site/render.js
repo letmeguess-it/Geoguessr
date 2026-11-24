@@ -95,10 +95,10 @@
     const s = parse(spec);
     if (!Object.keys(s).length) return '';
     const W = 120, H = 200, G = 186;
-    const col = {wood: C.wood, concrete: C.concrete, steel: C.steel, black: C.black}[s.mat] || C.concrete;
+    const col = s.paint === 'green' ? '#4f7a4a' : ({wood: C.wood, concrete: C.concrete, steel: C.steel, black: C.black}[s.mat] || C.concrete);
     let out = scene(W, H, G);
     const form = s.form || 'round';
-    const pw = {round: 14, rect: 18, square: 18, octagonal: 16, stobie: 18, segments: 16}[form] || 16;
+    const pw = s.thin === 'yes' ? 9 : ({round: 14, rect: 18, square: 18, octagonal: 16, stobie: 18, segments: 16}[form] || 16);
     const px = 60 - pw / 2, top = 30;
     out += `<path d="M0 46 Q30 52 60 44 T120 46" stroke="#33363a" stroke-width="1" fill="none"/><path d="M0 40 Q30 46 60 38 T120 40" stroke="#33363a" stroke-width="1" fill="none"/>`;
     if (s.cables === 'yes') {
@@ -133,83 +133,193 @@
       for (let y = 48; y < G - 8; y += 7) out += r(hx - 4, y, 8, 3, hole);
     } else if (s.holes === 'waffle') {
       for (let y = 46; y < G - 8; y += 7) { out += r(hx - 6, y, 4, 4, hole); out += r(hx + 2, y, 4, 4, hole); }
+    } else if (s.holes === 'slits') { // narrow through-holes (Vietnam)
+      for (let y = 60; y < G - 8; y += 16) out += r(hx - 1.2, y, 2.4, 11, hole);
+    } else if (s.holes === 'slots-low') { // ladder slots from the base to mid-height (Brazil, Paraguay)
+      for (let y = 104; y < G - 6; y += 9) out += r(hx - 4, y, 8, 5, hole);
+    } else if (s.holes === 'pin-upper') { // pin-holes on the upper half only (Sri Lanka)
+      for (let y = 44; y < 108; y += 7) out += r(hx - 1.5, y, 3, 3, hole);
+    } else if (s.holes === 'steps-high') { // short ladder high up (Spain)
+      for (let y = 46; y < 104; y += 9) out += r(hx - 4, y, 8, 4, hole);
+    } else if (s.holes === 'indent') { // long groove down one face (New Zealand)
+      out += r(hx - 2, 40, 4, G - 44, '#7f868c');
     } else if (s.holes === 'square-holes') {
       for (let y = 50; y < 165; y += 10) out += r(hx - 2.5, y, 5, 5, hole);
     }
-    const baseCol = {white: C.white, red: C.red, black: C.black, yellow: C.yellow, green: C.green}[s.base]; // a painted base (white Russia/Curaçao, red Guatemala, black Peru, yellow Santo Domingo)
+    if (s.base === 'bw' || s.base === 'by' || s.base === 'pinkgreen') { // banded painted base
+      const [c1, c2] = {bw: [C.black, C.white], by: [C.black, C.yellow], pinkgreen: ['#e46fa8', C.green]}[s.base];
+      for (let i = 0, y = 136; y < G; y += 10, i++) out += r(px - 0.5, y, pw + 1, Math.min(10, G - y), i % 2 ? c2 : c1);
+    }
+    const baseCol = {white: C.white, red: C.red, black: C.black, yellow: C.yellow, green: C.green, brown: '#6b4a32'}[s.base]; // a painted base (white Russia/Curaçao, red Guatemala, black Peru, yellow Santo Domingo)
     if (baseCol) out += `<polygon points="${px - 0.5},150 ${px + pw + 0.5},150 ${px + pw + 1},${G} ${px - 1},${G}" fill="${baseCol}" stroke="${C.outline}" stroke-width="0.6"/>`;
     const stripe = (y1, y2, x, w) => {
-      let g = `<clipPath id="CLIP"><rect x="${x}" y="${y1}" width="${w}" height="${y2 - y1}"/></clipPath><g clip-path="url(#CLIP)">` + r(x, y1, w, y2 - y1, C.yellow);
+      let g = `<clipPath id="CLIP"><rect x="${x}" y="${y1}" width="${w}" height="${y2 - y1}"/></clipPath><g clip-path="url(#CLIP)">` + r(x, y1, w, y2 - y1, s.scol === 'orange' ? C.orange : C.yellow);
       for (let y = y1 - w; y < y2 + w; y += 10) g += `<polygon points="${x},${y} ${x + w},${y - w * 0.7} ${x + w},${y - w * 0.7 + 5} ${x},${y + 5}" fill="${C.black}"/>`;
       return g + '</g>';
     };
     if (s.stripes === 'diag-full') out += stripe(104, G, px - 1, pw + 2);
     if (s.stripes === 'diag-high') out += stripe(96, 158, px - 1, pw + 2);
     if (s.stripes === 'vertical-plate') out += stripe(112, 160, 60 - 4, 8);
+    if (s.stripes === 'hbands') for (let i = 0, y = 112; y < 168; y += 14, i++) out += r(px - 0.5, y, pw + 1, 14, i % 2 ? C.black : (s.scol === 'orange' ? C.orange : C.yellow));
     if (s.bolts === 'yes') for (let y = 60; y < 150; y += 14) out += `<line x1="${y % 28 ? px - 5 : px + pw}" y1="${y}" x2="${y % 28 ? px : px + pw + 5}" y2="${y}" stroke="#3a3d40" stroke-width="2"/>`;
+    const tags = String(s.tag || '').split(',');
+    const has = (k) => tags.includes(k);
+    if (s.rods === 'yes') for (let y = 70; y < 170; y += 13) { const L = (y / 13) % 2 < 1; out += `<line x1="${L ? px - 7 : px + pw}" y1="${y}" x2="${L ? px : px + pw + 7}" y2="${y}" stroke="#55595d" stroke-width="1.4"/><line x1="${L ? px - 7 : px + pw + 7}" y1="${y}" x2="${L ? px : px + pw}" y2="${y + 5}" stroke="#55595d" stroke-width="0.8"/>`; }
+    if (has('circle')) out += `<circle cx="60" cy="118" r="4.5" fill="${C.white}" stroke="#555" stroke-width="0.5"/><text x="60" y="120" font-size="4.5" text-anchor="middle" font-family="Arial">24</text>`;
+    if (has('danger')) out += r(54, 132, 12, 14, C.yellow, `stroke="#222" stroke-width="0.6"`) + `<polygon points="60,134 64.5,141 55.5,141" fill="none" stroke="#111" stroke-width="0.8"/>`;
+    if (has('danger-black')) out += r(54, 132, 12, 12, '#111') + `<polygon points="60,134 64.5,142 55.5,142" fill="${C.yellow}"/>`;
+    if (has('white-num')) out += r(54, 112, 12, 9, C.white, `stroke="#777" stroke-width="0.4"`) + `<text x="60" y="119" font-size="6" text-anchor="middle" font-family="Arial" font-weight="700">541</text>`;
+    if (has('yellow-text')) out += r(55.5, 104, 9, 26, C.yellow, `stroke="#333" stroke-width="0.4"`) + `<g fill="#111">${[0, 1, 2, 3].map((i) => r(58, 108 + i * 5.5, 4, 2.5, '#111')).join('')}</g>`;
+    if (has('white-small')) out += r(55, 122, 10, 5, C.white, `stroke="#777" stroke-width="0.4"`);
+    if (s.guard === 'silver') out += r(px - 2, 70, pw + 4, 16, '#c9ced3', `stroke="#8a9095" stroke-width="0.6"`);
     if (s.tag === 'yellow-rect') out += r(55, 132, 10, 7, C.yellow, `stroke="#3a3a3a" stroke-width="0.5"`);
     if (s.tag === 'yellow-diamond') out += `<polygon points="60,126 66,133 60,140 54,133" fill="${C.yellow}" stroke="#3a3a3a" stroke-width="0.5"/>`;
     if (s.tag === 'blue') out += r(55, 130, 10, 6, C.blue);
     if (s.tag === 'green') out += r(px, 74, pw, 8, C.green) + r(px, 82, pw, 3, C.white);
     if (s.tag === 'white') out += r(55, 120, 10, 14, C.white, `stroke="#999" stroke-width="0.4"`);
     const ins = (x, y) => `<rect x="${x - 1.5}" y="${y - 5}" width="3" height="5" fill="#e9e4d8" stroke="#6d6a62" stroke-width="0.4"/>`;
-    if (s.top === 'trident') {
+    if (s.cap === 'taper') out += `<polygon points="${px + 2},${top} ${px + pw - 2},${top} 60,${top - 16}" fill="#a9afb4" stroke="${C.outline}" stroke-width="0.5"/>`;
+    if (s.cap === 'point') out += `<polygon points="${px + 1},${top} ${px + pw - 1},${top} 60,${top - 9}" fill="${col}" stroke="${C.outline}" stroke-width="0.5"/>`;
+    if (s.top === 'raised-bar') { // bar held above the pole top on a short post (Oman)
+      out += r(58.5, top - 16, 3, 16, '#6f767c') + r(32, top - 18, 56, 4, '#6f767c') + ins(36, top - 18) + ins(60, top - 18) + ins(84, top - 18);
+    } else if (s.top === 'trapezoid') { // trapezoid frame on top (Vietnam)
+      out += `<polygon points="40,${top + 4} 80,${top + 4} 72,${top + 18} 48,${top + 18}" fill="none" stroke="#6f767c" stroke-width="2.4"/>` + ins(42, top + 4) + ins(60, top + 4) + ins(78, top + 4);
+    } else if (s.top === 'braced') { // crossbar, middle insulator raised, two diagonal braces (Qatar)
+      out += r(32, top + 8, 56, 4, '#6f767c') + `<line x1="40" y1="${top + 12}" x2="58" y2="${top + 30}" stroke="#6f767c" stroke-width="1.8"/><line x1="80" y1="${top + 12}" x2="62" y2="${top + 30}" stroke="#6f767c" stroke-width="1.8"/>` + ins(36, top + 8) + ins(60, top - 2) + ins(84, top + 8) + r(59, top - 2, 2, 10, '#6f767c');
+    } else if (s.top === 'lamp') { // tall lamp post with an arm over the road
+      out += `<path d="M60 ${top} Q60 ${top - 14} 78 ${top - 14} L100 ${top - 14}" stroke="${col}" stroke-width="3" fill="none"/>` + r(94, top - 14, 12, 5, '#3d4246', 'rx="2"');
+    } else if (s.top === 'trident') {
       out += `<line x1="60" y1="${top}" x2="60" y2="${top - 14}" stroke="#4e5458" stroke-width="2.5"/><line x1="60" y1="${top + 2}" x2="40" y2="${top - 10}" stroke="#4e5458" stroke-width="2.5"/><line x1="60" y1="${top + 2}" x2="80" y2="${top - 10}" stroke="#4e5458" stroke-width="2.5"/>` + ins(60, top - 14) + ins(40, top - 10) + ins(80, top - 10);
     } else if (s.top === 'crossarm' || s.top === 'xbrace') {
       if (form !== 'H') out += r(28, top + 6, 64, 5, s.mat === 'wood' ? '#6b4f36' : '#6f767c');
-      out += ins(32, top + 6) + ins(50, top + 6) + ins(70, top + 6) + ins(88, top + 6);
+      out += s.ins === '3' ? ins(34, top + 6) + ins(60, top + 6) + ins(86, top + 6) : ins(32, top + 6) + ins(50, top + 6) + ins(70, top + 6) + ins(88, top + 6);
       if (s.top === 'xbrace') out += `<line x1="38" y1="${top + 11}" x2="58" y2="${top + 30}" stroke="#55595d" stroke-width="1.6"/><line x1="82" y1="${top + 11}" x2="62" y2="${top + 30}" stroke="#55595d" stroke-width="1.6"/><line x1="44" y1="${top + 24}" x2="76" y2="${top + 14}" stroke="#55595d" stroke-width="1.6"/><line x1="76" y1="${top + 24}" x2="44" y2="${top + 14}" stroke="#55595d" stroke-width="1.6"/>`;
     }
     if (s.transformer === 'yes') out += r(64, 58, 14, 24, '#9aa0a5', `rx="3" stroke="${C.outline}" stroke-width="0.6"`) + r(66, 55, 10, 4, '#7b8186');
     return `<svg viewBox="0 0 ${W} ${H}" xmlns="${NS}">${out}</svg>`;
   }
 
+  // ---- bollards: front view, plus a back view when the spec has b=... ----
+  // Spec keys: body, top (flat|angled|round|pointed|dome|disc), w (thin|wide) or thin=yes/thick=yes,
+  // cyl=yes (round cross-section), curve=yes, short=yes, cap (black|black-third|black-band|red-third|red-fifth|yellow|green),
+  // band (black-diag|black-straight|black-2band|stripes-bw|stripes-by|stripes-rw|red-2ring|red-ring|red-wrap|red-stripe|orange-stripe|grey-2band),
+  // foot=black, num=yes, f / b = front / back reflector "kind:colour" (rect|wide|thin|2dot|2h|2v|circle|square|tilt|side|none).
+  // Legacy refl=... still draws the front when f is absent.
+  const BODY = () => ({white: C.white, black: C.black, grey: '#b5bac0', yellow: '#f2c230', navy: '#2b3f6b', stone: '#e8e4da', orange: C.orange});
+  const RC = () => ({white: '#f4f6f8', grey: '#b9c0c7', silver: '#c9ced4', red: C.red, darkred: '#9c1f26', orange: C.orange, yellow: '#f5c518', blue: C.blue, green: C.green, black: C.black});
+  function post(s, cx, side) {
+    const G = 186;
+    const w = (s.w === 'thin' || s.thin === 'yes') ? 18 : (s.w === 'wide' || s.thick === 'yes') ? 34 : 26;
+    const x = cx - w / 2, t = s.short === 'yes' ? 96 : 52;
+    const body = BODY()[s.body] || C.white;
+    const back = side === 'b';
+    const angled = s.top === 'angled';
+    const tl = angled && back ? t + 11 : t, tr = angled && !back ? t + 11 : t;
+    let shape;
+    if (s.top === 'round' || s.top === 'dome') {
+      const ry = s.top === 'round' ? w / 2 : w / 4;
+      shape = `M${x} ${G} L${x} ${t + ry} A${w / 2} ${ry} 0 0 1 ${x + w} ${t + ry} L${x + w} ${G} Z`;
+    } else if (s.top === 'pointed') shape = `M${x} ${G} L${x} ${t + 12} L${cx} ${t - 4} L${x + w} ${t + 12} L${x + w} ${G} Z`;
+    else shape = `M${x} ${G} L${x} ${tl} L${x + w} ${tr} L${x + w} ${G} Z`;
+    const id = 'CLIP' + side;
+    let o = `<path d="${shape}" fill="${body}" stroke="${C.outline}" stroke-width="0.8"/><clipPath id="${id}"><path d="${shape}"/></clipPath><g clip-path="url(#${id})">`;
+    const R = (xx, y, ww, hh, f, ex) => r(xx, y, ww, hh, f, ex);
+    const top = Math.max(tl, tr);
+    // caps
+    let capB = null; // [y1,y2] of a dark area that holds the reflector
+    if (s.cap === 'black' || s.cap === 'black-third') { const h = s.cap === 'black-third' ? (G - t) / 3 : 30; o += R(x - 1, t - 6, w + 2, h + 6 + (angled ? 11 : 0), C.black); capB = [t + (angled ? 11 : 0), t + h + (angled ? 11 : 0)]; }
+    if (s.cap === 'black-band') { o += R(x - 1, t + 8, w + 2, 30, C.black); capB = [t + 8, t + 38]; }
+    if (s.cap === 'red-third') o += R(x - 1, t - 6, w + 2, (G - t) / 3 + 6, C.red);
+    if (s.cap === 'red-fifth') o += R(x - 1, t - 6, w + 2, (G - t) / 5 + 6, C.red);
+    if (s.cap === 'yellow') o += R(x - 1, t - 6, w + 2, 22, '#f2c230');
+    if (s.cap === 'green') o += R(x - 1, t - 6, w + 2, 12, C.green);
+    // bands
+    let bandC = null;
+    if (s.band === 'black-diag') {
+      const a = back ? -1 : 1, y0 = t + 6;
+      const L = a > 0 ? 0 : 14, Rr = a > 0 ? 14 : 0; // parallel to a slanted top (high on the left at the front)
+      o += `<polygon points="${x - 1},${y0 + L} ${x + w + 1},${y0 + Rr} ${x + w + 1},${y0 + Rr + 34} ${x - 1},${y0 + L + 34}" fill="${C.black}"/>`;
+      bandC = y0 + 7 + 17;
+    }
+    if (s.band === 'black-straight') { o += R(x - 1, t + 14, w + 2, 30, C.black); bandC = t + 29; }
+    if (s.band === 'black-2band') { o += R(x - 1, t + 8, w + 2, 7, C.black) + R(x - 1, t + 38, w + 2, 7, C.black); bandC = t + 26.5; }
+    if (s.band === 'grey-2band') o += R(x - 1, t + 14, w + 2, 12, '#9ea4aa') + R(x - 1, t + 38, w + 2, 12, '#9ea4aa');
+    if (/^stripes-/.test(s.band || '')) {
+      const k = s.band.slice(8), dark = {bw: C.black, bwn: C.black, by: C.black, rw: C.red}[k], light = k === 'by' ? '#f2c230' : null;
+      if (light) o += R(x - 1, t - 6, w + 2, G - t + 6, light);
+      for (let y = t + 10; y < G; y += 36) o += R(x - 1, y, w + 2, k === 'bwn' ? 10 : 18, dark);
+    }
+    if (s.band === 'red-2ring') o += R(x - 1, t + 14, w + 2, 9, C.red) + R(x - 1, t + 30, w + 2, 9, C.red);
+    if (s.band === 'red-ring') o += R(x - 1, t + 24, w + 2, 13, C.red);
+    if (s.band === 'red-wrap') o += R(x - 1, t + 12, w + 2, 24, C.red);
+    if (s.band === 'red-stripe') { o += R(x - 1, t + 16, w + 2, 30, C.red); bandC = t + 31; }
+    if (s.band === 'orange-stripe') o += R(x - 1, top + 2, w + 2, 6, C.orange);
+    if (s.foot === 'black') o += R(x - 1, 140, w + 2, G - 140, C.black);
+    // reflector
+    const spec = back ? s.b : s.f;
+    const cy = bandC != null ? bandC : capB ? (capB[0] + capB[1]) / 2 : top + 26;
+    if (spec) {
+      const [kind, col0] = spec.split(':'); const col = RC()[col0] || RC().white;
+      const rr = (xx, y, ww, hh, ex) => R(xx, y, ww, hh, col, `rx="1" stroke="#00000033" stroke-width="0.4"${ex ? ' ' + ex : ''}`);
+      const cir = (xx, y, rad) => `<circle cx="${xx}" cy="${y}" r="${rad}" fill="${col}" stroke="#00000033" stroke-width="0.4"/>`;
+      if (kind === 'rect') o += rr(cx - 3.5, cy - 9, 7, 18);
+      if (kind === 'thin') o += rr(cx - 2, cy - 11, 4, 22);
+      if (kind === 'wide') o += rr(x + w * 0.12, cy - 9, w * 0.76, 18);
+      if (kind === 'square') o += rr(cx - 5, cy - 5, 10, 10);
+      if (kind === '2dot') o += cir(cx, cy - 6, 3) + cir(cx, cy + 6, 3);
+      if (kind === 'circle') o += cir(cx, cy, Math.min(7, w / 2 - 3));
+      if (kind === '2h') o += rr(cx - 6, cy - 8, 12, 6) + rr(cx - 6, cy + 2, 12, 6);
+      if (kind === '2v') o += rr(cx - 4, cy - 22, 8, 14) + rr(cx - 4, cy + 4, 8, 14);
+      if (kind === 'tilt') o += `<g transform="rotate(-14 ${cx} ${cy})">${rr(cx - 3.5, cy - 10, 7, 20)}</g>`;
+      if (kind === 'side') o += rr(x + 3, cy - 11, 4, 22);
+    } else if (!back) o += legacyRefl(s, x, w, t, cx, cy, angled);
+    if (s.num === 'yes' && !back) o += `<text x="${cx}" y="${cy + 40}" text-anchor="middle" font-size="12" font-family="Arial, sans-serif" font-weight="700" fill="${C.black}">${w < 20 ? '7' : '12'}</text>`;
+    if (s.cyl === 'yes') o += R(x, t - 6, w * 0.22, G - t + 6, '#000', 'opacity="0.12"') + R(x + w * 0.78, t - 6, w * 0.22, G - t + 6, '#000', 'opacity="0.12"') + R(x + w * 0.3, t - 6, w * 0.1, G - t + 6, '#fff', 'opacity="0.3"');
+    if (s.curve === 'yes') o += R(back ? x : x + w * 0.7, t - 6, w * 0.3, G - t + 6, '#000', 'opacity="0.1"');
+    o += '</g>';
+    if (s.cyl === 'yes' && s.top === 'flat') o += `<ellipse cx="${cx}" cy="${t}" rx="${w / 2}" ry="3" fill="${/black/.test(s.cap || '') ? '#3a3b3d' : '#e4e7e4'}" stroke="${C.outline}" stroke-width="0.8"/>`;
+    if (angled) o += `<line x1="${x}" y1="${tl}" x2="${x + w}" y2="${tr}" stroke="${C.outline}" stroke-width="0.8"/>`;
+    return o;
+  }
+  function legacyRefl(s, x, w, t, cx, cy0, angled) {
+    const capH = s.cap === 'black-third' ? (186 - t) / 3 : 30;
+    const cy = s.band === 'black-diag' ? cy0 : t + (angled ? 11 : 0) + capH / 2;
+    const refl = s.refl; let o = '';
+    if (refl === 'white-vert') o += r(cx - 3, cy - 10, 6, 20, C.white, 'rx="1"');
+    if (refl === 'red-rect') o += r(cx - 4, cy - 7, 8, 14, C.red, 'rx="1"');
+    if (refl === 'white-rect') o += r(cx - 3, cy - 9, 6, 18, C.white, 'rx="1"');
+    if (refl === 'orange-rect') o += r(cx - 3, cy - 9, 6, 18, C.orange, 'rx="1"');
+    if (refl === 'red-thin') o += r(cx - 2, cy - 9, 4, 18, C.red);
+    if (refl === 'red-vert') o += r(cx - 3, cy - 11, 6, 22, C.red, 'rx="1"');
+    if (refl === 'orange-2') o += r(cx - 7, cy - 8, 14, 6, C.orange) + r(cx - 7, cy + 2, 14, 6, C.orange);
+    if (refl === 'yellow-rect') o += r(cx - 4, cy - 8, 8, 16, C.yellow, 'rx="1"');
+    if (refl === 'blue-vert') o += r(cx - 2.5, cy - 11, 5, 22, C.blue) + r(cx - 2.5, cy - 4, 5, 6, C.white);
+    if (refl === 'red-band') o += r(x - 1, t + 58, w + 2, 12, C.red);
+    if (refl === 'red-ring') o += r(x - 1, t + 26, w + 2, 12, C.red);
+    if (refl === 'red-2ring') o += r(x - 1, t + 18, w + 2, 9, C.red) + r(x - 1, t + 34, w + 2, 9, C.red);
+    if (refl === 'red-wide') o += r(x + 4, t + 20, w - 8, 26, C.red, 'rx="2"');
+    if (refl === 'red-wrap') o += r(x - 1, t + 14, w + 2, 22, C.red);
+    if (refl === 'yellow-band') o += r(x - 1, t + capH + 6, w + 2, 8, C.orange);
+    if (refl === 'yellow-red') o += r(x + 3, t + 10, w / 2 - 4, 22, C.yellow) + r(cx + 1, t + 10, w / 2 - 4, 22, C.red);
+    if (s.foot === 'black') o += r(x - 1, 140, w + 2, 186 - 140, C.black);
+    return o;
+  }
   function bollard(spec) {
     const s = parse(spec);
     if (!Object.keys(s).length) return '';
-    const W = 120, H = 200, G = 186;
-    let out = scene(W, H, G);
-    const body = {white: C.white, black: C.black, grey: C.grey}[s.body] || C.white;
-    if (s.top === 'disc') {
-      out += r(58, 60, 4, G - 60, C.grey) + `<circle cx="60" cy="52" r="20" fill="${C.white}" stroke="${C.outline}" stroke-width="0.8"/><circle cx="60" cy="52" r="15" fill="${C.orange}"/><circle cx="60" cy="52" r="7" fill="#f6b45a"/>`;
+    const H = 200, G = 186;
+    if (s.top === 'disc') { // Japanese delineator: round reflector on a thin post
+      const two = !!s.b, W = two ? 210 : 120;
+      let out = scene(W, H, G);
+      const stem = (cx) => s.band === 'stripes-by' ? r(cx - 3, 60, 6, G - 60, '#f2c230') + [0, 1, 2, 3, 4, 5].map((i) => `<polygon points="${cx - 3},${76 + i * 20} ${cx + 3},${70 + i * 20} ${cx + 3},${78 + i * 20} ${cx - 3},${84 + i * 20}" fill="${C.black}"/>`).join('') : r(cx - 2, 60, 4, G - 60, C.grey);
+      const disc = (cx, col) => stem(cx) + `<circle cx="${cx}" cy="52" r="20" fill="${C.white}" stroke="${C.outline}" stroke-width="0.8"/><circle cx="${cx}" cy="52" r="15" fill="${col}"/>`;
+      out += two ? disc(55, (RC()[(s.f || ':orange').split(':')[1]]) || C.orange) + disc(155, RC()[s.b.split(':')[1]] || C.white) + labels() : disc(60, C.orange);
       return `<svg viewBox="0 0 ${W} ${H}" xmlns="${NS}">${out}</svg>`;
     }
-    const w = s.thin === 'yes' ? 20 : s.thick === 'yes' ? 36 : 28;
-    const x = 60 - w / 2;
-    const t = s.short === 'yes' ? 100 : 56;
-    const angled = s.top === 'angled';
-    const tl = t, tr = angled ? t + 12 : t;
-    const shape = s.top === 'round'
-      ? `M${x} ${G} L${x} ${t + w / 2} A${w / 2} ${w / 2} 0 0 1 ${x + w} ${t + w / 2} L${x + w} ${G} Z`
-      : `M${x} ${G} L${x} ${tl} L${x + w} ${tr} L${x + w} ${G} Z`;
-    out += `<path d="${shape}" fill="${body}" stroke="${C.outline}" stroke-width="0.8"/>`;
-    out += `<clipPath id="CLIP"><path d="${shape}"/></clipPath><g clip-path="url(#CLIP)">`;
-    const capH = s.cap === 'black-third' ? (G - t) / 3 : 30;
-    if (s.cap === 'black' || s.cap === 'black-third') out += r(x - 1, t - 2, w + 2, (angled ? 12 : 0) + capH + 2, C.black);
-    if (s.cap === 'black-band') out += r(x - 1, t + 8, w + 2, 30, C.black);
-    if (s.band === 'black-diag') out += `<polygon points="${x - 1},${t + 18} ${x + w + 1},${t + 4} ${x + w + 1},${t + 34} ${x - 1},${t + 48}" fill="${C.black}"/>`;
-    const cx = 60, cy = t + (angled ? 12 : 0) + capH / 2;
-    const refl = s.refl;
-    if (refl === 'white-vert') out += r(cx - 3, cy - 10, 6, 20, C.white, 'rx="1"');
-    if (refl === 'red-rect') out += r(cx - 4, (s.band === 'black-diag' ? t + 22 : cy - 7), 8, 14, C.red, 'rx="1"');
-    if (refl === 'red-thin') out += r(cx - 2, cy - 9, 4, 18, C.red);
-    if (refl === 'red-vert') out += r(cx - 3, cy - 11, 6, 22, C.red, 'rx="1"');
-    if (refl === 'orange-2') out += r(cx - 7, cy - 8, 14, 6, C.orange) + r(cx - 7, cy + 2, 14, 6, C.orange);
-    if (refl === 'yellow-rect') out += r(cx - 4, cy - 8, 8, 16, C.yellow, 'rx="1"');
-    if (refl === 'blue-vert') out += r(cx - 2.5, cy - 11, 5, 22, C.blue) + r(cx - 2.5, cy - 4, 5, 6, C.white);
-    if (refl === 'red-band') out += r(x - 1, t + 58, w + 2, 12, C.red);
-    if (refl === 'red-ring') out += r(x - 1, t + 26, w + 2, 12, C.red);
-    if (refl === 'red-2ring') out += r(x - 1, t + 18, w + 2, 9, C.red) + r(x - 1, t + 34, w + 2, 9, C.red); // two rings (Ecuador)
-    if (s.foot === 'black') out += r(x - 1, 140, w + 2, G - 140, C.black); // black lower section (Mexico)
-    if (refl === 'red-wide') out += r(x + 4, t + 20, w - 8, 26, C.red, 'rx="2"');
-    if (refl === 'red-wrap') out += r(x - 1, t + 14, w + 2, 22, C.red);
-    if (refl === 'yellow-band') out += r(x - 1, t + capH + 6, w + 2, 8, C.orange);
-    if (refl === 'yellow-red') out += r(x + 3, t + 10, w / 2 - 4, 22, C.yellow) + r(cx + 1, t + 10, w / 2 - 4, 22, C.red);
-    if (s.num === 'yes') out += `<text x="${cx}" y="${t + 86}" text-anchor="middle" font-size="9" font-family="Arial, sans-serif" font-weight="700" fill="${C.black}">12.4</text>`;
-    out += '</g>';
-    if (s.top === 'angled') out += `<line x1="${x}" y1="${tl}" x2="${x + w}" y2="${tr}" stroke="${C.outline}" stroke-width="0.8"/>`;
-    return `<svg viewBox="0 0 ${W} ${H}" xmlns="${NS}">${out}</svg>`;
+    if (!s.b) return `<svg viewBox="0 0 120 ${H}" xmlns="${NS}">${scene(120, H, G)}${post(s, 60, 'f')}</svg>`;
+    return `<svg viewBox="0 0 210 ${H}" xmlns="${NS}">${scene(210, H, G)}${post(s, 55, 'f')}${post(s, 155, 'b')}${labels()}</svg>`;
   }
+  const labels = () => `<g font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#3b4148" text-anchor="middle"><text x="55" y="22">FRONT</text><text x="155" y="22">BACK</text></g><line x1="105" y1="30" x2="105" y2="180" stroke="#8a949c" stroke-width="0.8" stroke-dasharray="3 3"/>`;
 
   function road(spec) {
     const s = parse(spec);

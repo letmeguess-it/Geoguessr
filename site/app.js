@@ -106,16 +106,22 @@ const LENSES = [
     {id: 'angWhite', label: 'Angled top, white strip', hue: 0, pat: 1},
     {id: 'angWarm', label: 'Angled top, orange or yellow', hue: 0, pat: 2},
     {id: 'flatRed', label: 'Flat top, red reflector', hue: 1, pat: 0},
-    {id: 'thin', label: 'Flat or thin, yellow or blue reflector', hue: 1, pat: 1},
+    {id: 'thin', label: 'Flat or thin, white, yellow or blue reflector', hue: 1, pat: 1},
     {id: 'diag', label: 'Black diagonal stripe', hue: 2, pat: 0},
     {id: 'round', label: 'Round post, red band', hue: 2, pat: 1},
     {id: 'roundOther', label: 'Round post, black or white marks', hue: 2, pat: 0},
-    {id: 'black', label: 'Black post', hue: 2, pat: 2}],
+    {id: 'black', label: 'Black post', hue: 2, pat: 2},
+    {id: 'striped', label: 'Striped, stone or coloured-top post', hue: 1, pat: 2}],
    cls: (c) => {
      const b = c.bO; if (!c.bo) return null;
-     if (b.body === 'black') return 'black'; if (b.band === 'black-diag') return 'diag'; if (b.top === 'round') return /^red/.test(b.refl || '') ? 'round' : 'roundOther';
-     if (b.top === 'angled') return b.refl === 'white-vert' ? 'angWhite' : (b.refl === 'orange-2' || b.refl === 'yellow-rect') ? 'angWarm' : 'angRed';
-     return (b.refl === 'yellow-band' || b.refl === 'blue-vert' || b.refl === 'yellow-rect') ? 'thin' : 'flatRed';
+     // front reflector colour: new f=kind:colour, else the legacy refl=colour-shape
+     const fc = b.f ? (b.f.split(':')[1] || '') : (b.refl || '').split('-')[0];
+     if (b.body === 'black') return 'black';
+     if (/^stripes-/.test(b.band || '') || /^(red|yellow)/.test(b.cap || '') || b.body === 'stone' || b.body === 'yellow') return 'striped';
+     if (b.band === 'black-diag') return 'diag';
+     if (b.top === 'round' || b.top === 'pointed' || b.cyl === 'yes' || b.top === 'disc') return (/red/.test(b.band || '') || /^red/.test(b.refl || '')) ? 'round' : 'roundOther';
+     if (b.top === 'angled') return /^(white|silver|grey)$/.test(fc) ? 'angWhite' : /^(orange|yellow)$/.test(fc) ? 'angWarm' : 'angRed';
+     return (/^(yellow|blue|orange|silver|grey|white)$/.test(fc) || b.refl === 'yellow-band') ? 'thin' : 'flatRed';
    },
    view: (c) => draw('bollard', c.bo), cap: (c) => c.bot || c.bos || ''},
   {id: 'pole', label: 'Utility poles', cats: [
@@ -132,9 +138,9 @@ const LENSES = [
     {id: 'painted', label: 'Painted base (red, black, yellow or white)', hue: 1, pat: 0}],
    cls: (c) => {
      const p = c.pO; if (!c.po) return null;
-     if (p.holes === 'full' || p.holes === 'above-base') return 'holey'; if (p.holes === 'slots') return 'slots';
-     if (p.holes === 'steps' || p.holes === 'ladder' || p.holes === 'waffle') return 'ladder';
-     if (p.holes === 'square-holes') return 'sqholes'; if (p.stripes) return 'striped';
+     if (p.holes === 'full' || p.holes === 'above-base' || p.holes === 'slits') return 'holey'; if (p.holes === 'slots' || p.holes === 'slots-low') return 'slots';
+     if (p.holes === 'steps' || p.holes === 'ladder' || p.holes === 'waffle' || p.holes === 'steps-high') return 'ladder';
+     if (p.holes === 'square-holes' || p.holes === 'pin-upper') return 'sqholes'; if (p.stripes) return 'striped';
      if (p.form === 'octagonal') return 'octo'; if (p.base) return 'painted';
      if (p.mat === 'steel' || p.form === 'segments' || p.form === 'stobie') return 'steel';
      if (p.mat === 'concrete' || p.mat === 'black') return 'concrete';

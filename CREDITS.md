@@ -27,6 +27,15 @@ This project combines our own work with open data and libraries. Each keeps its 
 
 Keep each library's licence header in its file if you copy it.
 
+## Meta references
+Clue content (bollards, utility poles, signs, language notes) was written in our own words, using these community guides as references. No text or photos were copied.
+
+| Resource | Website | Used for |
+|---|---|---|
+| Plonk It | https://www.plonkit.net | Country guides; clue details and cross-checks |
+| Geometas | https://www.geometas.com | Country and category meta pages; clue content and cross-checks |
+| GeoCoach | https://www.geocoach.me | Bollard and utility pole guides (`scripts/meta/geocoach_2026_11.py`): front and back reflectors, post shapes, pole details |
+
 ## Route numbering references
 The route numbering rules were written in our own words from public references, mainly Marcel Monterie's road numbering systems pages, Wikipedia articles on national road networks, and roads.org.uk for Great Britain. The routes are drawn by hand through real town positions; no route geometry was copied.
 
