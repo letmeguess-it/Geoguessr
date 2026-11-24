@@ -91,15 +91,22 @@
   const r = (x, y, w, h, fill, extra) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" ${extra || ''}/>`;
   const scene = (w, h, gy) => r(0, 0, w, gy, C.sky) + r(0, gy, w, h - gy, C.ground);
 
+  // "none" tile: an empty roadside with a dashed outline and a short label (no street poles / no standard bollard)
+  function noneSvg(label, varies) {
+    const W = 120, H = 200, G = 186;
+    const mark = varies ? `<text x="60" y="136" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#6b7177">?</text>` : `<line x1="36" y1="70" x2="84" y2="176" stroke="${C.red}" stroke-width="3" stroke-linecap="round"/>`;
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="${NS}">${scene(W, H, G)}<rect x="48" y="60" width="24" height="126" rx="3" fill="none" stroke="#6b7177" stroke-width="1.6" stroke-dasharray="5 4"/>${mark}<text x="60" y="40" text-anchor="middle" font-size="11" font-family="Arial, sans-serif" font-weight="700" fill="#33373b">${esc(label)}</text></svg>`;
+  }
   function pole(spec) {
     const s = parse(spec);
     if (!Object.keys(s).length) return '';
+    if (s.none === 'yes') return noneSvg('No street poles');
     const W = 120, H = 200, G = 186;
-    const col = s.paint === 'green' ? '#4f7a4a' : ({wood: C.wood, concrete: C.concrete, steel: C.steel, black: C.black}[s.mat] || C.concrete);
+    const col = s.paint === 'green' ? '#4f7a4a' : ({wood: C.wood, darkwood: '#4e3826', concrete: C.concrete, steel: C.steel, black: C.black}[s.mat] || C.concrete);
     let out = scene(W, H, G);
     const form = s.form || 'round';
     const pw = s.thin === 'yes' ? 9 : ({round: 14, rect: 18, square: 18, octagonal: 16, stobie: 18, segments: 16}[form] || 16);
-    const px = 60 - pw / 2, top = 30;
+    const px = 60 - pw / 2, top = s.top === 'harp' ? 22 : 30;
     out += `<path d="M0 46 Q30 52 60 44 T120 46" stroke="#33363a" stroke-width="1" fill="none"/><path d="M0 40 Q30 46 60 38 T120 40" stroke="#33363a" stroke-width="1" fill="none"/>`;
     if (s.cables === 'yes') {
       out += `<path d="M0 64 Q30 78 60 66 T120 70" stroke="#1f2124" stroke-width="2" fill="none"/><path d="M0 70 Q35 86 60 72 T120 78" stroke="#1f2124" stroke-width="2.5" fill="none"/><path d="M0 75 Q25 90 60 77 T120 84" stroke="#1f2124" stroke-width="1.5" fill="none"/>`;
@@ -118,6 +125,7 @@
       const rx = form === 'round' ? 6 : 1;
       out += `<polygon points="${px + 1},${top} ${px + pw - 1},${top} ${px + pw + 1},${G} ${px - 1},${G}" fill="${col}" stroke="${C.outline}" stroke-width="0.6" stroke-linejoin="round" rx="${rx}"/>`;
       if (form === 'octagonal') out += `<line x1="${px + pw / 3}" y1="${top}" x2="${px + pw / 3 - 0.5}" y2="${G}" stroke="#8c9196" stroke-width="0.8"/><line x1="${px + 2 * pw / 3}" y1="${top}" x2="${px + 2 * pw / 3 + 0.5}" y2="${G}" stroke="#8c9196" stroke-width="0.8"/>`;
+      if (s.pair === 'yes') out += `<polygon points="${px + pw + 1},${top + 6} ${px + 2 * pw - 1},${top + 6} ${px + 2 * pw + 1},${G} ${px + pw - 1},${G}" fill="${col}" stroke="${C.outline}" stroke-width="0.6"/>`; // twin pole beside it (Czechia, Slovakia)
       if (form === 'round' && s.mat !== 'black') out += `<line x1="${px + pw * 0.3}" y1="${top}" x2="${px + pw * 0.3}" y2="${G}" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>`;
     }
     const hole = '#3d4246';
@@ -143,6 +151,8 @@
       for (let y = 46; y < 104; y += 9) out += r(hx - 4, y, 8, 4, hole);
     } else if (s.holes === 'indent') { // long groove down one face (New Zealand)
       out += r(hx - 2, 40, 4, G - 44, '#7f868c');
+    } else if (s.holes === 'pin') { // tiny holes the whole length (Belgium)
+      for (let y = 44; y < G - 6; y += 6) out += r(hx - 1, y, 2, 2, hole);
     } else if (s.holes === 'square-holes') {
       for (let y = 50; y < 165; y += 10) out += r(hx - 2.5, y, 5, 5, hole);
     }
@@ -180,7 +190,15 @@
     const ins = (x, y) => `<rect x="${x - 1.5}" y="${y - 5}" width="3" height="5" fill="#e9e4d8" stroke="#6d6a62" stroke-width="0.4"/>`;
     if (s.cap === 'taper') out += `<polygon points="${px + 2},${top} ${px + pw - 2},${top} 60,${top - 16}" fill="#a9afb4" stroke="${C.outline}" stroke-width="0.5"/>`;
     if (s.cap === 'point') out += `<polygon points="${px + 1},${top} ${px + pw - 1},${top} 60,${top - 9}" fill="${col}" stroke="${C.outline}" stroke-width="0.5"/>`;
-    if (s.top === 'raised-bar') { // bar held above the pole top on a short post (Oman)
+    if (s.cap === 'metal') out += r(px - 1.5, top - 5, pw + 3, 6, '#3c4045', `rx="1" stroke="${C.outline}" stroke-width="0.5"`); // small metal cap (Nordics, Estonia)
+    if (s.topins === 'yes') out += r(59, top - 6, 2, 6, '#6f767c') + ins(60, top - 6); // one insulator on the pole top (Italy)
+    const hook = (x, y, d) => `<path d="M${x} ${y} h${d * 9} q${d * 5} 0 ${d * 5} -5" stroke="#55595d" stroke-width="2" fill="none"/>` + `<rect x="${x + d * 14 - 3.5}" y="${y - 12}" width="7" height="7" rx="2" fill="#e9e4d8" stroke="#6d6a62" stroke-width="0.5"/>`;
+    if (s.top === 'hooks') { // hook insulators on alternate sides down the pole (Latvia, Bulgaria, Croatia)
+      out += hook(px, top + 14, -1) + hook(px + pw, top + 26, 1) + hook(px, top + 38, -1) + hook(px + pw, top + 50, 1);
+    } else if (s.top === 'harp') { // metal frame beside the pole with a row of insulators (Greece)
+      out += `<polygon points="${px},${top + 6} ${px - 30},${top + 2} ${px - 30},${top + 64} ${px},${top + 70}" fill="none" stroke="#5d6368" stroke-width="2"/>`;
+      for (let i = 0; i < 5; i++) out += `<rect x="${px - 30 - 4}" y="${top + 8 + i * 12}" width="8" height="4" rx="1.5" fill="#e9e4d8" stroke="#6d6a62" stroke-width="0.4"/>`;
+    } else if (s.top === 'raised-bar') { // bar held above the pole top on a short post (Oman)
       out += r(58.5, top - 16, 3, 16, '#6f767c') + r(32, top - 18, 56, 4, '#6f767c') + ins(36, top - 18) + ins(60, top - 18) + ins(84, top - 18);
     } else if (s.top === 'trapezoid') { // trapezoid frame on top (Vietnam)
       out += `<polygon points="40,${top + 4} 80,${top + 4} 72,${top + 18} 48,${top + 18}" fill="none" stroke="#6f767c" stroke-width="2.4"/>` + ins(42, top + 4) + ins(60, top + 4) + ins(78, top + 4);
@@ -205,7 +223,7 @@
   // band (black-diag|black-straight|black-2band|stripes-bw|stripes-by|stripes-rw|red-2ring|red-ring|red-wrap|red-stripe|orange-stripe|grey-2band),
   // foot=black, num=yes, f / b = front / back reflector "kind:colour" (rect|wide|thin|2dot|2h|2v|circle|square|tilt|side|none).
   // Legacy refl=... still draws the front when f is absent.
-  const BODY = () => ({white: C.white, black: C.black, grey: '#b5bac0', yellow: '#f2c230', navy: '#2b3f6b', stone: '#e8e4da', orange: C.orange});
+  const BODY = () => ({white: C.white, black: C.black, grey: '#b5bac0', yellow: '#f2c230', navy: '#2b3f6b', stone: '#e8e4da', orange: C.orange, green: '#2f9a55', brown: '#6b4a32'});
   const RC = () => ({white: '#f4f6f8', grey: '#b9c0c7', silver: '#c9ced4', red: C.red, darkred: '#9c1f26', orange: C.orange, yellow: '#f5c518', blue: C.blue, green: C.green, black: C.black});
   function post(s, cx, side) {
     const G = 186;
@@ -250,6 +268,7 @@
       for (let y = t + 10; y < G; y += 36) o += R(x - 1, y, w + 2, k === 'bwn' ? 10 : 18, dark);
     }
     if (s.band === 'red-2ring') o += R(x - 1, t + 14, w + 2, 9, C.red) + R(x - 1, t + 30, w + 2, 9, C.red);
+    if (s.band === 'white-ring') o += R(x - 1, t + 34, w + 2, 22, C.white); // Ireland
     if (s.band === 'red-ring') o += R(x - 1, t + 24, w + 2, 13, C.red);
     if (s.band === 'red-wrap') o += R(x - 1, t + 12, w + 2, 24, C.red);
     if (s.band === 'red-stripe') { o += R(x - 1, t + 16, w + 2, 30, C.red); bandC = t + 31; }
@@ -307,6 +326,7 @@
   function bollard(spec) {
     const s = parse(spec);
     if (!Object.keys(s).length) return '';
+    if (s.none === 'yes') return (s.label === 'varies' ? noneSvg('Varies by area', true) : noneSvg('No standard post'));
     const H = 200, G = 186;
     if (s.top === 'disc') { // Japanese delineator: round reflector on a thin post
       const two = !!s.b, W = two ? 210 : 120;
